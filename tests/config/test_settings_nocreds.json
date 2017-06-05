@@ -1,0 +1,10 @@
+{
+    "tweet_time_strings" : [],
+    "min_tweet_delay" : 0,
+    "filenames" : {
+        "feed" : "",
+        "stats" : "",
+        "log" : "",
+        "auth" : ""
+    }
+}

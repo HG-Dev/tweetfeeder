@@ -92,4 +92,5 @@ ENV/
 *.bak
 *.log
 .vscode/
+_credentials.json
 private/
