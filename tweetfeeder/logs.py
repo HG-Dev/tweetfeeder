@@ -64,7 +64,9 @@ class Log:
             # is in the handler dictionary
             return handler
 
-
+    @staticmethod
+    def get_logger():
+        return Log._logger
 
     @staticmethod
     def info(place, msg, *args, **kwargs):

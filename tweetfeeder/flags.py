@@ -7,4 +7,6 @@ class BotFunctions(Flags):
     #Basic offline functionality
     LogToConsole = 1
     LogToFile = 2
-    Log = 3 # Shorthand for both ToFile and ToConsole
+    Log = 3             # Shorthand for both ToFile and ToConsole
+    Listen = 4          # Watch UserStream
+    TimedTweets = 8     # Publish tweets from feed at given times
