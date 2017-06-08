@@ -2,9 +2,9 @@
     "tweet_time_strings" : ["11:59", "12:00", "12:01"],
     "min_tweet_delay" : 10,
     "filenames" : {
-        "feed" : "feeds/tweet_feed.json",
-        "stats" : "feeds/tweet_stats.json",
-        "log" : "logs/events.log",
+        "feed" : "tests/config/tweet_feed.json",
+        "stats" : "tests/__temp_output__/tweet_stats.json",
+        "log" : "tests/__temp_output__/events.log",
         "auth" : "config/_credentials.json"
     }
 }

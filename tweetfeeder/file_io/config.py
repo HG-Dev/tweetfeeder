@@ -22,15 +22,15 @@ class Config:
             raise LoadConfigError("Could not load settings JSON.")
         except ValueError: #Apparently JSONDecoderError inherits from this
             raise LoadConfigError("Settings JSON is faulty.")
-        except Exception as other_error:
+        except AttributeError as other_error:
             raise LoadConfigError(
-                "Settings JSON is incomplete:\n" +
+                "Settings JSON is incomplete: " +
                 str(other_error)
             )
 
         try: #Stage two, get serialized credientials
             credentials = LoadFromFile.get_json_dict(self.filenames['auth'])
-            self.__dict__.update(**credentials['twitter_ids']) #THIS IS HANDY!
+            self.__dict__.update(**credentials['twitter_ids']) #UPDATE IS HANDY!
             self.authorization = self.auth_from_keys(**credentials['keys'])
         except FileNotFoundError:
             raise LoadConfigError(
@@ -39,9 +39,10 @@ class Config:
             )
         except ValueError:
             raise LoadConfigError("Credentials JSON is faulty.")
-        except Exception as other_error:
+        except AttributeError as other_error:
+            # Failed to procure info from credentials
             raise LoadConfigError(
-                "Credentials JSON is incomplete:\n" +
+                "Credentials JSON is incomplete: " +
                 str(other_error)
             )
 

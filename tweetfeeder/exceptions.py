@@ -1,7 +1,7 @@
 """
 This module contains Exception classes specific to TweetFeeder
 """
-from .logs import log
+from .logs import Log
 
 class TweetFeederError(Exception):
     """
@@ -9,11 +9,12 @@ class TweetFeederError(Exception):
     Messages will be automatically saved to the event log,
     assuming logging functionality is enabled.
     """
-    def __init__(self, msg):
+    def __init__(self, err, msg):
         ''' Initializes the base Exception class. '''
-        log(self.__class__, msg)
+        Log.error(err, msg)
         super(TweetFeederError, self).__init__(msg)
 
 class LoadConfigError(TweetFeederError):
     ''' Raised when you fail to init a TweetFeederBot. '''
-    pass
+    def __init__(self, msg):
+        super(LoadConfigError, self).__init__(type(self).__name__, msg)
