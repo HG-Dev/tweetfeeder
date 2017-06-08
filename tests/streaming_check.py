@@ -1,6 +1,7 @@
 """
-Tests the basic file io / init of tweetfeeder.bot
-As with all tests, use python -m unittest tests.~~
+Tests the bot's reactions to events that
+come from Twitter's userstream via Tweepy.
+As with all tests, use python -m unittest tests
 so that the tweetfeeder module is found.
 """
 import unittest
