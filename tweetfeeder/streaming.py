@@ -24,7 +24,7 @@ class TweetFeederListener(StreamListener):
         ''' Called when a new direct message arrives '''
         sender_id = status.direct_message['sender_id']
         # Message from user arrives
-        if sender_id != self.config.my_id:
+        if sender_id != self.config.bot_id:
             # Log message
             Log.info("STR.on_dm", "{}: {}".format(
                 status.direct_message['sender_screen_name'],
@@ -44,15 +44,16 @@ class TweetFeederListener(StreamListener):
         Called when a new event arrives.
         This responds to "favorite" and "quoted_tweet."
         """
+        ignored = ['unfavorite', 'follow']
         actor = ""
         info = ""
         if status.event == "favorite": #This tends to come in delayed bunches
-            actor = status.source.screen_name
-            info = status.target_object.id
+            actor = status.source['screen_name']
+            info = status.target_object['id']
         elif status.event == "quoted_tweet":
-            actor = status.source.screen_name
-            info = status.target_object.text
-        elif status.event == "unfavorite":
+            actor = status.source['screen_name']
+            info = status.target_object['text']
+        elif status.event in ignored:
             return False #no need to worry about accidental favoriting
         else:
             Log.warning("STR.on_event", "Unhandled event: " + status.event)
@@ -68,21 +69,26 @@ class TweetFeederListener(StreamListener):
             event = "retweet"
             actor = status.user.screen_name
             info = status.retweeted_status.id
-        elif status.is_quote_status:
-            return False #Ignore; this will be picked up by on_event
-        elif status.in_reply_to_user_id == self.config.my_id:
-            event = "retweet"
+        elif status.in_reply_to_user_id == self.config.bot_id:
+            event = "reply"
             actor = status.author.screen_name
             info = status.text
-        elif status.author.id == self.config.my_id and not status.in_reply_to_user_id:
-            event = "T-Tweet"
-            actor = "confirmed"
-            info = status.id
-            #TODO: Register tweet in feed_tracking.json
+        elif status.author.id == self.config.bot_id:
+            if not status.in_reply_to_user_id:
+                event = "tweet"
+                actor = "confirmed"
+                info = status.id
+                #TODO: Register tweet in feed_tracking.json
+            else:
+                return False #Ignore manual or possibly automatic interactions with users
+        elif status.is_quote_status:
+            return False #Ignore; this will be picked up by on_event
+        elif not status.in_reply_to_user_id:
+            return False #Ignore; this is just a mention or master tweet
         else:
             Log.warning(
                 "STR.on_status",
-                "on_status: " + repr(status)
+                "on_status?: " + status.id_str
             )
             return False
         Log.info(

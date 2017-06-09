@@ -10,7 +10,7 @@ from tweetfeeder.streaming import TweetFeederListener
 
 class TweetFeederBot:
     """
-    Threaded bot for posting tweets periodically
+    Dual-threaded bot for posting tweets periodically
     and tracking tweet performance / responses.
     Also takes commands from a master Twitter account.
     """
@@ -41,6 +41,6 @@ class TweetFeederBot:
     def toggle_userstream(self, enabled=True):
         ''' Enable stream listening '''
         if enabled:
-            self.userstream.userstream()
+            self.userstream.userstream(async=True)
         else:
             self.userstream.disconnect()

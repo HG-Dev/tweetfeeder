@@ -1,11 +1,19 @@
 ''' General logging wrapper for modules '''
 import logging
+from queue import Queue
 
 class Log:
     ''' Wrapper for LOGGER '''
 
     _handlers = {}
     _logger = logging.getLogger('Untitled: Use setup()')
+    _debug_buffer = []
+
+    @staticmethod
+    def write(text):
+        ''' Write streamed text to buffer '''
+        if text != logging.StreamHandler.terminator:
+            Log._debug_buffer.append(text)
 
     @staticmethod
     def setup(name, level=logging.INFO):
@@ -38,6 +46,15 @@ class Log:
             Log._enable_handler('file_output', enabled)
 
     @staticmethod
+    def enable_debug_output(enabled=True):
+        ''' Enables tracking of records in _debug_buffer. '''
+        if enabled:
+            debug_handler = logging.StreamHandler(Log)
+            Log._enable_handler('debug_output', enabled, debug_handler)
+        else:
+            Log._enable_handler('debug_output', False)
+
+    @staticmethod
     def _enable_handler(name, enabled, new_handler=None):
         """
         Updates the status of a handler with the logger,
@@ -65,10 +82,6 @@ class Log:
             return handler
 
     @staticmethod
-    def get_logger():
-        return Log._logger
-
-    @staticmethod
     def info(place, msg, *args, **kwargs):
         ''' Normal reporting '''
         Log._logger.info(Log._msg(place, msg), *args, **kwargs)
@@ -88,3 +101,20 @@ class Log:
         ''' Joins the place and msg strings together '''
         return "{:19.18}{}".format(place, msg)
 
+    @staticmethod
+    def is_text_in_debug_buffer(text=None):
+        ''' Debug/testing method to show that something was logged. '''
+        if Log._debug_buffer:
+            if not text:
+                return True
+            found = False
+            for record in Log._debug_buffer:
+                if text in record:
+                    found = True
+            return found
+        return False
+
+    @staticmethod
+    def clear_debug_buffer():
+        ''' Clears the debug_buffer '''
+        Log._debug_buffer.clear()
