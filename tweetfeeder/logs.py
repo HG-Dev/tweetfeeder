@@ -1,19 +1,31 @@
 ''' General logging wrapper for modules '''
 import logging
-from queue import Queue
 
 class Log:
     ''' Wrapper for LOGGER '''
 
+    class DebugStream:
+        ''' Pseudo stream for gathering log output '''
+        def __init__(self):
+            ''' Init buffer '''
+            self.buffer = []
+
+        def has_text(self, text=None):
+            ''' Determine if some text is in the log buffer '''
+            if not text and self.buffer:
+                return True #There's SOME record in here
+            for record in self.buffer:
+                if text in record:
+                    return True
+            return False
+
+        def write(self, record):
+            ''' Adds a log entry, ignoring unnecessary terminators '''
+            if len(record) > 1:
+                self.buffer.append(record)
+
     _handlers = {}
     _logger = logging.getLogger('Untitled: Use setup()')
-    _debug_buffer = []
-
-    @staticmethod
-    def write(text):
-        ''' Write streamed text to buffer '''
-        if text != logging.StreamHandler.terminator:
-            Log._debug_buffer.append(text)
 
     @staticmethod
     def setup(name, level=logging.INFO):
@@ -46,10 +58,10 @@ class Log:
             Log._enable_handler('file_output', enabled)
 
     @staticmethod
-    def enable_debug_output(enabled=True):
+    def enable_debug_output(enabled=True, stream=None):
         ''' Enables tracking of records in _debug_buffer. '''
         if enabled:
-            debug_handler = logging.StreamHandler(Log)
+            debug_handler = logging.StreamHandler(stream)
             Log._enable_handler('debug_output', enabled, debug_handler)
         else:
             Log._enable_handler('debug_output', False)
@@ -100,21 +112,3 @@ class Log:
     def _msg(place, msg):
         ''' Joins the place and msg strings together '''
         return "{:19.18}{}".format(place, msg)
-
-    @staticmethod
-    def is_text_in_debug_buffer(text=None):
-        ''' Debug/testing method to show that something was logged. '''
-        if Log._debug_buffer:
-            if not text:
-                return True
-            found = False
-            for record in Log._debug_buffer:
-                if text in record:
-                    found = True
-            return found
-        return False
-
-    @staticmethod
-    def clear_debug_buffer():
-        ''' Clears the debug_buffer '''
-        Log._debug_buffer.clear()

@@ -38,14 +38,14 @@ class TFStreamTests(unittest.TestCase):
                 BotFunctions.Log,
                 config_file="tests/config/test_settings.json"
             )
-            #cls.logger = Log.get_logger()
+            cls.log_buffer = Log.DebugStream()
             cls.listener = TweetFeederListener(cls.bot.config, cls.bot.api)
-            Log.enable_debug_output(True)
+            Log.enable_debug_output(True, cls.log_buffer)
             cls.assertTrue(cls.bot, "Shared bot isn't initialized")
 
     def tearDown(self):
         ''' Cleanup after each test '''
-        Log.clear_debug_buffer()
+        self.log_buffer.buffer.clear()
 
     def test_connection_online(self):
         ''' Can NORMAL_BOT connect to Twitter's userstream? '''
@@ -58,19 +58,19 @@ class TFStreamTests(unittest.TestCase):
         ''' Does the bot record "favorited" events? '''
         with open('tests/cassettes/stream_favorited.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertTrue(Log.is_text_in_debug_buffer('favorite'), "Favorite event not recorded")
+            self.assertTrue(self.log_buffer.has_text('favorite'), "Favorite event not recorded")
 
     def test_unfavorited(self):
         ''' Does the bot ignore "unfavorited" events? '''
         with open('tests/cassettes/stream_unfavorited.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertFalse(Log.is_text_in_debug_buffer(), "Buffer should be empty!")
+            self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")
 
     def test_followed(self):
         ''' Does the bot ignore "followed" events? '''
         with open('tests/cassettes/stream_followed.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertFalse(Log.is_text_in_debug_buffer(), "Buffer should be empty!")
+            self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")
 
     def test_get_reply(self):
         """
@@ -80,38 +80,38 @@ class TFStreamTests(unittest.TestCase):
         """
         with open('tests/cassettes/stream_get_reply_thread.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertTrue(Log.is_text_in_debug_buffer('reply'), "Reply event not recorded")
+            self.assertTrue(self.log_buffer.has_text('reply'), "Reply event not recorded")
         with open('tests/cassettes/stream_get_reply.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertTrue(Log.is_text_in_debug_buffer('reply'), "Reply event not recorded")
+            self.assertTrue(self.log_buffer.has_text('reply'), "Reply event not recorded")
 
     def test_mentions_and_timeline(self):
         ''' Does the bot ignore mere mentions and Tweets from followed users? '''
         with open('tests/cassettes/stream_mentioned.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertFalse(Log.is_text_in_debug_buffer(), "Buffer should be empty!")
+            self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")
         with open('tests/cassettes/stream_timeline_status.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertFalse(Log.is_text_in_debug_buffer(), "Buffer should be empty!")
+            self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")
 
     def test_retweeted(self):
         ''' Does the bot record retweet events? '''
         with open('tests/cassettes/stream_retweeted.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertTrue(Log.is_text_in_debug_buffer('retweet'), "Retweet event not recorded")
+            self.assertTrue(self.log_buffer.has_text('retweet'), "Retweet event not recorded")
 
     def test_quote_retweeted(self):
         ''' Does the bot record quote retweet events? '''
         with open('tests/cassettes/stream_quoteretweeted.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertTrue(Log.is_text_in_debug_buffer('quote'), "Quote event not recorded")
+            self.assertTrue(self.log_buffer.has_text('quote'), "Quote event not recorded")
 
     def test_publish(self):
         ''' Does the bot record the discovery of its own published tweet? '''
         with open('tests/cassettes/stream_send_public_tweet.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
             self.assertTrue(
-                Log.is_text_in_debug_buffer('tweet confirmed'),
+                self.log_buffer.has_text('tweet confirmed'),
                 "Tweet publish event not recorded"
             )
 
@@ -119,4 +119,4 @@ class TFStreamTests(unittest.TestCase):
         ''' Does the bot ignore its own replies to people? '''
         with open('tests/cassettes/stream_send_reply.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertFalse(Log.is_text_in_debug_buffer(), "Buffer should be empty!")
+            self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")

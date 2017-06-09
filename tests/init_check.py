@@ -31,7 +31,6 @@ class TFInitTests(unittest.TestCase):
             print("init_check.setUpClass: no __temp_output__ to clean up")
         finally:
             mkdir("tests/__temp_output__")
-        return TFInitTests()
 
     def test_no_settings_init(self):
         ''' Attempt to initialize a bot without settings. '''
@@ -72,7 +71,7 @@ class TFInitTests(unittest.TestCase):
             self.assertIn("WARNING", logtext)
             self.assertIn("ERROR", logtext)
 
-    def test_botfunctions_normal_logging(self):
+    def test_combined_logging(self):
         ''' Does setting BotFunctions to 3 really give us all logs? '''
         bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
         Log.info("init_check", "BotFunctions.Log check")
