@@ -26,11 +26,9 @@ class TFInitTests(unittest.TestCase):
         outputs from the "correct" test settings are deleted.
         """
         try:
-            rmtree("tests/__temp_output__")
-        except FileNotFoundError:
-            print("init_check.setUpClass: no __temp_output__ to clean up")
-        finally:
             mkdir("tests/__temp_output__")
+        except FileExistsError:
+            pass
 
     def test_no_settings_init(self):
         ''' Attempt to initialize a bot without settings. '''
@@ -54,18 +52,18 @@ class TFInitTests(unittest.TestCase):
 
     def test_log_writing(self):
         ''' Does the bot write to a log when initializing? '''
-        bot = TweetFeederBot(BotFunctions.LogToFile, "tests/config/test_settings.json")
-        with open(bot.config.filenames['log']) as logfile:
+        bot = TweetFeederBot(config_file="tests/config/test_settings.json")
+        with open(bot.config.log_filepath, encoding='utf8') as logfile:
             self.assertIn("init", logfile.read())
 
     def test_all_log_levels(self):
         ''' Do all the logging levels work? '''
         # Sets up logger just in case
-        bot = TweetFeederBot(BotFunctions.LogToFile, "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
         Log.info("init_check", "INFO TEST")
         Log.warning("init_check", "WARNING TEST")
         Log.error("init_check", "ERROR TEST")
-        with open(bot.config.filenames['log']) as logfile:
+        with open(bot.config.log_filepath, encoding='utf8') as logfile:
             logtext = logfile.read()
             self.assertIn("INFO", logtext)
             self.assertIn("WARNING", logtext)
@@ -75,6 +73,11 @@ class TFInitTests(unittest.TestCase):
         ''' Does setting BotFunctions to 3 really give us all logs? '''
         bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
         Log.info("init_check", "BotFunctions.Log check")
-        with open(bot.config.filenames['log']) as logfile:
+        with open(bot.config.log_filepath, encoding='utf8') as logfile:
             self.assertIn("BotFunctions.Log check", logfile.read())
+
+    def test_bad_tweet_times(self):
+        ''' Are datetime breaking tweet times caught? '''
+        with self.assertRaises(LoadConfigError):
+            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_badtimes.json")
 

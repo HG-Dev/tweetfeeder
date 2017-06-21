@@ -7,6 +7,7 @@ from tweetfeeder.file_io import Config
 from tweetfeeder.logs import Log
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.streaming import TweetFeederListener
+from tweetfeeder.tweeting import TweetLoop
 
 class TweetFeederBot:
     """
@@ -20,15 +21,11 @@ class TweetFeederBot:
         authorization from Twitter
         """
         Log.setup(type(self).__name__)
-        Log.enable_console_output(BotFunctions.LogToConsole in functionality)
-        self.config = Config(config_file)
+        Log.enable_console_output()
+        self.config = Config(functionality, config_file)
         self.api = API(self.config.authorization)
-        self.tweet_thread = None
-        #super(TweetFeederBot, self).__init__(self.api)
-        Log.enable_file_output(
-            BotFunctions.LogToFile in functionality,
-            self.config.filenames['log']
-        )
+        self.tweet_loop = TweetLoop(self.config, self.api, functionality.Tweet)
+        Log.enable_file_output(functionality.Log, self.config.log_filepath)
         Log.info("BOT.init", "{:-^80}".format(str(functionality)))
 
         # Follow up initialization

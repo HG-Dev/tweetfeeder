@@ -1,0 +1,27 @@
+[
+  {
+    "title": "DO_NOT_TWEET",
+    "text": "You shouldn't see this!",
+    "chain": false
+  },
+  {
+    "title": "CHAIN_1",
+    "text": "Start of chain",
+    "chain": true
+  },
+  {
+    "title": "CHAIN_2",
+    "text": "Middle of chain",
+    "chain": true
+  },
+  {
+    "title": "CHAIN_3",
+    "text": "End of chain",
+    "chain": false
+  },
+  {
+    "title": "BROKEN_CHAIN",
+    "text": "Chain that's missing a follower",
+    "chain": true
+  }
+]

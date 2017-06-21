@@ -16,8 +16,8 @@ from tweetfeeder.logs import Log
 
 class TFStreamTests(unittest.TestCase):
     """
-    Test the initialization of TweetFeederBot
-    and the serialization of json files.
+    Test the ability of TweetFeederBot, or more specifically,
+    TweetFeederListener to sort events from Twitter.
     """
     @classmethod
     def setUpClass(cls):
@@ -27,21 +27,18 @@ class TFStreamTests(unittest.TestCase):
         Also prepares the Log singleton using a new TweetFeederBot.
         """
         try:
-            rmtree("tests/__temp_output__")
-        except FileNotFoundError:
-            print("init_check.setUpClass: no __temp_output__ to clean up")
-        else:
             mkdir("tests/__temp_output__")
-        finally:
-            print("setUpClass: Defining attributes")
-            cls.bot = TweetFeederBot(
-                BotFunctions.Log,
-                config_file="tests/config/test_settings.json"
-            )
-            cls.log_buffer = Log.DebugStream()
-            cls.listener = TweetFeederListener(cls.bot.config, cls.bot.api)
-            Log.enable_debug_output(True, cls.log_buffer)
-            cls.assertTrue(cls.bot, "Shared bot isn't initialized")
+        except FileExistsError:
+            pass
+
+        cls.bot = TweetFeederBot(
+            BotFunctions.Log,
+            config_file="tests/config/test_settings.json"
+        )
+        cls.log_buffer = Log.DebugStream()
+        cls.listener = TweetFeederListener(cls.bot.config, cls.bot.api)
+        Log.enable_debug_output(True, cls.log_buffer)
+        cls.assertTrue(cls.bot, "Shared bot isn't initialized")
 
     def tearDown(self):
         ''' Cleanup after each test '''

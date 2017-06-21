@@ -18,3 +18,16 @@ class LoadConfigError(TweetFeederError):
     ''' Raised when you fail to init a TweetFeederBot. '''
     def __init__(self, msg):
         super(LoadConfigError, self).__init__(type(self).__name__, msg)
+
+class LoadFeedError(TweetFeederError):
+    ''' Raised when you fail to load from the tweet feed. '''
+    def __init__(self, msg):
+        super(LoadFeedError, self).__init__(type(self).__name__, msg)
+
+class NoTimerError(TweetFeederError):
+    """
+    Raised when an operation that requires a Tweet timer
+    fails because the TweetLoop has no timer.
+    """
+    def __init__(self, msg):
+        super(NoTimerError, self).__init__(type(self).__name__, msg)

@@ -10,6 +10,12 @@ class Log:
             ''' Init buffer '''
             self.buffer = []
 
+        def has_all_text(self, text_list=None):
+            ''' Determine if a collection of text is in the log buffer '''
+            if not text_list:
+                return self.has_text()
+            return all([self.has_text(x) for x in text_list])
+
         def has_text(self, text=None):
             ''' Determine if some text is in the log buffer '''
             if not text and self.buffer:
@@ -42,6 +48,7 @@ class Log:
             console_handler.setFormatter(
                 logging.Formatter('%(asctime)s %(message)s', '%m/%d %H:%M')
             )
+            console_handler.setLevel(logging.CRITICAL)
             Log._enable_handler('console_output', enabled, console_handler)
 
     @staticmethod
@@ -53,15 +60,18 @@ class Log:
             file_handler.setFormatter(
                 logging.Formatter('%(asctime)s %(levelname)-7s %(message)s', '%m/%d/%y %H:%M:%S')
             )
+            file_handler.setLevel(logging.INFO)
             Log._enable_handler('file_output', enabled, file_handler)
         else: # Just disable it
             Log._enable_handler('file_output', enabled)
 
     @staticmethod
-    def enable_debug_output(enabled=True, stream=None):
+    def enable_debug_output(enabled=True, new_stream=None):
         ''' Enables tracking of records in _debug_buffer. '''
         if enabled:
-            debug_handler = logging.StreamHandler(stream)
+            debug_handler = logging.StreamHandler(new_stream or Log.DebugStream())
+            debug_handler.setLevel(logging.DEBUG)
+            Log._logger.setLevel(logging.DEBUG)
             Log._enable_handler('debug_output', enabled, debug_handler)
         else:
             Log._enable_handler('debug_output', False)
@@ -107,6 +117,11 @@ class Log:
     def error(place, msg, *args, **kwargs):
         ''' Exception reporting '''
         Log._logger.error(Log._msg(place, msg), *args, *kwargs)
+
+    @staticmethod
+    def debug(place, msg, *args, **kwargs):
+        ''' Debug info '''
+        Log._logger.debug(Log._msg(place, msg), *args, *kwargs)
 
     @staticmethod
     def _msg(place, msg):

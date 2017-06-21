@@ -1,6 +1,6 @@
 {
-    "tweet_time_strings" : ["11:59", "12:00", "12:01"],
-    "min_tweet_delay" : 4,
+    "tweet_time_strings" : ["25:00", "12:61"],
+    "min_tweet_delay" : 0,
     "_filepaths" : {
         "feed" : "tests/config/tweet_feed.json",
         "stats" : "tests/__temp_output__/tweet_stats.json",
