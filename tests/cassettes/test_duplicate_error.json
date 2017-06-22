@@ -1,0 +1,179 @@
+{
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://api.twitter.com/1.1/statuses/update.json?status=HELLOTE",
+                "body": null,
+                "headers": {
+                    "Host": [
+                        "api.twitter.com"
+                    ],
+                    "Content-Length": [
+                        "0"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {
+                    "pragma": [
+                        "no-cache"
+                    ],
+                    "content-disposition": [
+                        "attachment; filename=json.json"
+                    ],
+                    "content-length": [
+                        "3316"
+                    ],
+                    "x-twitter-response-tags": [
+                        "BouncerCompliant"
+                    ],
+                    "x-content-type-options": [
+                        "nosniff"
+                    ],
+                    "server": [
+                        "tsa_m"
+                    ],
+                    "status": [
+                        "200 OK"
+                    ],
+                    "x-access-level": [
+                        "read-write-directmessages"
+                    ],
+                    "x-connection-hash": [
+                        "9ec9357d38b4dba8ad99585199f9646b"
+                    ],
+                    "date": [
+                        "Thu, 22 Jun 2017 09:40:00 GMT"
+                    ],
+                    "x-xss-protection": [
+                        "1; mode=block"
+                    ],
+                    "cache-control": [
+                        "no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
+                    ],
+                    "strict-transport-security": [
+                        "max-age=631138519"
+                    ],
+                    "set-cookie": [
+                        "lang=en; Path=/",
+                        "guest_id=v1%3A149812440068675904; Domain=.twitter.com; Path=/; Expires=Sat, 22-Jun-2019 09:40:00 UTC"
+                    ],
+                    "x-response-time": [
+                        "212"
+                    ],
+                    "last-modified": [
+                        "Thu, 22 Jun 2017 09:40:00 GMT"
+                    ],
+                    "x-transaction": [
+                        "00d923dd005df226"
+                    ],
+                    "content-type": [
+                        "application/json;charset=utf-8"
+                    ],
+                    "x-frame-options": [
+                        "SAMEORIGIN"
+                    ],
+                    "expires": [
+                        "Tue, 31 Mar 1981 05:00:00 GMT"
+                    ]
+                },
+                "body": {
+                    "string": "{\"created_at\":\"Thu Jun 22 09:40:00 +0000 2017\",\"id\":877823476798595073,\"id_str\":\"877823476798595073\",\"text\":\"HELLOTE\",\"truncated\":false,\"entities\":{\"hashtags\":[],\"symbols\":[],\"user_mentions\":[],\"urls\":[]},\"source\":\"\\u003ca href=\\\"https:\\/\\/github.com\\/HaguDeGozaru\\/hagu-tweet-bot\\\" rel=\\\"nofollow\\\"\\u003eHaguEigoBot\\u003c\\/a\\u003e\",\"in_reply_to_status_id\":null,\"in_reply_to_status_id_str\":null,\"in_reply_to_user_id\":null,\"in_reply_to_user_id_str\":null,\"in_reply_to_screen_name\":null,\"user\":{\"id\":862201622939578368,\"id_str\":\"862201622939578368\",\"name\":\"\\u30cf\\u30b0\\u5f0f\\uff01\\u82f1\\u8a9e\\u8272\\u3005\\u30dc\\u30c3\\u30c8\",\"screen_name\":\"HaguEigoBot\",\"location\":\"\\u30b5\\u30fc\\u30d0\\u30fc\\u306e\\u4e2d\",\"description\":\"\\u3042\\u308b\\u5b9f\\u6cc1\\u30d7\\u30ec\\u30a4\\u30e4\\u30fc\\u306e\\u8133\\u306e\\u5965\\u306b\\u306f\\u3084\\u3084\\u307b\\u3053\\u308a\\u3063\\u307d\\u304f\\u3001\\u3057\\u304b\\u3057\\u5927\\u4e8b\\u306a\\u77e5\\u8b58\\u306e\\u584a\\u304c\\u3042\\u3063\\u305f\\u2026\\u4eba\\u547c\\u3093\\u3067\\u3001\\u300c\\u6bcd\\u8a9e\\u300d\\u3060\\u3002\\u3053\\u306e\\u5834\\u5408\\u306f\\u82f1\\u8a9e\\u3060\\u3002  \\u3053\\u306e\\u30a2\\u30ab\\u30a6\\u30f3\\u30c8\\u306f\\u3001\\u300c\\u9762\\u767d\\u3044\\u3051\\u3069\\u5fae\\u5999\\u306b\\u9593\\u9055\\u3063\\u3066\\u3044\\u308b\\u300d\\u82f1\\u5358\\u8a9e\\u30fb\\u82f1\\u8868\\u73fe\\u3092\\u63d0\\u4f9b\\u3057\\u7d9a\\u3051\\u308b\\u30dc\\u30c3\\u30c8\\u305f\\u3061\\u306b\\u62b5\\u6297\\u3059\\u308b\\u305f\\u3081\\u306b\\u3057\\u3070\\u3089\\u304f\\u958b\\u767a\\u3055\\u308c\\u3066\\u3044\\u308b\\u3082\\u306e\\u3060\\u3002\\u548c\\u8a33\\u306b\\u9593\\u9055\\u3044\\u304c\\u3042\\u308b\\u3088\\u3046\\u3067\\u3042\\u308c\\u3070\\u3001\\u3054\\u6307\\u6458\\u304f\\u3060\\u3055\\u3044\\u3002\",\"url\":\"https:\\/\\/t.co\\/1OxXYq9sbE\",\"entities\":{\"url\":{\"urls\":[{\"url\":\"https:\\/\\/t.co\\/1OxXYq9sbE\",\"expanded_url\":\"https:\\/\\/github.com\\/HaguDeGozaru\\/hagu-tweet-bot\",\"display_url\":\"github.com\\/HaguDeGozaru\\/h\\u2026\",\"indices\":[0,23]}]},\"description\":{\"urls\":[]}},\"protected\":false,\"followers_count\":20,\"friends_count\":1,\"listed_count\":0,\"created_at\":\"Wed May 10 07:04:20 +0000 2017\",\"favourites_count\":0,\"utc_offset\":-25200,\"time_zone\":\"Pacific Time (US & Canada)\",\"geo_enabled\":false,\"verified\":false,\"statuses_count\":26,\"lang\":\"en\",\"contributors_enabled\":false,\"is_translator\":false,\"is_translation_enabled\":false,\"profile_background_color\":\"000000\",\"profile_background_image_url\":\"http:\\/\\/abs.twimg.com\\/images\\/themes\\/theme1\\/bg.png\",\"profile_background_image_url_https\":\"https:\\/\\/abs.twimg.com\\/images\\/themes\\/theme1\\/bg.png\",\"profile_background_tile\":false,\"profile_image_url\":\"http:\\/\\/pbs.twimg.com\\/profile_images\\/870117494303842304\\/oB8yFKXl_normal.jpg\",\"profile_image_url_https\":\"https:\\/\\/pbs.twimg.com\\/profile_images\\/870117494303842304\\/oB8yFKXl_normal.jpg\",\"profile_banner_url\":\"https:\\/\\/pbs.twimg.com\\/profile_banners\\/862201622939578368\\/1496286824\",\"profile_link_color\":\"555555\",\"profile_sidebar_border_color\":\"000000\",\"profile_sidebar_fill_color\":\"000000\",\"profile_text_color\":\"000000\",\"profile_use_background_image\":false,\"has_extended_profile\":true,\"default_profile\":false,\"default_profile_image\":false,\"following\":false,\"follow_request_sent\":false,\"notifications\":false,\"translator_type\":\"none\"},\"geo\":null,\"coordinates\":null,\"place\":null,\"contributors\":null,\"is_quote_status\":false,\"retweet_count\":0,\"favorite_count\":0,\"favorited\":false,\"retweeted\":false,\"lang\":\"en\"}"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://api.twitter.com/1.1/statuses/update.json?status=HELLOTE",
+                "body": null,
+                "headers": {
+                    "Host": [
+                        "api.twitter.com"
+                    ],
+                    "Content-Length": [
+                        "0"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 403,
+                    "message": "Forbidden"
+                },
+                "headers": {
+                    "pragma": [
+                        "no-cache"
+                    ],
+                    "content-disposition": [
+                        "attachment; filename=json.json"
+                    ],
+                    "content-length": [
+                        "60"
+                    ],
+                    "x-twitter-response-tags": [
+                        "BouncerCompliant"
+                    ],
+                    "x-content-type-options": [
+                        "nosniff"
+                    ],
+                    "server": [
+                        "tsa_m"
+                    ],
+                    "status": [
+                        "403 Forbidden"
+                    ],
+                    "x-access-level": [
+                        "read-write-directmessages"
+                    ],
+                    "x-connection-hash": [
+                        "2a405d0944c4aed269680e9840880961"
+                    ],
+                    "date": [
+                        "Thu, 22 Jun 2017 09:40:05 GMT"
+                    ],
+                    "x-xss-protection": [
+                        "1; mode=block"
+                    ],
+                    "cache-control": [
+                        "no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
+                    ],
+                    "strict-transport-security": [
+                        "max-age=631138519"
+                    ],
+                    "set-cookie": [
+                        "lang=en; Path=/",
+                        "guest_id=v1%3A149812440577557130; Domain=.twitter.com; Path=/; Expires=Sat, 22-Jun-2019 09:40:05 UTC"
+                    ],
+                    "x-response-time": [
+                        "116"
+                    ],
+                    "last-modified": [
+                        "Thu, 22 Jun 2017 09:40:05 GMT"
+                    ],
+                    "x-transaction": [
+                        "006c2e4d00a2fbd5"
+                    ],
+                    "content-type": [
+                        "application/json;charset=utf-8"
+                    ],
+                    "x-frame-options": [
+                        "SAMEORIGIN"
+                    ],
+                    "expires": [
+                        "Tue, 31 Mar 1981 05:00:00 GMT"
+                    ]
+                },
+                "body": {
+                    "string": "{\"errors\":[{\"code\":187,\"message\":\"Status is a duplicate.\"}]}"
+                }
+            }
+        }
+    ]
+}

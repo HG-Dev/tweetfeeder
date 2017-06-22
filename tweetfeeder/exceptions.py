@@ -31,3 +31,8 @@ class NoTimerError(TweetFeederError):
     """
     def __init__(self, msg):
         super(NoTimerError, self).__init__(type(self).__name__, msg)
+
+class UnregisteredTweetError(TweetFeederError):
+    ''' Raised when you fail to load from the tweet feed. '''
+    def __init__(self, msg):
+        super(UnregisteredTweetError, self).__init__(type(self).__name__, msg)

@@ -20,6 +20,7 @@ TAPE = VCR(
     cassette_library_dir='tests/cassettes',
     filter_headers=['Authorization'],
     serializer='json',
+    match_on=['host']
 )
 
 class TFTweetingTests(unittest.TestCase):
@@ -63,6 +64,7 @@ class TFTweetingTests(unittest.TestCase):
             datetime.now()+timedelta(minutes=2),
             datetime.now()+timedelta(minutes=3)
         ]
+        self.bot.tweet_loop.feed.current_index = 0
 
     def tearDown(self):
         ''' Cleanup after each test '''
@@ -153,14 +155,17 @@ class TFTweetingTests(unittest.TestCase):
         )
         timer.stop()
 
-    @TAPE.use_cassette
+    @TAPE.use_cassette("test_online_tweet.json")
     def test_online_tweet(self):
         ''' Can the TweetLoop use the Tweepy API? '''
-        self.bot.config._filepaths['feed'] = "tests/config/test_feed_online.json"
-        self.bot.config.functionality = BotFunctions.Log | BotFunctions.Online
-        self.bot.tweet_loop.start()
-        self.bot.tweet_loop.wait_for_tweet()
+        config = self.bot.config
+        config._filepaths['feed'] = "tests/config/test_feed_online.json"
+        self.assertTrue(self.bot.config.feed_filepath == config.feed_filepath) # Simple test
+        config.functionality = BotFunctions.All
+        config.tweet_times = []
+        loop = TweetLoop(config, self.bot.api)
+        loop.wait_for_tweet()
         self.assertTrue(
-            self.log_buffer.has_text('862201622939578368'), #ID of Tweet in cassette
-            "Did not tweet required text: " + str(self.log_buffer.buffer)
+            self.bot.tweet_loop.feed.get_tweet_stats("DEV_GREETINGS"),
+            "Couldn't find tweet stats using title"
         )

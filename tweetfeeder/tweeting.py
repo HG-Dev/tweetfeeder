@@ -27,13 +27,13 @@ class TweetLoop():
 
     def get_next_tweet_datetime(self):
         ''' Gets the next datetime at which tweeting will occur. '''
-        # Supply immediate times if no tweet times and tweeting offline
-        if not self.config.tweet_times and not self.config.functionality.Online:
+        # Supply immediate times if no tweet times
+        if not self.config.tweet_times:
             return (
                 datetime.now() +
                 timedelta(seconds=self.config.min_tweet_delay*0.2)
             )
-        # Offline or not, if there are tweet times, use them
+
         if self.config.tweet_times:
             final_time = self.config.tweet_times[-1]
             now_t = datetime.now()
@@ -90,13 +90,17 @@ class TweetLoop():
             tweets[0]['title']
             )
         Log.info("tweeting.tweet", log_str)
-        if self.config.functionality.Online:
-            for tweet in tweets:
-                status = self.api.update_status(tweet['text'])
-                Log.debug("", str(status))
-                sleep(self.config.min_tweet_delay)
         next_index = from_index + len(tweets)
-        self.feed.set_last_index(next_index)
+        if self.config.functionality.Online:
+            for itr, tweet in enumerate(tweets):
+                status = self.api.update_status(tweet['text'])
+                Log.debug("", str(status.id))
+                if self.config.functionality.SaveStats:
+                    self.feed.register_tweet(from_index+itr, status, tweet['title'])
+                sleep(self.config.min_tweet_delay)
+        elif self.config.functionality.SaveStats:
+            self.feed.set_last_index(next_index)
+
         try:
             self.start() # Start again
         except LoadFeedError:
