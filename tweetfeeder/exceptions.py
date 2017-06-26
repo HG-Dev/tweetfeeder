@@ -33,6 +33,11 @@ class NoTimerError(TweetFeederError):
         super(NoTimerError, self).__init__(type(self).__name__, msg)
 
 class UnregisteredTweetError(TweetFeederError):
-    ''' Raised when you fail to load from the tweet feed. '''
+    ''' Raised attempt to fetch data on a tweet not in stats. '''
     def __init__(self, msg):
         super(UnregisteredTweetError, self).__init__(type(self).__name__, msg)
+
+class AlreadyRegisteredTweetError(TweetFeederError):
+    ''' Raised when you attempt to save a "new" tweet when it's already registered. '''
+    def __init__(self, msg):
+        super(AlreadyRegisteredTweetError, self).__init__(type(self).__name__, msg)

@@ -1,78 +1,24 @@
 ''' Compile-time configuration data for hg_tweetfeeder.bot '''
 import json
 from shutil import copyfile
+from collections import namedtuple
 from tweepy.models import Status
 from .utils import FileIO
-from .config import Config
-from ..exceptions import LoadFeedError, UnregisteredTweetError
+from ..exceptions import LoadFeedError, UnregisteredTweetError, AlreadyRegisteredTweetError
 from ..flags import BotFunctions
 from ..logs import Log
 
 class Feed:
-    ''' On-demand data from tweet feed and stats. '''
-    def __init__(self, config: Config):
+    ''' On-demand data from tweet feed. '''
+    def __init__(self, filepath: str):
         ''' Save filepaths for the feed and stats '''
-        self._config = config
-        self.total_tweets = 0
-        self.current_index = self._get_last_index()
-        self.index = 0
+        self.filepath = filepath
+        self._total_tweets = 0
 
-    def _get_last_index(self):
-        ''' Loads the last tweeted index from the stats file if it exists '''
-        try:
-            stats = FileIO.get_json_dict(self._config.stats_filepath)
-        except FileNotFoundError:
-            return 0
-        else:
-            return stats['feed_index']
-
-    def set_last_index(self, index):
-        ''' Sets the last tweeted index in the stats file. '''
-        self.current_index = index
-        self._save_stats(index)
-
-    def register_tweet(self, index, tweet_status: Status, tweet_title):
-        """
-        Calls _save_stats with the information to register
-        the publication of a tweet from the feed.
-        """
-        self.current_index = index
-        self._save_stats(index, tweet_status, tweet_title)
-
-    def _save_stats(self, last_index=-1, tweet_status=None, tweet_title=None):
-        """
-        Creates a stats file, if necessary, to preserve the
-        last tweeted index between sessions. TODO: Also save stats
-        """
-        # Prepare all_tweet_data; attempt to load existing data
-        try:
-            with open(self._config.stats_filepath, 'r', encoding='utf8') as infile:
-                all_tweet_stats = json.load(infile)
-        except FileNotFoundError:
-            # Create default stats dictionary
-            all_tweet_stats = {'feed_index': 0, 'id_to_title': {}, 'data': {}}
-        else:
-            # Save backup just in case: this is valuable data, after all
-            copyfile(self._config.stats_filepath, self._config.stats_filepath + ".bak")
-
-        #Edit all_tweet_stats
-        if last_index >= 0:
-            all_tweet_stats['feed_index'] = last_index
-        if tweet_status and tweet_title:
-            # Register tweet
-            all_tweet_stats['id_to_title'][tweet_status.id] = tweet_title
-            if not tweet_title in all_tweet_stats['data']:
-                all_tweet_stats['data'][tweet_title] = {}
-                tweet_stats = all_tweet_stats['data'][tweet_title]
-                tweet_stats['favorited'] = 0
-                tweet_stats['retweeted'] = 0
-                tweet_stats['quoted'] = 0
-                tweet_stats['replies'] = 0
-                tweet_stats['rt_comments'] = []
-
-        if BotFunctions.SaveStats in self._config.functionality:
-            Log.debug("models.save", "Saving stats to " + self._config.stats_filepath)
-            FileIO.save_json_dict(self._config.stats_filepath, all_tweet_stats)
+    @property
+    def total_tweets(self) -> int:
+        ''' The total tweets in the feed as last recorded. '''
+        return self._total_tweets
 
     def get_tweets(self, from_index: int):
         """
@@ -82,13 +28,13 @@ class Feed:
         next_tweets = []
         index = from_index
         try:
-            feed_data = FileIO.get_json_dict(self._config.feed_filepath)
+            feed_data = FileIO.get_json_dict(self.filepath)
         except FileNotFoundError:
             raise LoadFeedError(
-                "Couldn't load feed at " + (self._config.feed_filepath or "(none given)")
+                "Couldn't load feed at " + (self.filepath or "(none given)")
                 )
         else:
-            self.total_tweets = len(feed_data)
+            self._total_tweets = len(feed_data)
             if index >= self.total_tweets:
                 raise LoadFeedError(
                     "Given index is greater than total_tweets: " +
@@ -102,23 +48,93 @@ class Feed:
 
         return next_tweets
 
-    def get_tweet_stats(self, id_or_title):
-        ''' Returns a dictionary of tweet stats. '''
-        # Open up all_tweet_data if it exists
-        try:
-            with open(self._config.stats_filepath, 'r', encoding='utf8') as infile:
-                all_tweet_stats = json.load(infile)
-        except FileNotFoundError:
-            # Create default stats dictionary
-            all_tweet_stats = {'feed_index': 0, 'id_to_title': {}, 'data': {}}
+class Stats:
+    ''' On-demand data from tweet stats. '''
 
-        # Convert ID, if given
-        if id_or_title in all_tweet_stats['id_to_title']:
-            title = all_tweet_stats['id_to_title'][id_or_title]
+    PerfStats = namedtuple(
+        'PerfStats',
+        [
+            'favorited',
+            'retweeted',
+            'quoted',
+            'replies',
+            'rt_comments'
+        ]
+    )
+
+    def __init__(self, filepath: str = "", save: bool = False):
+        ''' Save filepaths for the feed and stats '''
+        Log.debug("IO.stats", "Initializing")
+        self._filepath = filepath
+        self._save = save
+        self._stats_dict = None
+
+    @property
+    def data(self):
+        ''' Returns a dictionary of tweet stats from var or disk. '''
+        if not self._stats_dict:
+            try:
+                Log.debug("IO.stats", "Loading stats from " + self._filepath)
+                self._stats_dict = FileIO.get_json_dict(self._filepath)
+            except FileNotFoundError:
+                # Create default stats dictionary
+                Log.debug("IO.stats", "Couldn't find stats file")
+                self._stats_dict = {'feed_index': 0, 'id_to_title': {}, 'tweets': {}}
+                assert self.last_feed_index == 0
+
+        return self._stats_dict
+
+    @property
+    def last_feed_index(self) -> int:
+        ''' The last saved feed index as saved in the stats file. '''
+        return self.data['feed_index']
+
+    @last_feed_index.setter
+    def last_feed_index(self, value: int):
+        ''' Save the most recent feed index '''
+        if value < 0:
+            raise IndexError
+        self.data['feed_index'] = value
+        self._write_stats_file()
+
+    def get_tweet_stats(self, twid: int = 0, title: str = None):
+        ''' Returns a dictionary that details the performance of a tweet '''
+        Log.debug("IO.stats", "ID/title: " + str(self.data['id_to_title']))
+        if twid in self.data['id_to_title']:
+            if title:
+                assert title == self.data['id_to_title'][twid]
+            else:
+                title = self.data['id_to_title'][twid]
+        try:
+            return self.data['tweets'][title]
+        except KeyError:
+            Log.debug("IO.stats", "Couldn't find ID/title")
+            return None
+
+    def register_tweet(self, status: Status, title: str):
+        ''' Save a newly published Tweet to the stats dictionary '''
+        Log.debug("IO.stats", "Preparing to register tweet...")
+        if not self.get_tweet_stats(status.id, title):
+            blank_perf_stats = Stats.PerfStats(0, 0, 0, 0, [])
+            Log.debug("IO.stats", "Registering tweet: " + title)
+            self.data['id_to_title'][status.id] = title
+            self.data['tweets'][title] = blank_perf_stats
+            self._write_stats_file()
         else:
-            title = id_or_title
+            raise AlreadyRegisteredTweetError
 
-        try:
-            return all_tweet_stats['data'][title]
-        except KeyError as e:
-            raise UnregisteredTweetError("Info for {} was not found".format(title)) from e
+    def _write_stats_file(self):
+        ''' Save the stats dict if it's dirty '''
+        if self._save:
+            Log.debug("IO.stats", "Saving stats file: " + self._filepath)
+            FileIO.save_json_dict(self._filepath, self._stats_dict)
+
+    def save_copy(self, ext):
+        ''' Saves a copy of the current stats dictionary '''
+        Log.debug("IO.stats", "Savin' a copy to "+self._filepath+"-"+ext)
+        FileIO.save_json_dict(self._filepath+"-"+ext, self._stats_dict)
+
+    def set_dirty(self):
+        ''' Marks the dictionary in memory as dirty... by deleting it.'''
+        self._stats_dict = None
+

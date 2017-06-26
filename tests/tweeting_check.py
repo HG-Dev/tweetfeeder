@@ -12,6 +12,7 @@ from vcr import VCR
 from datetime import timedelta, datetime
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.logs import Log
+from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.tweeting import TweetLoop
 from tweetfeeder.exceptions import NoTimerError
@@ -46,29 +47,27 @@ class TFTweetingTests(unittest.TestCase):
 
         cls.log_buffer = Log.DebugStream()
         Log.enable_debug_output(True, cls.log_buffer)
+        cls.fresh_tweet_times = []
 
     def setUp(self):
         ''' Preparation for each test '''
-        self.bot.config.functionality = (
-            BotFunctions.Log | BotFunctions.Tweet | BotFunctions.SaveStats
-        )
-        try:
-            self.bot.config._filepaths['stats'] = TFTweetingTests.DEFAULT_STATS
-            remove(self.bot.config.stats_filepath)
-        except FileNotFoundError:
-            pass
-        else:
-            Log.info("tweeting_check.setup", TFTweetingTests.DEFAULT_STATS + " deleted")
-        self.bot.config.tweet_times = [
+        self.fresh_tweet_times = [
             datetime.now()+timedelta(minutes=1),
             datetime.now()+timedelta(minutes=2),
             datetime.now()+timedelta(minutes=3)
         ]
-        self.bot.tweet_loop.feed.current_index = 0
+        self.bot.config.tweet_times = self.fresh_tweet_times
+        self.bot.config.functionality = BotFunctions.Log
+        self.assertFalse(self.bot.stats._save)
 
     def tearDown(self):
         ''' Cleanup after each test '''
         self.log_buffer.buffer.clear()
+        try:
+            remove(self.bot.config.stats_filepath)
+            #self.bot.stats.set_dirty() Rendered useless by functionality change
+        except FileNotFoundError:
+            pass
 
     def test_false_start(self):
         ''' Will the TweetLoop start automatically regardless of auto_start? '''
@@ -80,9 +79,10 @@ class TFTweetingTests(unittest.TestCase):
     def test_stop_timer(self):
         ''' Will a cancelled timer avoid invoking a tweet, as it should? '''
         Log.info("tweeting_check", "stop_timer")
-        self.bot.config._filepaths['feed'] = "tests/config/test_feed_singular.json"
+        feed = Feed("tests/config/test_feed_singular.json")
         self.bot.config.tweet_times = []
-        timer = TweetLoop(self.bot.config, None)
+        self.assertTrue(self.bot.stats.last_feed_index == 0)
+        timer = TweetLoop(self.bot.config, feed)
         timer.stop()
         sleep(4)
         self.assertFalse(
@@ -93,9 +93,10 @@ class TFTweetingTests(unittest.TestCase):
     def test_one_tweet(self):
         ''' Can the TweetLoop class tweet one timed event? '''
         Log.info("tweeting_check", "one_tweet")
-        self.bot.config._filepaths['feed'] = "tests/config/test_feed_singular.json"
-        timer = TweetLoop(self.bot.config, None)
-        timer.wait_for_tweet()
+        feed = Feed("tests/config/test_feed_singular.json")
+        self.assertFalse(BotFunctions.Online in self.bot.config.functionality)
+        timer = TweetLoop(self.bot.config, feed)
+        timer.wait_for_tweet(60)
         self.assertTrue(
             self.log_buffer.has_text('TEST_ONE_TWEET'),
             "Did not tweet required text: " + str(self.log_buffer.buffer)
@@ -104,12 +105,12 @@ class TFTweetingTests(unittest.TestCase):
     def test_chain_tweet(self):
         ''' Can the TweetLoop tweet a chain of tweets? '''
         Log.info("tweeting_check", "chain_tweet")
-        self.bot.config._filepaths['feed'] = "tests/config/test_feed_multiple.json"
-        self.bot.config._filepaths['stats'] = "tests/config/skip_first_tweet_stats.json"
+        feed = Feed("tests/config/test_feed_multiple.json")
+        stats = Stats("tests/config/skip_first_tweet_stats.json")
         self.bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet
         self.bot.config.tweet_times = []
-        timer = TweetLoop(self.bot.config, None)
-        timer.wait_for_tweet()
+        timer = TweetLoop(self.bot.config, feed, stats)
+        timer.wait_for_tweet(60)
         self.assertFalse(
             self.log_buffer.has_text('DO_NOT_TWEET'),
             "Test chain is expected to use skip_first_tweet_stats to go straight to the chain."
@@ -125,17 +126,18 @@ class TFTweetingTests(unittest.TestCase):
         resume after a sudden halt?
         """
         Log.info("tweeting_check", "resume_session")
-        self.assertTrue(BotFunctions.SaveStats in self.bot.config.functionality)
-        self.bot.config._filepaths['feed'] = "tests/config/test_feed_multiple.json"
+        self.bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet | BotFunctions.SaveStats
+        feed = Feed("tests/config/test_feed_multiple.json")
         self.bot.config.tweet_times = []
-        timer = TweetLoop(self.bot.config, None, False)
+        self.assertFalse(BotFunctions.Online in self.bot.config.functionality)
+        timer = TweetLoop(self.bot.config, feed, self.bot.stats, False)
         self.assertFalse(timer.is_running())
         timer.start()
-        self.assertTrue(timer.feed.current_index == 0)
-        timer.wait_for_tweet() # Wait for first tweet
+        self.assertTrue(timer.stats.last_feed_index == 0)
+        timer.wait_for_tweet(60) # Wait for first tweet
         self.assertFalse(
             self.log_buffer.has_text('3 tweets starting at 2 (CHAIN_1)'),
-            "Only one tweet should have been tweeted so far."
+            "Only one tweet should have been tweeted so far: " + str(self.log_buffer.buffer)
         )
         timer.wait_for_tweet(0.1) # Wait one second into the next
         timer.stop()
@@ -148,7 +150,7 @@ class TFTweetingTests(unittest.TestCase):
             path.exists(self.bot.config.stats_filepath), "Stats not created"
         )
         timer.start()
-        timer.wait_for_tweet()
+        timer.wait_for_tweet(60)
         self.assertTrue(
             self.log_buffer.has_text('3 tweets starting at 2 (CHAIN_1)'),
             "Resuming did not make the tweet chain appear."
@@ -159,13 +161,16 @@ class TFTweetingTests(unittest.TestCase):
     def test_online_tweet(self):
         ''' Can the TweetLoop use the Tweepy API? '''
         config = self.bot.config
-        config._filepaths['feed'] = "tests/config/test_feed_online.json"
+        feed = Feed("tests/config/test_feed_online.json")
         self.assertTrue(self.bot.config.feed_filepath == config.feed_filepath) # Simple test
         config.functionality = BotFunctions.All
         config.tweet_times = []
-        loop = TweetLoop(config, self.bot.api)
-        loop.wait_for_tweet()
+        loop = TweetLoop(config, feed, self.bot.stats)
+        loop.wait_for_tweet(60)
+        sleep(1)
+        self.bot.stats.save_copy("online")
         self.assertTrue(
-            self.bot.tweet_loop.feed.get_tweet_stats("DEV_GREETINGS"),
+            self.bot.stats.get_tweet_stats(title="ONLINE_TEST"),
             "Couldn't find tweet stats using title"
         )
+        

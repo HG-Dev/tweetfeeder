@@ -1,5 +1,5 @@
 ''' Compile-time configuration data for hg_tweetfeeder.bot '''
-
+from os import path
 from re import search
 from datetime import datetime
 from tweepy import OAuthHandler
@@ -9,11 +9,12 @@ from ..exceptions import LoadConfigError
 
 class Config:
     ''' Config data storage and processing for usage inside hg_tweetfeeder.bot '''
-    def __init__(self, functionality, filepath: str = ""):
+    def __init__(self, functionality, on_change: classmethod, filepath: str = ""):
         self.tweet_time_strings = [] # Temp data holder
         self.keys = {} # Temp data holder
         self._filepaths = {} # Indirect access
-        self.functionality = functionality
+        self.on_change = on_change
+        self._functionality = functionality
         self.authorization = None
         self.min_tweet_delay = 4
         self.bot_id = 0
@@ -37,6 +38,10 @@ class Config:
             ) from e
         except AttributeError as e:
             self.tweet_times = []
+
+        path_errors = self.verify_paths()
+        if path_errors:
+            raise LoadConfigError("The following paths failed verification: " + str(path_errors))
 
         try: #Stage two, get serialized credientials
             credentials = FileIO.get_json_dict(self._filepaths['auth'])
@@ -67,6 +72,17 @@ class Config:
         ''' Return filepath to the log. '''
         return self._filepaths['log']
 
+    @property
+    def functionality(self):
+        ''' Returns BotFunctions settings '''
+        return self._functionality
+
+    @functionality.setter
+    def functionality(self, value: BotFunctions):
+        ''' Modifies BotFunctions, then alerts a parent using on_change(). '''
+        self._functionality = value
+        self.on_change()
+
     @staticmethod
     def auth_from_keys(consumer_key, consumer_secret, access_token, access_token_secret):
         ''' Creates an authorization handler from credentials '''
@@ -96,3 +112,12 @@ class Config:
             except ValueError as e:
                 raise ValueError("Problem was with tweet_time #{}".format(itr+1)) from e
         return tweet_times
+
+    def verify_paths(self):
+        ''' Ensures that the paths given for feed/stats files can be used. '''
+        problems = set()
+        for filepath in self._filepaths.values():
+            if filepath:
+                if not path.exists(path.dirname(filepath)):
+                    problems.add(path.dirname(filepath))
+        return problems

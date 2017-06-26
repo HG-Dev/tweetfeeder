@@ -7,17 +7,20 @@ from time import sleep
 from tweepy import API
 from tweepy.models import Status
 from tweetfeeder.logs import Log
-from tweetfeeder.file_io.models import Feed
+from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.exceptions import LoadFeedError, NoTimerError
 from tweetfeeder.file_io.config import Config
-
+# NOTE: the Stats() is preserved, so it must be marked dirty upon "initializing"
 class TweetLoop():
     ''' Interprets TweetFeeder configuration to publish Tweets on a schedule '''
-    def __init__(self, config: Config, api: API, auto_start=True):
+    def __init__(self, config: Config, feed: Feed, stats: Stats = Stats(), auto_start=True):
         ''' Creates an object capable of timed publishing of Tweets '''
+        Log.debug("TWT.init", "Initializing. Stats is " + str(id(stats)))
         self.config = config
-        self.api = api
-        self.feed = Feed(config)
+        self.api = API(self.config.authorization)
+        self.feed: Feed = feed
+        self.stats: Stats = stats
+        self.stats.set_dirty()
         self.current_wait = 60
         #self.publish_method = None
         self._timer: Timer = None
@@ -48,16 +51,16 @@ class TweetLoop():
 
             for time in self.config.tweet_times:
                 next_t = next_t.replace(hour=time.hour, minute=time.minute)
-                Log.debug("tweeting.get_next_dt", "Compare: next {} to {}".format(next_t, now_t))
+                Log.debug("TWT.get_next_dt", "Compare: next {} to {}".format(next_t, now_t))
                 if now_t < next_t: # If next_t is in the future
-                    Log.debug("tweeting.get_next_dt", "Returning " + str(next_t.replace(second=0)))
+                    Log.debug("TWT.get_next_dt", "Returning " + str(next_t.replace(second=0)))
                     return next_t.replace(second=0)
         #Failure
         return None
 
     def start(self):
         ''' Begin the tweet loop '''
-        self._timer = self._make_tweet_timer(self.feed.current_index)
+        self._timer = self._make_tweet_timer(self.stats.last_feed_index)
         self._timer.start()
         return self._timer
 
@@ -71,6 +74,7 @@ class TweetLoop():
     def _make_tweet_timer(self, from_index: int):
         ''' Loads and schedules tweet(s) '''
         # This can throw a LoadFeedError
+        Log.debug("TWT.make_timer", "Gettings tweets from " + str(from_index))
         next_tweets = self.feed.get_tweets(from_index)
 
         delta = self.get_next_tweet_datetime() - datetime.now()
@@ -89,17 +93,14 @@ class TweetLoop():
             from_index+1, # Index from 1
             tweets[0]['title']
             )
-        Log.info("tweeting.tweet", log_str)
-        next_index = from_index + len(tweets)
-        if self.config.functionality.Online:
-            for itr, tweet in enumerate(tweets):
+        Log.info("TWT.tweet", log_str)
+        for itr, tweet in enumerate(tweets):
+            if self.config.functionality.Online:
                 status = self.api.update_status(tweet['text'])
-                Log.debug("", str(status.id))
-                if self.config.functionality.SaveStats:
-                    self.feed.register_tweet(from_index+itr, status, tweet['title'])
-                sleep(self.config.min_tweet_delay)
-        elif self.config.functionality.SaveStats:
-            self.feed.set_last_index(next_index)
+                Log.debug("TWT.tweet (id)", str(status.id))
+                self.stats.register_tweet(status, tweet['title'])
+            self.stats.last_feed_index = from_index + itr + 1
+            sleep(self.config.min_tweet_delay)
 
         try:
             self.start() # Start again

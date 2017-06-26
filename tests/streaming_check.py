@@ -36,7 +36,7 @@ class TFStreamTests(unittest.TestCase):
             config_file="tests/config/test_settings.json"
         )
         cls.log_buffer = Log.DebugStream()
-        cls.listener = TweetFeederListener(cls.bot.config, cls.bot.api)
+        cls.listener = cls.bot.userstream.listener
         Log.enable_debug_output(True, cls.log_buffer)
         cls.assertTrue(cls.bot, "Shared bot isn't initialized")
 
