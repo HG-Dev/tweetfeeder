@@ -49,18 +49,7 @@ class Feed:
         return next_tweets
 
 class Stats:
-    ''' On-demand data from tweet stats. '''
-
-    PerfStats = namedtuple(
-        'PerfStats',
-        [
-            'favorited',
-            'retweeted',
-            'quoted',
-            'replies',
-            'rt_comments'
-        ]
-    )
+    ''' Access to Tweet stats and session data '''
 
     def __init__(self, filepath: str = "", save: bool = False):
         ''' Save filepaths for the feed and stats '''
@@ -97,31 +86,48 @@ class Stats:
         self.data['feed_index'] = value
         self._write_stats_file()
 
-    def get_tweet_stats(self, twid: int = 0, title: str = None):
-        ''' Returns a dictionary that details the performance of a tweet '''
-        Log.debug("IO.stats", "ID/title: " + str(self.data['id_to_title']))
+    def find_title_from_id(self, twid):
+        ''' Converts a Tweet ID, given by Twitter, into a hash title. '''
         if twid in self.data['id_to_title']:
-            if title:
-                assert title == self.data['id_to_title'][twid]
-            else:
-                title = self.data['id_to_title'][twid]
+            return self.data['id_to_title'][twid]
+        else:
+            return None
+
+    def get_tweet_stats(self, title_or_id):
+        ''' Returns a dictionary that details the performance of a tweet '''
+        title = self.find_title_from_id(title_or_id) or title_or_id
         try:
             return self.data['tweets'][title]
         except KeyError:
-            Log.debug("IO.stats", "Couldn't find ID/title")
+            Log.warning("IO.get_stats", "No stats found for " + title)
             return None
 
-    def register_tweet(self, status: Status, title: str):
+    def mod_tweet_stats(self, title: str, stat_name: str, value):
+        ''' Adds a value (int or list) to a given [stat_name] for Tweet [title]. '''
+        t_stats = self.get_tweet_stats(title)
+        if t_stats:
+            t_stats[stat_name] += value
+            self._write_stats_file()
+        else:
+            Log.info("IO.mod_stats", "Get failed. See above. ")
+
+    def register_tweet(self, twid: int, title: str):
         ''' Save a newly published Tweet to the stats dictionary '''
         Log.debug("IO.stats", "Preparing to register tweet...")
-        if not self.get_tweet_stats(status.id, title):
-            blank_perf_stats = Stats.PerfStats(0, 0, 0, 0, [])
+        if not self.get_tweet_stats(title):
+            blank_perf_stats = {
+                'favorites': 0,
+                'retweets': 0,
+                'requotes': 0,
+                'replies': 0,
+                'rt_comments': []
+            }
             Log.debug("IO.stats", "Registering tweet: " + title)
-            self.data['id_to_title'][status.id] = title
+            self.data['id_to_title'][twid] = title
             self.data['tweets'][title] = blank_perf_stats
             self._write_stats_file()
         else:
-            raise AlreadyRegisteredTweetError
+            raise AlreadyRegisteredTweetError(title)
 
     def _write_stats_file(self):
         ''' Save the stats dict if it's dirty '''
@@ -135,6 +141,6 @@ class Stats:
         FileIO.save_json_dict(self._filepath+"-"+ext, self._stats_dict)
 
     def set_dirty(self):
-        ''' Marks the dictionary in memory as dirty... by deleting it.'''
+        ''' Forces the stats object to reload the stats dictionary by first deleting it. '''
         self._stats_dict = None
 

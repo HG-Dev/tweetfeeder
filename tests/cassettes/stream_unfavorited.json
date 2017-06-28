@@ -86,8 +86,8 @@
     },
     "target_object": {
         "created_at": "Thu May 11 06:54:01 +0000 2017",
-        "id": 862561414342365184,
-        "id_str": "862561414342365184",
+        "id": 100,
+        "id_str": "100",
         "text": "Testing live feed update... Success.\n今度こそ今日はこれでOKだ\n2 of 2",
         "truncated": false,
         "entities": {

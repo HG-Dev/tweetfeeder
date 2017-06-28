@@ -1,20 +1,24 @@
 """
 UserStream listener for use by TweetFeederBot.
 """
-from tweepy import StreamListener
+from tweepy import StreamListener, API
 from tweetfeeder.logs import Log
+from tweetfeeder.file_io import Config
+from tweetfeeder.file_io.models import Feed, Stats
 
 class TweetFeederListener(StreamListener):
     """
     Receives events from Tweepy
     """
-    def __init__(self, config, api):
+    def __init__(self, config: Config, stats: Stats):
         """
         Creates a TweetFeederListener using config data
         and Tweepy API from a TweetFeederBot.
         """
-        self.config = config
-        super(TweetFeederListener, self).__init__(api)
+        self._config = config
+        self._stats = stats
+        self.api = API(config.authorization)
+        super(TweetFeederListener, self).__init__(self.api)
 
     def on_connect(self):
         '''Called once connected to streaming server.'''
@@ -24,13 +28,13 @@ class TweetFeederListener(StreamListener):
         ''' Called when a new direct message arrives '''
         sender_id = status.direct_message['sender_id']
         # Message from user arrives
-        if sender_id != self.config.bot_id:
+        if sender_id != self._config.bot_id:
             # Log message
             Log.info("STR.on_dm", "{}: {}".format(
                 status.direct_message['sender_screen_name'],
                 status.direct_message['text']
             ))
-            if sender_id == self.config.master_id:
+            if sender_id == self._config.master_id:
                 # Message from master arrives
                 # TODO: Parse for command
                 pass
@@ -44,15 +48,22 @@ class TweetFeederListener(StreamListener):
         Called when a new event arrives.
         This responds to "favorite" and "quoted_tweet."
         """
-        ignored = ['unfavorite', 'follow']
+        ignored = ['follow']
         actor = ""
         info = ""
         if status.event == "favorite": #This tends to come in delayed bunches
             actor = status.source['screen_name']
             info = status.target_object['id']
+            self._stats.mod_tweet_stats(info, "favorites", 1)
+        elif status.event == "unfavorite": #This tends to come in delayed bunches
+            actor = status.source['screen_name']
+            info = status.target_object['id']
+            self._stats.mod_tweet_stats(info, "favorites", -1)
         elif status.event == "quoted_tweet":
             actor = status.source['screen_name']
             info = status.target_object['text']
+            tweet_id = status.target_object['id']
+            self._stats.mod_tweet_stats(tweet_id, "requotes", 1)
         elif status.event in ignored:
             return False #no need to worry about accidental favoriting
         else:
@@ -69,16 +80,22 @@ class TweetFeederListener(StreamListener):
             event = "retweet"
             actor = status.user.screen_name
             info = status.retweeted_status.id
-        elif status.in_reply_to_user_id == self.config.bot_id:
+            self._stats.mod_tweet_stats(info, "retweets", 1)
+        elif status.in_reply_to_user_id == self._config.bot_id:
             event = "reply"
             actor = status.author.screen_name
             info = status.text
-        elif status.author.id == self.config.bot_id:
+            tweet_id = status.in_reply_to_status_id
+            self._stats.mod_tweet_stats(tweet_id, "replies", 1)
+        elif status.author.id == self._config.bot_id:
             if not status.in_reply_to_user_id:
                 event = "tweet"
                 actor = "confirmed"
                 info = status.id
-                #TODO: Register tweet in feed_tracking.json
+                #Non-reply should already be registered... unless it was tweeted directly.
+                if not self._stats.find_title_from_id(info):
+                    Log.warning("STR.on_status", "Add to feed? <{}>".format(status.text))
+                    return False
             else:
                 return False #Ignore manual or possibly automatic interactions with users
         elif status.is_quote_status:

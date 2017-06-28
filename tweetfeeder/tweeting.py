@@ -98,7 +98,7 @@ class TweetLoop():
             if self.config.functionality.Online:
                 status = self.api.update_status(tweet['text'])
                 Log.debug("TWT.tweet (id)", str(status.id))
-                self.stats.register_tweet(status, tweet['title'])
+                self.stats.register_tweet(status.id, tweet['title'])
             self.stats.last_feed_index = from_index + itr + 1
             sleep(self.config.min_tweet_delay)
 

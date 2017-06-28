@@ -86,8 +86,8 @@
     },
     "target_object": {
         "created_at": "Fri Jun 09 10:03:21 +0000 2017",
-        "id": 873118310056906752,
-        "id_str": "873118310056906752",
+        "id": 100,
+        "id_str": "100",
         "text": "今日の最後のJSON回収（今度は上書きなしで） https://t.co/BwmkBae6RN",
         "truncated": false,
         "entities": {

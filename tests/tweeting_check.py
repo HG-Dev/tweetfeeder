@@ -65,7 +65,6 @@ class TFTweetingTests(unittest.TestCase):
         self.log_buffer.buffer.clear()
         try:
             remove(self.bot.config.stats_filepath)
-            #self.bot.stats.set_dirty() Rendered useless by functionality change
         except FileNotFoundError:
             pass
 
@@ -170,7 +169,7 @@ class TFTweetingTests(unittest.TestCase):
         sleep(1)
         self.bot.stats.save_copy("online")
         self.assertTrue(
-            self.bot.stats.get_tweet_stats(title="ONLINE_TEST"),
+            self.bot.stats.get_tweet_stats("ONLINE_TEST"),
             "Couldn't find tweet stats using title"
         )
         

@@ -86,8 +86,8 @@
     },
     "target_object": {
         "created_at": "Mon May 22 03:31:02 +0000 2017",
-        "id": 866496597076488192,
-        "id_str": "866496597076488192",
+        "id": 100,
+        "id_str": "100",
         "text": "Testing new feed format... Success.\n1 of 1",
         "truncated": false,
         "entities": {

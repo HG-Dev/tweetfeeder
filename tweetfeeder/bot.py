@@ -33,7 +33,7 @@ class TweetFeederBot:
         # Follow up initialization
         self.userstream = Stream(
             self.config.authorization,
-            TweetFeederListener(self.config, API(self.config.authorization))
+            TweetFeederListener(self.config, self.stats)
         )
         self.toggle_userstream(BotFunctions.Listen in functionality)
 
