@@ -1,8 +1,9 @@
 """
 Timed Tweet publishing
 """
-from threading import Timer
+from threading import Timer, Event
 from datetime import datetime, timedelta
+from queue import deque
 from time import sleep
 from tweepy import API
 from tweepy.models import Status
@@ -13,18 +14,21 @@ from tweetfeeder.file_io.config import Config
 # NOTE: the Stats() is preserved, so it must be marked dirty upon "initializing"
 class TweetLoop():
     ''' Interprets TweetFeeder configuration to publish Tweets on a schedule '''
-    def __init__(self, config: Config, feed: Feed, stats: Stats = Stats(), auto_start=True):
-        ''' Creates an object capable of timed publishing of Tweets '''
-        Log.debug("TWT.init", "Initializing. Stats is " + str(id(stats)))
+    def __init__(self, config: Config, feed: Feed, stats: Stats = Stats()):
+        """
+        Creates an object capable of timed publishing of Tweets.
+        Automatically starts if config.functionality.Tweet
+        """
         self.config = config
         self.api = API(self.config.authorization)
         self.feed: Feed = feed
         self.stats: Stats = stats
-        self.stats.set_dirty()
+        self.stats.set_dirty() # Fixes problem with cached "new" Stats()
         self.current_wait = 60
         #self.publish_method = None
-        self._timer: Timer = None
-        if auto_start:
+        self._timers = deque(maxlen=3)
+        self._halt_flag = Event()
+        if config.functionality.Tweet:
             self.start()
 
 
@@ -60,16 +64,23 @@ class TweetLoop():
 
     def start(self):
         ''' Begin the tweet loop '''
-        self._timer = self._make_tweet_timer(self.stats.last_feed_index)
-        self._timer.start()
-        return self._timer
+        timer = self._make_tweet_timer(self.stats.last_feed_index)
+        Log.debug("TWT.start", "Starting timer #" + str(id(timer)))
+        timer.start()
+        self._timers.append(timer)
+        Log.debug("TWT.start", "Added to timers: {}".format(len(self._timers)))
+        return timer
 
     def stop(self):
-        ''' Cancels the tweeting loop. '''
+        ''' Cancels the tweeting loop, causing it to stop. '''
+        self._halt_flag.set()
         try:
-            self._timer.cancel()
+            for timer in self._timers:
+                Log.debug("TWT.stop", "Stopping timer #" + str(id(timer)))
+                timer.cancel()
+            self._timers.clear()
         except AttributeError:
-            raise NoTimerError("Unable to cancel timer.")
+            pass # Probably never started to begin with
 
     def _make_tweet_timer(self, from_index: int):
         ''' Loads and schedules tweet(s) '''
@@ -102,21 +113,26 @@ class TweetLoop():
             self.stats.last_feed_index = from_index + itr + 1
             sleep(self.config.min_tweet_delay)
 
-        try:
-            self.start() # Start again
-        except LoadFeedError:
-            pass
+        if not self._halt_flag.is_set():
+            try:
+                if self._timers:
+                    self._timers.pop()
+                self.start() # Start again
+            except LoadFeedError:
+                pass
+        else: # Skip the next timer step
+            self._halt_flag.clear()
 
     def wait_for_tweet(self, timeout=None):
         ''' Hangs up the calling thread while the CURRENT timer loops. '''
         try:
-            return self._timer.finished.wait(timeout)
+            return self._timers[-1].finished.wait(timeout)
         except AttributeError:
-            raise NoTimerError("Cannot wait for a nonexistant timer.")
+            raise NoTimerError("Cannot find timer to wait for.")
 
     def is_running(self):
         ''' Returns true if the TweetLoop has an active timer. '''
-        if self._timer is None:
-            return False
-        else:
-            return not self._timer.finished.is_set()
+        for timer in self._timers:
+            if not timer.finished.is_set():
+                return True
+        return False

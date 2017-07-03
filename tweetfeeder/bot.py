@@ -25,8 +25,8 @@ class TweetFeederBot:
         Log.enable_console_output()
         self.config = config_obj or Config(functionality, self.refresh, config_file)
         self.feed = Feed(self.config.feed_filepath)
-        self.stats = Stats(self.config.stats_filepath, lambda: functionality.SaveStats)
-        self.tweet_loop = TweetLoop(self.config, self.feed, self.stats, functionality.Tweet)
+        self.stats = Stats(self.config.stats_filepath, functionality.SaveStats)
+        self.tweet_loop = TweetLoop(self.config, self.feed, self.stats)
         Log.enable_file_output(functionality.Log, self.config.log_filepath)
         Log.info("BOT.init", "{:-^80}".format(str(functionality)))
 
@@ -39,8 +39,12 @@ class TweetFeederBot:
 
     def refresh(self):
         ''' Recreates some objects used by the bot with new functionality. '''
+        self.shutdown()
         self.feed = Feed(self.config.feed_filepath)
         self.stats = Stats(self.config.stats_filepath, self.config.functionality.SaveStats)
+        if self.config.functionality.Tweet:
+            self.tweet_loop.start()
+        self.toggle_userstream(self.config.functionality.Listen)
         Log.debug("BOT.refresh", "Current index: " + str(self.stats.last_feed_index))
 
     def toggle_userstream(self, enabled=True):
@@ -49,3 +53,9 @@ class TweetFeederBot:
             self.userstream.userstream(async=True)
         else:
             self.userstream.disconnect()
+
+    def shutdown(self):
+        ''' Stops stream tracking and other loops, presumably to end the program. '''
+        Log.info("BOT.shutdown", "Stopping stream and loops.")
+        self.toggle_userstream(False)
+        self.tweet_loop.stop()

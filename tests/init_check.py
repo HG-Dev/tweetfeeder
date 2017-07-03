@@ -1,11 +1,10 @@
 """
 Tests the basic file io / init of tweetfeeder.bot
-As with all tests, use python -m unittest tests.~~
+As with all tests, use python -m unittest tests/~~
 so that the tweetfeeder module is found.
 """
 import unittest
-from shutil import rmtree
-from os import mkdir
+from os import mkdir, path, remove
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.exceptions import LoadConfigError
 from tweetfeeder.flags import BotFunctions
@@ -28,7 +27,15 @@ class TFInitTests(unittest.TestCase):
         try:
             mkdir("tests/__temp_output__")
         except FileExistsError:
-            pass
+            try:
+                remove("tests/__temp_output__/tweet_stats.json")
+            except FileNotFoundError:
+                pass
+
+    def tearDown(self):
+        ''' Ensure no stats remain after method ends '''
+        if path.exists("tests/__temp_output__/tweet_stats.json"):
+            raise ValueError
 
     def test_no_settings_init(self):
         ''' Attempt to initialize a bot without settings. '''
@@ -81,3 +88,20 @@ class TFInitTests(unittest.TestCase):
         with self.assertRaises(LoadConfigError):
             broken_bot = TweetFeederBot(config_file="tests/config/test_settings_badtimes.json")
 
+    def test_shutdown(self):
+        ''' Can the bot use the shutdown method to stop the program? '''
+        Log.info("init_check", "Bot shutdown test")
+        bot = TweetFeederBot(
+            BotFunctions.Log,
+            "tests/config/test_settings.json"
+        )
+        bot.config.tweet_times = []
+        log_buffer = Log.DebugStream()
+        Log.enable_debug_output(True, log_buffer)
+        bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet
+        self.assertTrue(bot.tweet_loop.is_running())
+        bot.tweet_loop.wait_for_tweet(4)
+        self.assertTrue(log_buffer.has_text("DO_NOT_TWEET"), "Didn't tweet: " + str(log_buffer))
+        bot.shutdown()
+        self.assertTrue(log_buffer.has_text("shutdown"))
+        self.assertFalse(bot.tweet_loop.is_running())
