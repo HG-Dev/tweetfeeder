@@ -5,7 +5,8 @@ As with all tests, use python -m unittest tests
 so that the tweetfeeder module is found.
 """
 import unittest
-from os import mkdir, remove
+from os import mkdir, remove, path
+from time import time, sleep
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.streaming import TweetFeederListener
 from tweetfeeder.flags import BotFunctions
@@ -131,3 +132,9 @@ class TFStreamTests(unittest.TestCase):
         with open('tests/cassettes/stream_send_reply.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
             self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")
+
+    def test_get_master_dm(self):
+        ''' Does the bot respond to a DM from the master account? '''
+        with open('tests/cassettes/stream_get_master_dm.json', encoding='utf8') as cassette:
+            self.listener.on_data(cassette.read())
+            self.assertTrue(self.log_buffer.has_text("shutdown")) 

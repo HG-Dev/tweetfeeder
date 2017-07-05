@@ -41,3 +41,11 @@ class AlreadyRegisteredTweetError(TweetFeederError):
     ''' Raised when you attempt to save a "new" tweet when it's already registered. '''
     def __init__(self, msg):
         super(AlreadyRegisteredTweetError, self).__init__(type(self).__name__, msg)
+
+class InvalidCommand(TweetFeederError):
+    """
+    Raised when command text, presumably from the master account,
+    fails interpretation.
+    """
+    def __init__(self, msg):
+        super(InvalidCommand, self).__init__(type(self).__name__, msg)

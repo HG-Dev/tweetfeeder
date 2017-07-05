@@ -24,7 +24,7 @@ class Config:
         except FileNotFoundError as e:
             raise LoadConfigError("Could not load settings JSON.") from e
         except ValueError as e: #Apparently JSONDecoderError inherits from this
-            raise LoadConfigError("Settings JSON is faulty.") from e
+            raise LoadConfigError("Settings JSON is faulty: " + str(FileIO.get_json_dict(filepath))) from e
         except AttributeError as e:
             raise LoadConfigError(
                 "Settings JSON is incomplete."

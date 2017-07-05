@@ -64,6 +64,8 @@ class TweetLoop():
 
     def start(self):
         ''' Begin the tweet loop '''
+        if not self.config.functionality.Tweet:
+            Log.warning("TWT.start", "Prevent inconsistency by enabling BotFunctions.Tweet")
         timer = self._make_tweet_timer(self.stats.last_feed_index)
         Log.debug("TWT.start", "Starting timer #" + str(id(timer)))
         timer.start()

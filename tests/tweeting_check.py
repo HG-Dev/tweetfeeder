@@ -125,11 +125,11 @@ class TFTweetingTests(unittest.TestCase):
         resume after a sudden halt?
         """
         Log.info("tweeting_check", "resume_session")
-        self.bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet | BotFunctions.SaveStats
+        self.bot.config.functionality = BotFunctions.Log | BotFunctions.SaveStats
         feed = Feed("tests/config/test_feed_multiple.json")
         self.bot.config.tweet_times = []
         self.assertFalse(BotFunctions.Online in self.bot.config.functionality)
-        timer = TweetLoop(self.bot.config, feed, self.bot.stats, False)
+        timer = TweetLoop(self.bot.config, feed, self.bot.stats)
         self.assertFalse(timer.is_running())
         timer.start()
         self.assertTrue(timer.stats.last_feed_index == 0)
