@@ -8,6 +8,7 @@ class BotFunctions(Flags):
     Log = 1             # Log to file
     Listen = 2          # Watch UserStream
     Tweet = 4           # Publish tweets from feed at config's tweet times (if given)
-    Online = 6          # If Listen and Tweet, Tweet over Twitter's API
     SaveStats = 8       # Save the last tweet index if TweetFromFeed, save tweet stats if Listen
-    All = 15
+    Alerts = 16         # Send alerts to the master account through DMs
+    Online = 6          # If Listen and Tweet, Tweet over Twitter's API
+    All = 31

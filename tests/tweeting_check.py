@@ -8,14 +8,13 @@ from os import mkdir
 from os import remove
 from os import path
 from time import sleep
-from vcr import VCR
 from datetime import timedelta, datetime
+from vcr import VCR
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.tweeting import TweetLoop
-from tweetfeeder.exceptions import NoTimerError
 
 TAPE = VCR(
     cassette_library_dir='tests/cassettes',
@@ -68,13 +67,6 @@ class TFTweetingTests(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-    def test_false_start(self):
-        ''' Will the TweetLoop start automatically regardless of auto_start? '''
-        Log.info("tweeting_check", "false_start")
-        self.assertFalse(self.bot.tweet_loop.is_running())
-        with self.assertRaises(NoTimerError):
-            self.bot.tweet_loop.stop()
-
     def test_stop_timer(self):
         ''' Will a cancelled timer avoid invoking a tweet, as it should? '''
         Log.info("tweeting_check", "stop_timer")
@@ -95,20 +87,21 @@ class TFTweetingTests(unittest.TestCase):
         feed = Feed("tests/config/test_feed_singular.json")
         self.assertFalse(BotFunctions.Online in self.bot.config.functionality)
         timer = TweetLoop(self.bot.config, feed)
+        timer.start()
         timer.wait_for_tweet(60)
         self.assertTrue(
             self.log_buffer.has_text('TEST_ONE_TWEET'),
             "Did not tweet required text: " + str(self.log_buffer.buffer)
         )
-
+    
     def test_chain_tweet(self):
         ''' Can the TweetLoop tweet a chain of tweets? '''
         Log.info("tweeting_check", "chain_tweet")
         feed = Feed("tests/config/test_feed_multiple.json")
         stats = Stats("tests/config/skip_first_tweet_stats.json")
-        self.bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet
         self.bot.config.tweet_times = []
         timer = TweetLoop(self.bot.config, feed, stats)
+        timer.start()
         timer.wait_for_tweet(60)
         self.assertFalse(
             self.log_buffer.has_text('DO_NOT_TWEET'),
@@ -125,11 +118,11 @@ class TFTweetingTests(unittest.TestCase):
         resume after a sudden halt?
         """
         Log.info("tweeting_check", "resume_session")
-        self.bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet | BotFunctions.SaveStats
+        self.bot.config.functionality = BotFunctions.Log | BotFunctions.SaveStats
         feed = Feed("tests/config/test_feed_multiple.json")
         self.bot.config.tweet_times = []
         self.assertFalse(BotFunctions.Online in self.bot.config.functionality)
-        timer = TweetLoop(self.bot.config, feed, self.bot.stats, False)
+        timer = TweetLoop(self.bot.config, feed, self.bot.stats)
         self.assertFalse(timer.is_running())
         timer.start()
         self.assertTrue(timer.stats.last_feed_index == 0)
@@ -167,9 +160,7 @@ class TFTweetingTests(unittest.TestCase):
         loop = TweetLoop(config, feed, self.bot.stats)
         loop.wait_for_tweet(60)
         sleep(1)
-        self.bot.stats.save_copy("online")
         self.assertTrue(
             self.bot.stats.get_tweet_stats("ONLINE_TEST"),
             "Couldn't find tweet stats using title"
-        )
-        
+        )   

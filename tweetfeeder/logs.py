@@ -1,5 +1,7 @@
 ''' General logging wrapper for modules '''
 import logging
+from datetime import datetime, timedelta
+from time import time
 
 class Log:
     ''' Wrapper for LOGGER '''
@@ -48,7 +50,7 @@ class Log:
             console_handler.setFormatter(
                 logging.Formatter('%(asctime)s %(message)s', '%m/%d %H:%M')
             )
-            console_handler.setLevel(logging.CRITICAL)
+            console_handler.setLevel(logging.ERROR)
             Log._enable_handler('console_output', enabled, console_handler)
 
     @staticmethod
@@ -64,6 +66,21 @@ class Log:
             Log._enable_handler('file_output', enabled, file_handler)
         else: # Just disable it
             Log._enable_handler('file_output', enabled)
+
+    @staticmethod
+    def enable_dm_output(enabled=True, send_method=None):
+        ''' Creates a stream handler to the master Twitter account's DM inbox. '''
+        if enabled and send_method:
+            stream_handler = logging.StreamHandler(LogSender(send_method))
+            stream_handler.setLevel(logging.INFO)
+            stream_handler.setFormatter(
+                logging.Formatter('%(levelname)-7s %(message)s')
+            )
+            stream_handler.addFilter(DripFilter())
+
+            Log._enable_handler('dm_output', enabled, stream_handler)
+        elif not enabled:
+            Log._enable_handler('dm_output', enabled)
 
     @staticmethod
     def enable_debug_output(enabled=True, new_stream=None):
@@ -127,3 +144,61 @@ class Log:
     def _msg(place, msg):
         ''' Joins the place and msg strings together '''
         return "{:19.18}{}".format(place, msg)
+
+class LogSender:
+    """
+    Acts as a delegate container so that the logger module
+    can send log output over Twitter to the master account.
+    """
+    def __init__(self, send_method):
+        ''' Attach the send_method that will be called for write() '''
+        self.send_method = send_method
+
+    def write(self, text):
+        ''' If the text is substantial, forward it '''
+        if len(text) > 1: #This prevents unnecessary terminators from being sent
+
+            self.send_method(text)
+
+class DripFilter(logging.Filter):
+    """Restricts too verbose logging by establishing a logging speed limit by level.
+    KeyErrors are understood to be unrestricted"""
+    TICK_SPEED = {
+        logging.DEBUG: timedelta(days=1),
+        logging.INFO: timedelta(hours=1),
+        logging.WARNING: timedelta(minutes=1)
+    }
+    LAST_SEND = {
+        logging.DEBUG: datetime(year=1989, month=1, day=1),
+        logging.INFO: datetime(year=1989, month=1, day=1),
+        logging.WARNING: datetime(year=1989, month=1, day=1)
+    }
+
+    def filter(self, record):
+        """Returns true if the record text is substantial and
+        the speed limit has not been exceeded.
+        """
+        try:
+            lvl = record.levelno
+        except AttributeError:
+            print("Logging: Given record has no level attribute: " + str(record))
+            lvl = logging.DEBUG
+
+        okay = False
+        try:
+            nxtime = DripFilter.LAST_SEND[lvl] + DripFilter.TICK_SPEED[lvl]
+            if nxtime > datetime.now():
+                okay = True
+        except KeyError:
+            okay = True
+        
+        if okay:
+            DripFilter.LAST_SEND[lvl] = datetime.now()
+        
+        return okay
+
+
+
+
+
+

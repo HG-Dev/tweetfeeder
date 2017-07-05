@@ -64,6 +64,8 @@ class TweetLoop():
 
     def start(self):
         ''' Begin the tweet loop '''
+        if not self.config.functionality.Tweet:
+            Log.warning("TWT.start", "Prevent inconsistency by enabling BotFunctions.Tweet")
         timer = self._make_tweet_timer(self.stats.last_feed_index)
         Log.debug("TWT.start", "Starting timer #" + str(id(timer)))
         timer.start()
@@ -127,7 +129,7 @@ class TweetLoop():
         ''' Hangs up the calling thread while the CURRENT timer loops. '''
         try:
             return self._timers[-1].finished.wait(timeout)
-        except AttributeError:
+        except (AttributeError, IndexError):
             raise NoTimerError("Cannot find timer to wait for.")
 
     def is_running(self):

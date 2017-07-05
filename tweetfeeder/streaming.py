@@ -1,22 +1,25 @@
 """
 UserStream listener for use by TweetFeederBot.
 """
+import shlex
 from tweepy import StreamListener, API
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io import Config
 from tweetfeeder.file_io.models import Feed, Stats
+from tweetfeeder.exceptions import InvalidCommand
 
 class TweetFeederListener(StreamListener):
     """
     Receives events from Tweepy
     """
-    def __init__(self, config: Config, stats: Stats):
+    def __init__(self, config: Config, stats: Stats, cmd_method: classmethod):
         """
         Creates a TweetFeederListener using config data
         and Tweepy API from a TweetFeederBot.
         """
         self._config = config
         self._stats = stats
+        self.cmd_method = cmd_method
         self.api = API(config.authorization)
         super(TweetFeederListener, self).__init__(self.api)
 
@@ -36,8 +39,10 @@ class TweetFeederListener(StreamListener):
             ))
             if sender_id == self._config.master_id:
                 # Message from master arrives
-                # TODO: Parse for command
-                pass
+                try:
+                    self.cmd_method(status.direct_message['text'])
+                except InvalidCommand:
+                    pass #The exception will be automatically logged
             else:
                 # Interact with other users?
                 # Perhaps a project for another day.
