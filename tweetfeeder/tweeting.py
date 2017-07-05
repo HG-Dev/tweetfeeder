@@ -125,12 +125,13 @@ class TweetLoop():
         else: # Skip the next timer step
             self._halt_flag.clear()
 
-    def wait_for_tweet(self, timeout=None):
+    def wait_for_tweet(self, timeout=None, timer_expected=True):
         ''' Hangs up the calling thread while the CURRENT timer loops. '''
         try:
             return self._timers[-1].finished.wait(timeout)
         except (AttributeError, IndexError):
-            raise NoTimerError("Cannot find timer to wait for.")
+            if timer_expected:
+                raise NoTimerError("Cannot find timer to wait for.")
 
     def is_running(self):
         ''' Returns true if the TweetLoop has an active timer. '''

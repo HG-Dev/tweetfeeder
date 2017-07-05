@@ -42,9 +42,12 @@ class Feed:
                 )
             next_tweets.append(feed_data[index])
             itr = 0
-            while feed_data[index+itr]['chain'] and index + itr + 1 < self.total_tweets:
-                itr += 1
-                next_tweets.append(feed_data[itr])
+            try:
+                while feed_data[index+itr]['chain'] and index + itr + 1 < self.total_tweets:
+                    itr += 1
+                    next_tweets.append(feed_data[itr])
+            except KeyError: #Tweet data lacked the chain element -> defaults to False
+                pass
 
         return next_tweets
 

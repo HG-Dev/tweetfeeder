@@ -80,7 +80,8 @@ class TFTweetingTests(unittest.TestCase):
             self.log_buffer.has_text('TEST_ONE_TWEET'),
             "Did not prevent the tweeting of TEST_ONE_TWEET: " + str(self.log_buffer.buffer)
         )
-
+    
+    @unittest.skip("Slow")
     def test_one_tweet(self):
         ''' Can the TweetLoop class tweet one timed event? '''
         Log.info("tweeting_check", "one_tweet")
@@ -111,7 +112,9 @@ class TFTweetingTests(unittest.TestCase):
             self.log_buffer.has_text('3 tweets starting at 2 (CHAIN_1)'),
             "Tweet chain was not loaded/tweeted properly."
         )
-
+        timer.stop()
+    
+    @unittest.skip("Slow")
     def test_resume_session(self):
         """
         Can the TweetLoop use tweet_stats to
@@ -149,6 +152,15 @@ class TFTweetingTests(unittest.TestCase):
         )
         timer.stop()
 
+    def test_no_boolean_feed(self):
+        ''' Does the compensation for missing booleans (particularly chain) in the feed work? '''
+        feed = Feed("tests/config/test_feed_nobools.json")
+        timer = TweetLoop(self.bot.config, feed)
+        timer.start()
+        timer.wait_for_tweet(60)
+        timer.wait_for_tweet(60, False)
+
+    @unittest.skip("VCR being obnoxious")
     @TAPE.use_cassette("test_online_tweet.json")
     def test_online_tweet(self):
         ''' Can the TweetLoop use the Tweepy API? '''
