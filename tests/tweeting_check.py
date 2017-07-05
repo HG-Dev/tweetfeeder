@@ -8,14 +8,13 @@ from os import mkdir
 from os import remove
 from os import path
 from time import sleep
-from vcr import VCR
 from datetime import timedelta, datetime
+from vcr import VCR
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.tweeting import TweetLoop
-from tweetfeeder.exceptions import NoTimerError
 
 TAPE = VCR(
     cassette_library_dir='tests/cassettes',
@@ -94,7 +93,7 @@ class TFTweetingTests(unittest.TestCase):
             self.log_buffer.has_text('TEST_ONE_TWEET'),
             "Did not tweet required text: " + str(self.log_buffer.buffer)
         )
-
+    
     def test_chain_tweet(self):
         ''' Can the TweetLoop tweet a chain of tweets? '''
         Log.info("tweeting_check", "chain_tweet")
@@ -161,9 +160,7 @@ class TFTweetingTests(unittest.TestCase):
         loop = TweetLoop(config, feed, self.bot.stats)
         loop.wait_for_tweet(60)
         sleep(1)
-        self.bot.stats.save_copy("online")
         self.assertTrue(
             self.bot.stats.get_tweet_stats("ONLINE_TEST"),
             "Couldn't find tweet stats using title"
-        )
-        
+        )   

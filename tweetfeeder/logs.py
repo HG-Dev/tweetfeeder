@@ -72,8 +72,12 @@ class Log:
         ''' Creates a stream handler to the master Twitter account's DM inbox. '''
         if enabled and send_method:
             stream_handler = logging.StreamHandler(LogSender(send_method))
-            stream_handler.addFilter(DripFilter())
             stream_handler.setLevel(logging.INFO)
+            stream_handler.setFormatter(
+                logging.Formatter('%(levelname)-7s %(message)s')
+            )
+            stream_handler.addFilter(DripFilter())
+
             Log._enable_handler('dm_output', enabled, stream_handler)
         elif not enabled:
             Log._enable_handler('dm_output', enabled)
@@ -175,9 +179,9 @@ class DripFilter(logging.Filter):
         the speed limit has not been exceeded.
         """
         try:
-            lvl = record.level
+            lvl = record.levelno
         except AttributeError:
-            Log.error("LOG.dripfilter", "Given record has no level attribute: " + str(record))
+            print("Logging: Given record has no level attribute: " + str(record))
             lvl = logging.DEBUG
 
         okay = False
