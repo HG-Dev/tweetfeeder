@@ -127,7 +127,7 @@ class TweetLoop():
         ''' Hangs up the calling thread while the CURRENT timer loops. '''
         try:
             return self._timers[-1].finished.wait(timeout)
-        except AttributeError:
+        except (AttributeError, IndexError):
             raise NoTimerError("Cannot find timer to wait for.")
 
     def is_running(self):
