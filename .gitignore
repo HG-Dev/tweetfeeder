@@ -94,3 +94,4 @@ ENV/
 .vscode/
 _credentials.json
 private/
+__temp_output__/

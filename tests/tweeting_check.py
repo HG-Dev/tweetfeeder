@@ -68,13 +68,6 @@ class TFTweetingTests(unittest.TestCase):
         except FileNotFoundError:
             pass
 
-    def test_false_start(self):
-        ''' Will the TweetLoop start automatically regardless of auto_start? '''
-        Log.info("tweeting_check", "false_start")
-        self.assertFalse(self.bot.tweet_loop.is_running())
-        with self.assertRaises(NoTimerError):
-            self.bot.tweet_loop.stop()
-
     def test_stop_timer(self):
         ''' Will a cancelled timer avoid invoking a tweet, as it should? '''
         Log.info("tweeting_check", "stop_timer")
@@ -95,6 +88,7 @@ class TFTweetingTests(unittest.TestCase):
         feed = Feed("tests/config/test_feed_singular.json")
         self.assertFalse(BotFunctions.Online in self.bot.config.functionality)
         timer = TweetLoop(self.bot.config, feed)
+        timer.start()
         timer.wait_for_tweet(60)
         self.assertTrue(
             self.log_buffer.has_text('TEST_ONE_TWEET'),
@@ -106,9 +100,9 @@ class TFTweetingTests(unittest.TestCase):
         Log.info("tweeting_check", "chain_tweet")
         feed = Feed("tests/config/test_feed_multiple.json")
         stats = Stats("tests/config/skip_first_tweet_stats.json")
-        self.bot.config.functionality = BotFunctions.Log | BotFunctions.Tweet
         self.bot.config.tweet_times = []
         timer = TweetLoop(self.bot.config, feed, stats)
+        timer.start()
         timer.wait_for_tweet(60)
         self.assertFalse(
             self.log_buffer.has_text('DO_NOT_TWEET'),
