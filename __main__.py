@@ -8,7 +8,7 @@ def main():
     # pylint: disable=no-member
     try:
         bot = TweetFeederBot(BotFunctions.All, "config/settings.json")
-
+        bot.master_cmd.cmdloop()
     except KeyboardInterrupt:
         bot.shutdown()
 
