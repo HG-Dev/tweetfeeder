@@ -4,5 +4,113 @@
     "text": "Now starting in earnest!",
     "chain": false,
     "rerun": false
+  },
+  {
+    "title": "HIT_THE_GYM",
+    "text": "Time to cut down on the cream puffs and hit the gym!\n直訳》シュークリームを減らしてジムに行く時だ！\nメモ》肝心の「hit the」は勢い良く行くって感じだ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "KILLING_ME",
+    "text": "My legs are killing me!\n直訳》自分の足に殺されている！\n意訳》足がチョー痛い！",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "SMOKEY_THE_BEAR",
+    "text": "Only you can prevent forest fires.\n直訳》森林火災予防はあなたにしかできない。\nメモ》アメリカ人の大多数が分かる、1947年に作られたSmokey the Bearというキャラクタのセリフ",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "SMOKEY_THE_BEAR_2",
+    "text": "「Everyone can prevent forest fires」の間違いじゃない？と思うかもしれないけど、責任感を持たせるための政府広報なんだよね。",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "KOALA_FAVORITE_FOOD",
+    "text": "The koala's favorite food is actually tourists.\n直訳》コアラの大好物とは実は観光客である。",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NOW_HAVE_ATTENTION",
+    "text": "Sorry I had to slap you with Konjac jelly, but now that I have your attention...\n直訳》コンニャクでたたき付けざるを得なくてすまないが、今こちらを注目してもらっているようですので…",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "ZENZEN",
+    "text": "\"Are you tired?\" \"Not at all.\"\n意訳》「疲れました？」「ぜんぜん」",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "THROW_ANCHOR",
+    "text": "We've reached Grandma's house, throw anchor!\n意訳》おばあちゃんちに着いたよ、錨を投げろ！\nメモ》命令だからか、「the anchor」が「anchor」に省略されている",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "SHATNER",
+    "text": "This, is, an example, of, the... Shatner comma.\n直訳》これ、が、シャトナー・コンマの…　一例、である\nメモ》（スタートレック）カーク船長を演じたシャトナー氏はセリフを思い出すのによく苦労をしていたそうだ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "MONEY_IS_TREES",
+    "text": "Money doesn't grow on trees, money IS trees.\n直訳》金は木に生えない、木こそ金だ\nメモ》ISの強調（大文字になっていること）に注意",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NEVER_MISS_WORK",
+    "text": "So what if I coughed up a lung? I've never missed a day of work, and I'm not about to start.\n意訳》肺を吐き出したが、それがどうした？仕事を休んだことなし、始めるつもりはない",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "REMINDER1",
+    "text": "Reminder: このアカウントの英文ライブラリはシュールのが多いですが、実際に使える表現に基づいて作られています。",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "FRIENDS_ARE_PIGS",
+    "text": "I can't eat pork. All my best friends are pigs.\n直訳》豚肉は食べられない。親友たちはみんな豚なんだ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NOSE_CHOPSTICKS",
+    "text": "This is your final warning: DO NOT stick your chopsticks in your nose.\n意訳》これは最終忠告だ。鼻にお箸を絶対に突っ込むでない",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "LOVE_TO_BOOST",
+    "text": "I'd love to help boost the GDP, but does it have to be through working?\n意訳》GDPを増やすにぜひ手伝いたいけど、働くことしか選択肢はないのか？",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "LOVE_TO_BOOST_1",
+    "text": "「through working」の和訳はちょっと難しい。実際のところ和訳の過程で「through」はよく無視されている気がする。through working→「働くことを通して・働くことで」",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "KGOTY",
+    "text": "It is with great displeasure that I announce this year's Crap Game of the Year.\n直訳》非常な不快感を持って今年のクソゲーオブザイヤーを発表します。",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "KGOTY1",
+    "text": "It is with great displeasure とは英語の「定番表現をひねる」ユーモアの一例だ。本来の「with great pleasure」はいい感じに和訳できないみたいがね。理解するのに、そのまま「愉快な気持ちで行うこと」と覚えないといけないだろう",
+    "chain": false,
+    "rerun": true
   }
 ]
