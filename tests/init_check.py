@@ -88,6 +88,11 @@ class TFInitTests(unittest.TestCase):
         with self.assertRaises(LoadConfigError):
             broken_bot = TweetFeederBot(config_file="tests/config/test_settings_badtimes.json")
 
+    def test_main_loop(self):
+        ''' Will the bot run as a standalone program? '''
+        bot = TweetFeederBot(BotFunctions.Log | BotFunctions.Tweet, "tests/config/test_settings.json")
+        bot.master_cmd.cmdloop()
+
     def test_shutdown(self):
         ''' Can the bot use the shutdown method to stop the program? '''
         Log.info("init_check", "Bot shutdown test")

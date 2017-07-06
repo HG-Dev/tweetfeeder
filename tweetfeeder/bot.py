@@ -76,10 +76,11 @@ class TweetFeederBot:
             ''' Establishes link to bot '''
             super(TweetFeederBot.MasterCommand, self).__init__(self)
             self.bot = bot_self
-        
-        def do_shutdown(self):
+       
+        def do_shutdown(self, args):
             ''' Shuts down the bot '''
             self.bot.shutdown()
+            return True # Exits cmdloop
 
         def do_functionality(self, args):
             ''' Adds or removes a given function. '''
