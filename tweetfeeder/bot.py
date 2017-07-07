@@ -25,6 +25,7 @@ class TweetFeederBot:
         """
         Log.setup(type(self).__name__)
         Log.enable_console_output()
+        Log.info("BOT.init", "{:-^80}".format(str(functionality)))
         self.config = Config(functionality, self.refresh, config_file)
         self.feed = Feed(self.config.feed_filepath)
         self.stats = Stats(self.config.stats_filepath, self.config.functionality.SaveStats)
@@ -32,7 +33,6 @@ class TweetFeederBot:
         self.master_cmd = TweetFeederBot.MasterCommand(self)
         Log.enable_file_output(self.config.functionality.Log, self.config.log_filepath)
         Log.enable_dm_output(self.config.functionality.Alerts, self.alert_master)
-        Log.info("BOT.init", "{:-^80}".format(str(self.config.functionality)))
 
         # Follow up initialization
         self.userstream = Stream(
@@ -43,6 +43,7 @@ class TweetFeederBot:
 
     def refresh(self):
         ''' Recreates some objects used by the bot with new functionality. '''
+        Log.debug("BOT.refresh", "Current index: " + str(self.stats.last_feed_index))
         self.shutdown()
         self.feed = Feed(self.config.feed_filepath)
         self.stats = Stats(self.config.stats_filepath, self.config.functionality.SaveStats)
@@ -51,7 +52,6 @@ class TweetFeederBot:
         self.toggle_userstream(self.config.functionality.Listen)
         Log.enable_file_output(self.config.functionality.Log, self.config.log_filepath)
         Log.enable_dm_output(self.config.functionality.Alerts, self.alert_master)
-        Log.debug("BOT.refresh", "Current index: " + str(self.stats.last_feed_index))
 
     def toggle_userstream(self, enabled=True):
         ''' Enable stream listening '''
@@ -99,3 +99,8 @@ class TweetFeederBot:
             else:
                 raise InvalidCommand("First argument should be 'add' or 'remove'.")
 
+        def do_tweet_now(self, args):
+            """Forces the current tweet loop timer to end immediately,
+            ignoring tweet times.
+            """
+            self.bot.tweet_loop.force_tweet()

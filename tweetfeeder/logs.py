@@ -32,6 +32,10 @@ class Log:
             if len(record) > 1:
                 self.buffer.append(record)
 
+        def clear(self):
+            ''' Clears buffer '''
+            self.buffer.clear()
+
     _handlers = {}
     _logger = logging.getLogger('Untitled: Use setup()')
 
@@ -39,7 +43,8 @@ class Log:
     def setup(name, level=logging.INFO):
         ''' Initial setup; does logging.getLogger '''
         Log._logger = logging.getLogger(name)
-        Log._logger.setLevel(level)
+        if Log._logger.level == logging.NOTSET:
+            Log._logger.setLevel(level)
 
     @staticmethod
     def enable_console_output(enabled=True):
@@ -50,7 +55,7 @@ class Log:
             console_handler.setFormatter(
                 logging.Formatter('%(asctime)s %(message)s', '%m/%d %H:%M')
             )
-            console_handler.setLevel(logging.ERROR)
+            console_handler.setLevel(logging.DEBUG)
             Log._enable_handler('console_output', enabled, console_handler)
 
     @staticmethod
@@ -90,6 +95,7 @@ class Log:
             debug_handler.setLevel(logging.DEBUG)
             Log._logger.setLevel(logging.DEBUG)
             Log._enable_handler('debug_output', enabled, debug_handler)
+            print("Debug logging enabled.")
         else:
             Log._enable_handler('debug_output', False)
 

@@ -12,6 +12,7 @@ from datetime import timedelta, datetime
 from vcr import VCR
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.logs import Log
+from tweetfeeder.exceptions import TweetFeederError
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.tweeting import TweetLoop
@@ -51,9 +52,10 @@ class TFTweetingTests(unittest.TestCase):
     def setUp(self):
         ''' Preparation for each test '''
         self.fresh_tweet_times = [
-            datetime.now()+timedelta(minutes=1),
-            datetime.now()+timedelta(minutes=2),
-            datetime.now()+timedelta(minutes=3)
+            datetime.now()+timedelta(seconds=30),
+            datetime.now()+timedelta(seconds=60),
+            datetime.now()+timedelta(seconds=80),
+            datetime.now()+timedelta(seconds=100)
         ]
         self.bot.config.tweet_times = self.fresh_tweet_times
         self.bot.config.functionality = BotFunctions.Log
@@ -61,7 +63,7 @@ class TFTweetingTests(unittest.TestCase):
 
     def tearDown(self):
         ''' Cleanup after each test '''
-        self.log_buffer.buffer.clear()
+        self.log_buffer.clear()
         try:
             remove(self.bot.config.stats_filepath)
         except FileNotFoundError:
@@ -94,6 +96,14 @@ class TFTweetingTests(unittest.TestCase):
             self.log_buffer.has_text('TEST_ONE_TWEET'),
             "Did not tweet required text: " + str(self.log_buffer.buffer)
         )
+
+    def test_auto_start(self):
+        ''' Can the TweetLoop class start itself? '''
+        Log.info("tweeting_check", "auto_start")
+        bot = TweetFeederBot(BotFunctions.Tweet, "tests/config/test_auto_onetweet_settings.json")
+        self.assertTrue(bot.tweet_loop.is_running())
+        bot.tweet_loop.wait_for_tweet(10)
+        self.assertTrue(self.log_buffer.has_text("LoadFeedError"))
     
     def test_chain_tweet(self):
         ''' Can the TweetLoop tweet a chain of tweets? '''

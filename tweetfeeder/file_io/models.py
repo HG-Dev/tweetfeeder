@@ -18,6 +18,11 @@ class Feed:
     @property
     def total_tweets(self) -> int:
         ''' The total tweets in the feed as last recorded. '''
+        if self._total_tweets == 0:
+            try:
+                self.get_tweets(0)
+            except LoadFeedError:
+                return 0
         return self._total_tweets
 
     def get_tweets(self, from_index: int):
@@ -54,7 +59,7 @@ class Feed:
 class Stats:
     ''' Access to Tweet stats and session data '''
 
-    def __init__(self, filepath: str = "", save: bool = False):
+    def __init__(self, filepath: str = None, save: bool = False):
         ''' Save filepaths for the feed and stats '''
         Log.debug("IO.stats", "Initializing")
         self._filepath = filepath
@@ -66,9 +71,8 @@ class Stats:
         ''' Returns a dictionary of tweet stats from var or disk. '''
         if not self._stats_dict:
             try:
-                Log.debug("IO.stats", "Loading stats from " + self._filepath)
                 self._stats_dict = FileIO.get_json_dict(self._filepath)
-            except FileNotFoundError:
+            except (FileNotFoundError, TypeError):
                 # Create default stats dictionary
                 Log.debug("IO.stats", "Couldn't find stats file")
                 self._stats_dict = {'feed_index': 0, 'id_to_title': {}, 'tweets': {}}

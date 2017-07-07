@@ -32,6 +32,14 @@ class NoTimerError(TweetFeederError):
     def __init__(self, msg):
         super(NoTimerError, self).__init__(type(self).__name__, msg)
 
+class ExistingTimerError(TweetFeederError):
+    """
+    Raised when an attempt is made to start a TweetLoop,
+    but a timer is already running.
+    """
+    def __init__(self, msg):
+        super(ExistingTimerError, self).__init__(type(self).__name__, msg)
+
 class UnregisteredTweetError(TweetFeederError):
     ''' Raised attempt to fetch data on a tweet not in stats. '''
     def __init__(self, msg):

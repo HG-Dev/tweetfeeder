@@ -6,19 +6,22 @@ from tweepy import OAuthHandler
 from .utils import FileIO
 from ..flags import BotFunctions
 from ..exceptions import LoadConfigError
+from ..logs import Log
 
 class Config:
     ''' Config data storage and processing for usage inside hg_tweetfeeder.bot '''
-    def __init__(self, functionality, on_change: classmethod, filepath: str = ""):
+    def __init__(self, functionality, on_change: classmethod, filepath: str = None):
         self.tweet_time_strings = [] # Temp data holder
         self.keys = {} # Temp data holder
-        self.filepaths = {} # Use should be avoided
+        self.filepaths = {'feed': None, 'stats': None, 'log': None, 'auth': None}
         self.on_change = on_change
         self._functionality = functionality
         self.authorization = None
         self.min_tweet_delay = 4
         self.bot_id = 0
         self.master_id = 0
+        if not filepath:
+            return
         try: #Stage one, get serialized settings
             self.__dict__.update(FileIO.get_json_dict(filepath))
         except FileNotFoundError as e:
@@ -73,7 +76,7 @@ class Config:
         return self.filepaths['log']
 
     @property
-    def functionality(self):
+    def functionality(self) -> BotFunctions:
         ''' Returns BotFunctions settings '''
         return self._functionality
 
@@ -121,6 +124,6 @@ class Config:
                 if not path.exists(path.dirname(filepath)):
                     try:
                         mkdir(filepath)
-                    except OSError:
-                        problems.add(path.dirname(filepath))
+                    except OSError as e:                  
+                        problems.add(path.dirname(filepath) + ": " + str(e))
         return problems
