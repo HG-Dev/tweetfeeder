@@ -23,15 +23,10 @@ class TweetLoop():
         self.api = API(self.config.authorization)
         self.feed: Feed = feed
         self.stats: Stats = stats or Stats()
-        self.stats.set_dirty() # Fixes problem with cached "new" Stats()
-        self.current_wait = 60
-        self.next_index = stats.last_feed_index
-        self._timers = deque(maxlen=12)
-        self._halt_flag = Event()
-        self._spawn_finished = Event()
-        self._spawn_finished.set()
+        self.current_timer_started: datetime = datetime.now()
+        self.current_timer: Timer = None
+        self.timers: deque = deque()
         if config.functionality.Tweet:
-            print("Beginning tweet loop")
             self.start()
 
 
@@ -63,113 +58,67 @@ class TweetLoop():
         #Failure
         return None
 
+
     def start(self):
         ''' Begin the tweet loop '''
-        if not self.config.functionality.Tweet:
-            raise TweetFeederError("TWT.start", "Prevent inconsistency by enabling BotFunctions.Tweet")
-        if self.is_running():
-            raise ExistingTimerError("Try using Shutdown first.")
-        # Clear any previous halt command
-        self._halt_flag.clear()
-        # Start the first three timers
+        # Acquire the last successfully tweeted index
+        self.timers.append(
+            self._make_tweet_timers(datetime.now(), self.stats.last_feed_index)
+        )
         self._next()
 
     def _next(self):
-        ''' Create next timer, if necessary '''
-        if self._halt_flag.is_set() or len(self._timers) > 10:
-            # Timers exist, or no more timers are desired
-            return None
-        try:
-            timers = self._make_tweet_timers(self.next_index)
-            if timers:
-                Log.info(
-                    "TWT.next", "Adding timers for tweets #{}"
-                    .format(range(self.next_index, self.next_index-1+len(timers)))
-                )
-                for timer in timers:
-                    self._timers.appendleft(timer)
-                    self.next_index += 1
-                    timer.start()
-            self._spawn_finished.set()
-        except LoadFeedError:
-            Log.error("TWT.next", "Reached end of Tweet feed!")
-            return None
+        ''' When only one timer is left, queue up more '''
+        if self.current_timer and not self.current_timer.finished.is_set():
+            # Fast foward
+            self.current_timer.cancel()
+            self._tweet(*self.current_timer.args)
+        elif self.timers:
+            self.current_timer = self.timers.popleft()
+            self.current_timer.start()
+            self.current_timer_started = datetime.now()
+        # Replenish timers
+        if self.current_timer and not self.timers:
+            # Ran out of future timers
+
+            # Set the timers to have intervals happening after the current timer finishes
+            # TODO: Fix tweet skipping so that it resumes schedule
+            self.timers.append(
+                self._make_tweet_timers(from_time, self.stats.last_feed_index)
+            )
+
 
     def stop(self):
         ''' Cancels the tweeting loop, causing it to stop. '''
-        self._halt_flag.set()
-        self._spawn_finished.wait(10)
-        try:
-            for timer in self._timers:
-                Log.debug("TWT.stop", "Stopping timer #" + str(id(timer)))
-                timer.cancel()
-            self._timers.clear()
-        except AttributeError:
-            pass # Probably never started to begin with
+        if self.current_timer:
+            self.current_timer.cancel()
+        for timer in self.timers:
+            timer.cancel()
 
-    def _make_tweet_timers(self, from_index: int):
-        ''' Loads and schedules tweet(s) '''
-        if self._halt_flag.is_set(): #TODO: Figure out how to make this actually thread safe
-            return None
-        Log.debug("TWT.make_timer", "Gettings tweets from " + str(from_index))
+    def _make_tweet_timers(self, from_time: datetime, from_index: int):
+        ''' Schedules a tweet '''
         # This can throw a LoadFeedError
-        next_tweets = self.feed.get_tweets(from_index)
-        ###
+        try:
+            next_tweets = self.feed.get_tweets(from_index)
+        except LoadFeedError:
+            return None
         timers = []
-        delta = self.get_next_tweet_datetime() - datetime.now()
-        self.current_wait = delta.total_seconds()
-
-        for idx, tweet in enumerate(next_tweets):
-            timers.append(
-                Timer(
-                    self.current_wait + self.config.min_tweet_delay * idx,
-                    self._tweet,
-                    (tweet, from_index+idx)
-                )
-            )
+        seconds = (self.get_next_tweet_datetime() - from_time).total_seconds()
+        for idx, t_data in enumerate(next_tweets):
+            timers.append(Timer(seconds, self._tweet, (t_data, from_index+idx)))
+            seconds = self.config.min_tweet_delay
 
         return timers
 
     def _tweet(self, data: dict, index: int):
         ''' Tweet, then signal for the next to begin '''
-        self._spawn_finished.clear()
-        Log.info("TWT._tweet", "Tweeting " + data['title'])
-        if self.config.functionality.Online:
-            status = self.api.update_status(data['text'])
-            Log.debug("TWT.tweet (id)", str(status.id))
-            self.stats.register_tweet(status.id, data['title'])
-        self.stats.last_feed_index = index + 1
-        self._next() # Start next timer (unless timers remain or halt is set)
-        if self._timers:
-            self._timers.pop()
+        self._next()
 
     def wait_for_tweet(self, timeout=None, timer_expected=True):
         ''' Hangs up the calling thread while the CURRENT timer loops. '''
 
-        try:
-            for timer in reversed(self._timers):
-                # Get oldest timer
-                if not timer.finished.is_set():
-                    return timer.finished.wait(timeout)
-            return self._spawn_finished.wait(timeout)
-        except (AttributeError, IndexError):
-            if timer_expected:
-                raise NoTimerError("Cannot find timer to wait for.")
-
     def force_tweet(self):
         ''' Forces the oldest timer to finish immediately. '''
-        self._spawn_finished.wait(10)
-        if not self.is_running():
-            Log.warning("TWT.force_tweet", "Loop not running")
-        elif self._timers:
-            Log.debug("TWT.force_tweet", "Forcing tweet: " + str(self._timers[-1].args[0]))
-            args = self._timers[-1].args
-            self._timers[-1].cancel()
-            self._timers.pop()
-            quick_timer = Timer(0, self._tweet, args)
-            quick_timer.start()
 
     def is_running(self):
         ''' Returns true if the TweetLoop has non-popped timers. '''
-        Log.info("TWT.running?timers:", self._timers)
-        return self._timers or not self._spawn_finished.is_set()
