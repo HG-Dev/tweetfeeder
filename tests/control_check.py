@@ -52,7 +52,7 @@ class TFControlTests(unittest.TestCase):
     def tearDown(self):
         """ Clears buffer """
         self.log_buffer.clear()
-    @unittest.skip("Blah")
+
     def test_flag_adding(self):
         ''' Does adding and subtracting using BotFunctions work as expected? '''
         functions: BotFunctions = BotFunctions(BotFunctions.All)
@@ -67,7 +67,7 @@ class TFControlTests(unittest.TestCase):
         self.assertFalse(functions.SaveStats)
         functions = functions | BotFunctions("SaveStats")
         self.assertTrue(functions.SaveStats)
-    @unittest.skip("Blah")
+
     def test_bad_flag(self):
         ''' Does BotFunctions handle improper inits correctly? '''
         self.assertTrue(BotFunctions("SaveStats").SaveStats)
@@ -75,7 +75,7 @@ class TFControlTests(unittest.TestCase):
             flag = BotFunctions("savestats")
         with self.assertRaises(ValueError):
             flag = BotFunctions("sdlaasfasdf")
-    @unittest.skip("Blah") 
+
     def test_add_rem_function(self):
         """
         Does using the MasterCommand class to add or remove a function
@@ -101,7 +101,7 @@ class TFControlTests(unittest.TestCase):
         bot.tweet_loop.wait_for_tweet(60)
         bot.userstream.listener.on_data(json.dumps(json_dict))
         self.assertFalse(bot.tweet_loop.is_running())
-    @unittest.skip("Blah")
+
     def test_cmd_loop(self):
         """Does a TweetFeederBot behave normally when cmdloop is active?
         """
@@ -126,11 +126,13 @@ class TFControlTests(unittest.TestCase):
         self.assertEqual(bot.feed.total_tweets, 5)
         bot.master_cmd.onecmd("tweet_now")
         self.assertTrue(self.log_buffer.has_text('DO_NOT_TWEET'), self.log_buffer.buffer)
-        bot.tweet_loop.wait_for_tweet(10)
+        bot.tweet_loop.wait_for_tweet(3)
         bot.master_cmd.onecmd("tweet_now")
-        bot.tweet_loop.wait_for_tweet(10)
+        bot.tweet_loop.wait_for_tweet(3)
         bot.master_cmd.onecmd("tweet_now")
-        bot.tweet_loop.wait_for_tweet(10)
+        bot.tweet_loop.wait_for_tweet(3)
+        bot.master_cmd.onecmd("tweet_now")
+        bot.tweet_loop.wait_for_tweet(3)
         bot.master_cmd.onecmd("tweet_now")
         bot.shutdown()
         self.assertTrue(self.log_buffer.has_text('BROKEN_CHAIN'), self.log_buffer.buffer)

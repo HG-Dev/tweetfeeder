@@ -27,6 +27,16 @@ class Log:
                     return True
             return False
 
+        def has_text_nonce(self, text):
+            ''' Determine if some text is in the log buffer, but only once '''
+            okay = False
+            for record in self.buffer:
+                if text in record:
+                    okay = not okay # Becomes true one time
+                    if not okay:    # Becomes false the next
+                        return False
+            return okay
+
         def write(self, record):
             ''' Adds a log entry, ignoring unnecessary terminators '''
             if len(record) > 1:

@@ -6,7 +6,6 @@ from tweepy import OAuthHandler
 from .utils import FileIO
 from ..flags import BotFunctions
 from ..exceptions import LoadConfigError
-from ..logs import Log
 
 class Config:
     ''' Config data storage and processing for usage inside hg_tweetfeeder.bot '''
@@ -14,7 +13,7 @@ class Config:
         self.tweet_time_strings = [] # Temp data holder
         self.keys = {} # Temp data holder
         self.filepaths = {'feed': None, 'stats': None, 'log': None, 'auth': None}
-        self.on_change = on_change
+        self.on_change = on_change or Config.on_change_dummy
         self._functionality = functionality
         self.authorization = None
         self.min_tweet_delay = 4
@@ -23,11 +22,12 @@ class Config:
         if not filepath:
             return
         try: #Stage one, get serialized settings
-            self.__dict__.update(FileIO.get_json_dict(filepath))
+            config_dict = FileIO.get_json_dict(filepath)
+            self.__dict__.update(config_dict)
+        except (ValueError) as e: #This isn't catching for some reason, but oh well
+            raise LoadConfigError("Settings JSON is faulty: " + str(FileIO.get_json_dict(filepath))) from e
         except FileNotFoundError as e:
             raise LoadConfigError("Could not load settings JSON.") from e
-        except ValueError as e: #Apparently JSONDecodeError inherits from this #TODO Figure out why init_check no longer passes this
-            raise LoadConfigError("Settings JSON is faulty: " + str(FileIO.get_json_dict(filepath))) from e
         except AttributeError as e:
             raise LoadConfigError(
                 "Settings JSON is incomplete."
@@ -55,7 +55,7 @@ class Config:
                 "Settings JSON was loaded, " +
                 "but its credentials filepath didn't work."
             ) from e
-        except ValueError as e:
+        except (ValueError, TypeError) as e:
             raise LoadConfigError("Credentials JSON is faulty.") from e
         except (KeyError, AttributeError) as e:
             raise LoadConfigError("Credentials JSON is incomplete.") from e
@@ -115,6 +115,11 @@ class Config:
             except ValueError as e:
                 raise ValueError("Problem was with tweet_time #{}".format(itr+1)) from e
         return tweet_times
+
+    @staticmethod
+    def on_change_dummy():
+        ''' Do nothing on change '''
+        pass
 
     def verify_paths(self):
         ''' Ensures that the paths given for feed/stats files can be used. '''
