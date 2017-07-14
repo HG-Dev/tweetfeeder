@@ -70,7 +70,7 @@ class TweetFeederListener(StreamListener):
         if status.event in absolute: # these have a target_object
             self._stats.update_tweet_stats_from_status(status.target_object)
             info = status.target_object['id']
-        if status.event in relative_pos:
+        elif status.event in relative_pos:
             self._stats.mod_tweet_stats(status.target_object['id'], 'requotes', 1)
         elif status.event in ignored:
             return False
