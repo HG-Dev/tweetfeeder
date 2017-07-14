@@ -194,24 +194,26 @@ class DripFilter(logging.Filter):
         """Returns true if the record text is substantial and
         the speed limit has not been exceeded.
         """
-        try:
-            lvl = record.levelno
-        except AttributeError:
-            print("Logging: Given record has no level attribute: " + str(record))
-            lvl = logging.DEBUG
-
-        okay = False
-        try:
-            nxtime = DripFilter.LAST_SEND[lvl] + DripFilter.TICK_SPEED[lvl]
-            if nxtime > datetime.now():
-                okay = True
-        except KeyError:
-            okay = True
-        
-        if okay:
-            DripFilter.LAST_SEND[lvl] = datetime.now()
-        
-        return okay
+        return True
+##        try:
+##            lvl = record.levelno
+##        except AttributeError:
+##            print("Logging: Given record has no level attribute: " + str(record))
+##            lvl = logging.DEBUG
+##
+##        okay = False
+##        try:
+##            nxtime = DripFilter.LAST_SEND[lvl] + DripFilter.TICK_SPEED[lvl]
+##            if nxtime > datetime.now():
+##                okay = True
+##        except KeyError:
+##            okay = True
+##        
+##        if okay:
+##            DripFilter.LAST_SEND[lvl] = datetime.now()
+##
+##        print(okay)
+##        return okay
 
 
 

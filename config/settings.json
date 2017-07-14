@@ -1,5 +1,5 @@
 {
-    "tweet_time_strings" : ["11:59", "12:00", "12:01"],
+    "tweet_time_strings" : ["8:09", "20:09"],
     "min_tweet_delay" : 10,
     "filepaths" : {
         "feed" : "feeds/tweet_feed.json",

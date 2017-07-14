@@ -104,3 +104,19 @@ class TweetFeederBot:
             ignoring tweet times.
             """
             self.bot.tweet_loop.force_tweet()
+
+        def do_status(self, args):
+            """Returns information on the bot's status.
+            """
+            report = "Functions: {}\n".format(str(self.bot.config.functionality))
+            report += "Feed index: {}\n".format(self.bot.tweet_loop.current_index)
+            if self.bot.config.functionality.Tweet:
+                report += "Time until next tweet: {} seconds".format(
+                        self.bot.tweet_loop.time_until_tweet()
+                    )
+            
+            Log.info(
+                "CMD.status",
+                report
+            )
+

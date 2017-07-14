@@ -25,6 +25,7 @@ class TweetLoop():
         self.stats: Stats = stats or Stats()
         self.current_index: int = 0 #Set in start
         self.current_timer: Timer = None
+        self._current_started = datetime.now()
         self.lock: Event = Event()
         self.timers: deque = deque()
         if config.functionality.Tweet:
@@ -101,6 +102,7 @@ class TweetLoop():
             # pop off a timer and start it
             self.current_timer = self.timers.popleft()
             self.current_timer.start()
+            self._current_started = datetime.now()
             Log.debug("TWT.next", "Starting new timer with interval {}".format(self.current_timer.interval))
 
     def stop(self):
@@ -151,6 +153,10 @@ class TweetLoop():
                 return timer.finished.wait(timeout)
         if timer_expected:
             raise NoTimerError("No tweet timers available to wait for")
+
+    def time_until_tweet(self):
+        ''' Returns the amount of time until the current timer finishes naturally. '''
+        return self.current_timer.interval - (datetime.now() - self._current_started).total_seconds()
 
     def force_tweet(self):
         ''' Forces the oldest timer to finish immediately. '''
