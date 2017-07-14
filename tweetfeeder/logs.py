@@ -181,7 +181,7 @@ class DripFilter(logging.Filter):
     KeyErrors are understood to be unrestricted"""
     TICK_SPEED = {
         logging.DEBUG: timedelta(days=1),
-        logging.INFO: timedelta(minutes=1),
+        logging.INFO: timedelta(seconds=30),
         logging.WARNING: timedelta(seconds=1)
     }
     LAST_SEND = {
@@ -203,7 +203,7 @@ class DripFilter(logging.Filter):
         okay = False
         try:
             nxtime = DripFilter.LAST_SEND[lvl] + DripFilter.TICK_SPEED[lvl]
-            if nxtime > datetime.now():
+            if nxtime < datetime.now():
                 okay = True
         except KeyError:
             okay = True
@@ -211,5 +211,4 @@ class DripFilter(logging.Filter):
         if okay:
             DripFilter.LAST_SEND[lvl] = datetime.now()
 
-        print(okay)
         return okay
