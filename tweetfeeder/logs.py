@@ -194,7 +194,7 @@ class DripFilter(logging.Filter):
         """Returns true if the record text is substantial and
         the speed limit has not been exceeded.
         """
-        return True
+        return False
 ##        try:
 ##            lvl = record.levelno
 ##        except AttributeError:

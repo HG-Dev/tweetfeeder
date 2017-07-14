@@ -95,25 +95,25 @@ class Stats:
         self.data['feed_index'] = value
         self._write_stats_file()
 
-    def find_title_from_id(self, twid):
+    def find_title_from_id(self, twid: str):
         ''' Converts a Tweet ID, given by Twitter, into a hash title. '''
-        if twid in self.data['id_to_title']:
+        if twid in self.data['id_to_title'].keys():
             return self.data['id_to_title'][twid]
         else:
             return None
 
     def get_tweet_stats(self, title_or_id):
         ''' Returns a dictionary that details the performance of a tweet '''
-        title = self.find_title_from_id(title_or_id) or title_or_id
+        title = self.find_title_from_id(str(title_or_id)) or title_or_id
         try:
             return self.data['tweets'][title]
         except KeyError:
-            Log.warning("IO.get_stats", "No stats found for " + title)
+            Log.warning("IO.get_stats", "No stats found for {}".format(title))
             return None
 
-    def mod_tweet_stats(self, title: str, stat_name: str, value):
+    def mod_tweet_stats(self, title_or_id, stat_name: str, value):
         ''' Adds a value (int or list) to a given [stat_name] for Tweet [title]. '''
-        t_stats = self.get_tweet_stats(title)
+        t_stats = self.get_tweet_stats(title_or_id)
         if t_stats:
             t_stats[stat_name] += value
             self._write_stats_file()
@@ -132,6 +132,7 @@ class Stats:
                 'rt_comments': []
             }
             Log.debug("IO.stats", "Registering tweet: " + title)
+            print(type(twid))
             self.data['id_to_title'][twid] = title
             self.data['tweets'][title] = blank_perf_stats
             self._write_stats_file()

@@ -2,10 +2,12 @@
 UserStream listener for use by TweetFeederBot.
 """
 import shlex
+import json
 from tweepy import StreamListener, API
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io import Config
 from tweetfeeder.file_io.models import Feed, Stats
+from tweetfeeder.file_io.utils import FileIO
 from tweetfeeder.exceptions import InvalidCommand
 
 class TweetFeederListener(StreamListener):
@@ -26,6 +28,12 @@ class TweetFeederListener(StreamListener):
     def on_connect(self):
         '''Called once connected to streaming server.'''
         Log.info("STR.on_connect", "Now listening for userstream events.")
+
+    def on_data(self, data):
+        '''Debug wrapper for StreamListener.on_data'''
+        #Log.info("STR.on_data", "Event")
+        FileIO.save_json_dict("test.json", json.loads(data))
+        return super(TweetFeederListener, self).on_data(data)
 
     def on_direct_message(self, status):
         ''' Called when a new direct message arrives '''
@@ -70,7 +78,7 @@ class TweetFeederListener(StreamListener):
             tweet_id = status.target_object['id']
             self._stats.mod_tweet_stats(tweet_id, "requotes", 1)
         elif status.event in ignored:
-            return False #no need to worry about accidental favoriting
+            return False
         else:
             Log.warning("STR.on_event", "Unhandled event: " + status.event)
             return False

@@ -6,7 +6,7 @@
     },
     "tweets": {
         "START": {
-            "favorites": 1,
+            "favorites": 0,
             "retweets": 0,
             "requotes": 1,
             "replies": 0,
