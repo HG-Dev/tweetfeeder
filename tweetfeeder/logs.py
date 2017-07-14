@@ -181,8 +181,8 @@ class DripFilter(logging.Filter):
     KeyErrors are understood to be unrestricted"""
     TICK_SPEED = {
         logging.DEBUG: timedelta(days=1),
-        logging.INFO: timedelta(hours=1),
-        logging.WARNING: timedelta(minutes=1)
+        logging.INFO: timedelta(minutes=1),
+        logging.WARNING: timedelta(seconds=1)
     }
     LAST_SEND = {
         logging.DEBUG: datetime(year=1989, month=1, day=1),
@@ -194,29 +194,22 @@ class DripFilter(logging.Filter):
         """Returns true if the record text is substantial and
         the speed limit has not been exceeded.
         """
-        return False
-##        try:
-##            lvl = record.levelno
-##        except AttributeError:
-##            print("Logging: Given record has no level attribute: " + str(record))
-##            lvl = logging.DEBUG
-##
-##        okay = False
-##        try:
-##            nxtime = DripFilter.LAST_SEND[lvl] + DripFilter.TICK_SPEED[lvl]
-##            if nxtime > datetime.now():
-##                okay = True
-##        except KeyError:
-##            okay = True
-##        
-##        if okay:
-##            DripFilter.LAST_SEND[lvl] = datetime.now()
-##
-##        print(okay)
-##        return okay
+        try:
+            lvl = record.levelno
+        except AttributeError:
+            print("Logging: Given record has no level attribute: " + str(record))
+            lvl = logging.DEBUG
 
+        okay = False
+        try:
+            nxtime = DripFilter.LAST_SEND[lvl] + DripFilter.TICK_SPEED[lvl]
+            if nxtime > datetime.now():
+                okay = True
+        except KeyError:
+            okay = True
 
+        if okay:
+            DripFilter.LAST_SEND[lvl] = datetime.now()
 
-
-
-
+        print(okay)
+        return okay

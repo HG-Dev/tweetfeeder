@@ -97,8 +97,8 @@ class Stats:
 
     def find_title_from_id(self, twid: str):
         ''' Converts a Tweet ID, given by Twitter, into a hash title. '''
-        if twid in self.data['id_to_title'].keys():
-            return self.data['id_to_title'][twid]
+        if str(twid) in self.data['id_to_title'].keys():
+            return self.data['id_to_title'][str(twid)]
         else:
             return None
 
@@ -120,9 +120,27 @@ class Stats:
         else:
             Log.info("IO.mod_stats", "Get failed. See above. ")
 
-    def register_tweet(self, twid: int, title: str):
+    def update_tweet_stats(self, title_or_id, stats):
+        ''' Updates dict elements that detail the performance of a tweet '''
+        title = self.find_title_from_id(str(title_or_id)) or title_or_id
+        Log.debug("IO.update_stats", "Updating stats for {}:\n{}".format(title, stats))
+        try:
+            self.data['tweets'][title].update(stats)
+            self._write_stats_file()
+        except KeyError:
+            Log.warning("IO.update_stats", "No stats found for {}".format(title))
+
+    def update_tweet_stats_from_status(self, tweet_object: dict):
+        ''' Runs update_tweet_stats from a Tweepy status '''
+        current_stats = {
+            'favorites': tweet_object['favorite_count'],
+            'retweets': tweet_object['retweet_count'],
+        }
+        self.update_tweet_stats(tweet_object['id'], current_stats)
+
+    def register_tweet(self, twid: int, title: str = None):
         ''' Save a newly published Tweet to the stats dictionary '''
-        Log.debug("IO.stats", "Preparing to register tweet...")
+        Log.debug("IO.stats", "Saving tweet data...")
         if not self.get_tweet_stats(title):
             blank_perf_stats = {
                 'favorites': 0,
@@ -132,8 +150,7 @@ class Stats:
                 'rt_comments': []
             }
             Log.debug("IO.stats", "Registering tweet: " + title)
-            print(type(twid))
-            self.data['id_to_title'][twid] = title
+            self.data['id_to_title'][str(twid)] = title
             self.data['tweets'][title] = blank_perf_stats
             self._write_stats_file()
         else:

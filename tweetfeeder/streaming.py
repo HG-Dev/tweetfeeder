@@ -8,7 +8,7 @@ from tweetfeeder.logs import Log
 from tweetfeeder.file_io import Config
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.file_io.utils import FileIO
-from tweetfeeder.exceptions import InvalidCommand
+from tweetfeeder.exceptions import InvalidCommand, UnregisteredTweetError
 
 class TweetFeederListener(StreamListener):
     """
@@ -41,7 +41,7 @@ class TweetFeederListener(StreamListener):
         # Message from user arrives
         if sender_id != self._config.bot_id:
             # Log message
-            Log.info("STR.on_dm", "{}: {}".format(
+            Log.debug("STR.on_dm", "{}: {}".format(
                 status.direct_message['sender_screen_name'],
                 status.direct_message['text']
             ))
@@ -61,22 +61,17 @@ class TweetFeederListener(StreamListener):
         Called when a new event arrives.
         This responds to "favorite" and "quoted_tweet."
         """
+        absolute = ['favorite', 'unfavorite']
+        relative_pos = ['quoted_tweet']
         ignored = ['follow']
-        actor = ""
+        actor = status.source['screen_name']
         info = ""
-        if status.event == "favorite": #This tends to come in delayed bunches
-            actor = status.source['screen_name']
+
+        if status.event in absolute: # these have a target_object
+            self._stats.update_tweet_stats_from_status(status.target_object)
             info = status.target_object['id']
-            self._stats.mod_tweet_stats(info, "favorites", 1)
-        elif status.event == "unfavorite": #This tends to come in delayed bunches
-            actor = status.source['screen_name']
-            info = status.target_object['id']
-            self._stats.mod_tweet_stats(info, "favorites", -1)
-        elif status.event == "quoted_tweet":
-            actor = status.source['screen_name']
-            info = status.target_object['text']
-            tweet_id = status.target_object['id']
-            self._stats.mod_tweet_stats(tweet_id, "requotes", 1)
+        if status.event in relative_pos:
+            self._stats.mod_tweet_stats(status.target_object['id'], 'requotes', 1)
         elif status.event in ignored:
             return False
         else:
@@ -93,7 +88,7 @@ class TweetFeederListener(StreamListener):
             event = "retweet"
             actor = status.user.screen_name
             info = status.retweeted_status.id
-            self._stats.mod_tweet_stats(info, "retweets", 1)
+            self._stats.update_tweet_stats_from_status(status.retweeted_status.__dict__) #Retweeted status isn't a dict
         elif status.in_reply_to_user_id == self._config.bot_id:
             event = "reply"
             actor = status.author.screen_name
