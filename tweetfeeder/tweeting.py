@@ -11,7 +11,7 @@ from tweetfeeder.logs import Log
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.exceptions import TweetFeederError, LoadFeedError, NoTimerError, ExistingTimerError
 from tweetfeeder.file_io.config import Config
-# NOTE: the Stats() is preserved, so it must be marked dirty upon "initializing"
+
 class TweetLoop():
     ''' Interprets TweetFeeder configuration to publish Tweets on a schedule '''
     def __init__(self, config: Config, feed: Feed, stats: Stats = None):
