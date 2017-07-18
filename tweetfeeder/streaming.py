@@ -27,7 +27,7 @@ class TweetFeederListener(StreamListener):
 
     def on_connect(self):
         '''Called once connected to streaming server.'''
-        Log.info("STR.on_connect", "Now listening for userstream events.")
+        Log.debug("STR.on_connect", "Now listening for userstream events.")
 
     def on_data(self, data):
         '''Debug wrapper for StreamListener.on_data'''
