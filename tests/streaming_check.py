@@ -133,9 +133,8 @@ class TFStreamTests(unittest.TestCase):
             self.listener.on_data(cassette.read())
             self.assertFalse(self.log_buffer.has_text(), "Buffer should be empty!")
 
-    @unittest.skip("May be conflicting with other tests")
     def test_get_master_dm(self):
         ''' Does the bot respond to a DM from the master account? '''
         with open('tests/cassettes/stream_get_master_dm.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
-            self.assertTrue(self.log_buffer.has_text("shutdown")) 
+            self.assertTrue(self.log_buffer.has_text("CMD.status"))

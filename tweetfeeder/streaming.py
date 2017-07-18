@@ -1,8 +1,8 @@
 """
 UserStream listener for use by TweetFeederBot.
 """
-import shlex
 import json
+from threading import Timer
 from tweepy import StreamListener, API
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io import Config
@@ -23,18 +23,20 @@ class TweetFeederListener(StreamListener):
         self._stats = stats
         self.cmd_method = cmd_method
         self.api = API(config.authorization)
+        self.timers = []
+        self.check_delay = 420  #Seven minutes
         super(TweetFeederListener, self).__init__(self.api)
 
     def on_connect(self):
         '''Called once connected to streaming server.'''
         Log.debug("STR.on_connect", "Now listening for userstream events.")
 
-    def on_data(self, data):
+    def on_data(self, raw_data):
         '''Debug wrapper for StreamListener.on_data'''
         #Log.info("STR.on_data", "Event")
-        FileIO.save_json_dict("test.json", json.loads(data))
-        if super(TweetFeederListener, self).on_data(data) is False:
-            Log.warning("STR.on_data", "Streaming will stop!")
+        FileIO.save_json_dict("test.json", json.loads(raw_data))
+        if super(TweetFeederListener, self).on_data(raw_data) is False:
+            Log.error("STR.on_data", "Streaming halt!")
 
     def on_direct_message(self, status):
         ''' Called when a new direct message arrives '''
@@ -90,6 +92,9 @@ class TweetFeederListener(StreamListener):
             actor = status.user.screen_name
             info = status.retweeted_status.id
             self._stats.update_tweet_stats_from_status(status.retweeted_status.__dict__) #Retweeted status isn't a dict
+            timer = Timer(self.check_delay, self.check_for_comments, (status.user.id, info))
+            timer.start()
+            self.timers.append(timer)
         elif status.in_reply_to_user_id == self._config.bot_id:
             event = "reply"
             actor = status.author.screen_name
@@ -129,4 +134,40 @@ class TweetFeederListener(StreamListener):
 
     def on_disconnect(self, notice):
         ''' Called, presumably, when Twitter disconnects us for an error. '''
+        self._cancel_checks()
         Log.warning("STR.on_disconnect", "Streaming: " + notice)
+
+    def check_for_comments(self, user_id, tweet_id):
+        ''' Checks for any comments a user might have had after retweeting tweet_id '''
+        Log.debug("STR.rt_check", "Checking for comments on retweet...")
+        twenty_statuses = reversed(self.api.user_timeline(id=user_id))
+        pick_up_next = False
+        potential_comment = None
+        for status in twenty_statuses:
+            if pick_up_next:
+                potential_comment = status
+                break
+            try:
+                if status.retweeted_status.id == tweet_id:
+                    pick_up_next = True
+            except AttributeError:
+                pass
+        if potential_comment:
+            if 'RT' in potential_comment.text and not 'RT @' in potential_comment.text:
+                Log.info("STR.rt_check", "User ({}) commented on retweet!".format(potential_comment.user.screen_name))
+                # Add related text to rt_comments
+                self._stats.mod_tweet_stats(tweet_id, 'rt_comments', potential_comment.text)
+
+        self._clear_finished_checks()
+
+    def _cancel_checks(self):
+        ''' Cancel all timed checks of RT comments '''
+        for timer in self.timers:
+            timer.cancel()
+        self.timers.clear()
+
+    def _clear_finished_checks(self):
+        ''' Clear list of all finished checks '''
+        for timer in self.timers:
+            if timer.finished.is_set() is True:
+                self.timers.remove(timer)

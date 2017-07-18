@@ -115,10 +115,13 @@ class Stats:
         ''' Adds a value (int or list) to a given [stat_name] for Tweet [title]. '''
         t_stats = self.get_tweet_stats(title_or_id)
         if t_stats:
-            t_stats[stat_name] += value
+            if isinstance(t_stats[stat_name], list):
+                t_stats.append(value)
+            else:
+                t_stats[stat_name] += value
             self._write_stats_file()
         else:
-            Log.info("IO.mod_stats", "Get failed. See above. ")
+            Log.debug("IO.mod_stats", "Get failed. See above. ")
 
     def update_tweet_stats(self, title_or_id, stats):
         ''' Updates dict elements that detail the performance of a tweet '''

@@ -50,11 +50,31 @@
             "rt_comments": []
         },
         "KOALA_FAVORITE_FOOD": {
-            "favorites": 2,
-            "retweets": 0,
+            "favorites": 1,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
-            "rt_comments": []
+            "rt_comments": [
+                "R",
+                "T",
+                " ",
+                "t",
+                "e",
+                "s",
+                "t",
+                " ",
+                "d",
+                "a",
+                "t",
+                "a",
+                " ",
+                "p",
+                "i",
+                "c",
+                "k",
+                "u",
+                "p"
+            ]
         },
         "NOW_HAVE_ATTENTION": {
             "favorites": 1,
