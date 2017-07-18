@@ -108,7 +108,7 @@ class Stats:
         try:
             return self.data['tweets'][title]
         except KeyError:
-            Log.warning("IO.get_stats", "No stats found for {}".format(title))
+            Log.debug("IO.get_stats", "No stats found for {}".format(title))
             return None
 
     def mod_tweet_stats(self, title_or_id, stat_name: str, value):

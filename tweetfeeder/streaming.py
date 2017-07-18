@@ -33,7 +33,8 @@ class TweetFeederListener(StreamListener):
         '''Debug wrapper for StreamListener.on_data'''
         #Log.info("STR.on_data", "Event")
         FileIO.save_json_dict("test.json", json.loads(data))
-        return super(TweetFeederListener, self).on_data(data)
+        if super(TweetFeederListener, self).on_data(data) is False:
+            Log.warning("STR.on_data", "Streaming will stop!")
 
     def on_direct_message(self, status):
         ''' Called when a new direct message arrives '''
@@ -73,10 +74,10 @@ class TweetFeederListener(StreamListener):
         elif status.event in relative_pos:
             self._stats.mod_tweet_stats(status.target_object['id'], 'requotes', 1)
         elif status.event in ignored:
-            return False
+            return True #False would stop streaming
         else:
             Log.warning("STR.on_event", "Unhandled event: " + status.event)
-            return False
+            return True
         Log.info("STR.on_event", "{} {}: {}".format(status.event, actor, info))
 
     def on_status(self, status):
@@ -103,19 +104,19 @@ class TweetFeederListener(StreamListener):
                 #Non-reply should already be registered... unless it was tweeted directly.
                 if not self._stats.find_title_from_id(info):
                     Log.warning("STR.on_status", "Add to feed? <{}>".format(status.text))
-                    return False
+                    return True
             else:
-                return False #Ignore manual or possibly automatic interactions with users
+                return True #Ignore manual or possibly automatic interactions with users
         elif status.is_quote_status:
-            return False #Ignore; this will be picked up by on_event
+            return True #Ignore; this will be picked up by on_event
         elif not status.in_reply_to_user_id:
-            return False #Ignore; this is just a mention or master tweet
+            return True #Ignore; this is just a mention or master tweet
         else:
             Log.warning(
                 "STR.on_status",
                 "on_status?: " + status.id_str
             )
-            return False
+            return True
         Log.info(
             "STR.on_status",
             "{} {}: {}".format(
