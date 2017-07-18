@@ -54,27 +54,7 @@
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
-            "rt_comments": [
-                "R",
-                "T",
-                " ",
-                "t",
-                "e",
-                "s",
-                "t",
-                " ",
-                "d",
-                "a",
-                "t",
-                "a",
-                " ",
-                "p",
-                "i",
-                "c",
-                "k",
-                "u",
-                "p"
-            ]
+            "rt_comments": []
         },
         "NOW_HAVE_ATTENTION": {
             "favorites": 1,
