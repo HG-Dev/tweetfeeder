@@ -34,7 +34,7 @@ class TweetFeederListener(StreamListener):
     def on_data(self, raw_data):
         '''Debug wrapper for StreamListener.on_data'''
         #Log.info("STR.on_data", "Event")
-        FileIO.save_json_dict("test.json", json.loads(raw_data))
+        FileIO.save_json_dict("/private/test.json", json.loads(raw_data))
         if super(TweetFeederListener, self).on_data(raw_data) is False:
             Log.error("STR.on_data", "Streaming halt!")
 
