@@ -118,5 +118,41 @@
     "text": "We're prepared for all eventualities. The Titanic is unsinkable!\n意訳》我々はあらゆる事態に備えている。タイタニック号は沈められない！",
     "chain": false,
     "rerun": false
+  },
+  {
+    "title": "ONLY_BEST",
+    "text": "Nothing but the best for Mr. Fluffykins!\n直訳》ミスター・フラフィキンズ（おそらく猫の名前）のためなら最上のものだけよ！",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "VERY_ALLERGIC",
+    "text": "I'm allergic to virtually everything.\n直訳》私はだいたい何もかもにアレルギーを持っている\nメモ》virtualを見るとVRとか仮想世界とか思い浮かぶかもしれないけど、almost / nearly の意味でよく使われている",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FILLED_WITH_CABBAGES",
+    "text": "Lydia woke up one day to find she was covered in hundreds of cabbages.\n直訳》リディアはある日目覚めると自分が何百個のキャベツで埋められていることに気づいた。",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "NOTE_ON_FOUND",
+    "text": "「find」という単語の根本的な意味は、もちろん、「見つける」。しかし「ある事実」を見つけることでよく使われる。",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NOTE_ON_FOUND2",
+    "text": "「ある事実をfind」の現在進行形の一例：　I'm [finding it difficult](難しいことになっている) to hear you, can I call you back [when I'm home?](帰宅したら)",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "NOTE_ON_FOUND3",
+    "text": "What do you find difficult? Try replying to this post!",
+    "chain": false,
+    "rerun": true
   }
 ]
