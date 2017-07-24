@@ -154,5 +154,35 @@
     "text": "What do you find difficult? Try replying to this post!",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "ATTACK_ON_TITAN",
+    "text": "違和感シリーズを一つやるか。陳腐だけど。主に巨人が襲ってくるのに「巨人への攻撃」「Attack on Titan」とは",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "RUNNING_OUT_OF",
+    "text": "Sir! We're running out of puns!\n意訳》ダンナ！ダジャレが少なくなっております！\nメモ》直訳だと「切らしそう」",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "BIRDS_OF_A_FEATHER",
+    "text": "ことわざのコーナー\nBirds of a feather, flock together.\n「同類は集まりがち」 最初の一部はよく考えると分かりにくいが、韻を踏んでいるから覚えやすいですね。「a feather」はつまり羽毛一本、または一種類。",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FAKE_KOTOWAZA",
+    "text": "ことわざのコーナー\nA suspicious saying says little weighing.\n（実在するのも）あやしいことわざは意味があまりない・影響力があまりない。ちなみにこのことわざも実在しない",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "FAKE_KOTOWAZA2",
+    "text": "「A suspicious saying says little weighing」の最後を不思議に思う人もいるかと思うけど、「of little weight」（重さ少ない、つまり影響力がない）とは一般的な言い回しです。",
+    "chain": true,
+    "rerun": true
   }
 ]
