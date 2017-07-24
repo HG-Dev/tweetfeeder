@@ -182,7 +182,13 @@
   {
     "title": "FAKE_KOTOWAZA2",
     "text": "「A suspicious saying says little weighing」の最後を不思議に思う人もいるかと思うけど、「of little weight」（重さ少ない、つまり影響力がない）とは一般的な言い回しです。",
-    "chain": true,
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "HEARTFUL",
+    "text": "違和感シリーズ: heartful\n古英語ならあり得そうだったと考え、調べてみると実際そうなのが「heartful」。意味は「devout, earnest」（宗教において忠実）だそうだ。使わないでくれ、英訳するたびにheartburnが起こるから",
+    "chain": false,
     "rerun": true
   }
 ]
