@@ -158,7 +158,7 @@
   {
     "title": "ATTACK_ON_TITAN",
     "text": "違和感シリーズを一つやるか。陳腐だけど。主に巨人が襲ってくるのに「巨人への攻撃」「Attack on Titan」とは",
-    "chain": true,
+    "chain": false,
     "rerun": true
   },
   {
