@@ -87,7 +87,7 @@ class TweetFeederListener(StreamListener):
         event = ""
         actor = ""
         info = ""
-        if hasattr(status, 'retweeted_status'):
+        if hasattr(status, 'retweeted_status') and status.retweeted_status.user.id == self._config.bot_id:
             event = "retweet"
             actor = status.user.screen_name
             info = status.retweeted_status.id
@@ -116,7 +116,8 @@ class TweetFeederListener(StreamListener):
             return True #Ignore; this will be picked up by on_event
         elif not status.in_reply_to_user_id:
             return True #Ignore; this is just a mention or master tweet
-        else:
+        elif status.author.id != self._config.master_id:
+            # Oddball catch-all
             Log.warning(
                 "STR.on_status",
                 "on_status?: " + status.id_str

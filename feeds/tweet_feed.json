@@ -190,5 +190,35 @@
     "text": "違和感シリーズ: heartful\n古英語ならあり得そうだったと考え、調べてみると実際そうなのが「heartful」。意味は「devout, earnest」（宗教において忠実）だそうだ。使わないでくれ、英訳するたびにheartburnが起こるから",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "EXPECT_LITTLE",
+    "text": "There's a test tomorrow, but rest assured: I expect little of any of you.\n意訳》明日からテストだが、安心してください。皆さんには、あまり期待をしていないのです。\nメモ》「:」の使い方に注意",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "TIME_TO_REPLACE",
+    "text": "Isn't it time you replaced that clunker of a car?\n意訳》そろそろあのポンコツ車を買い替えたらどうだ？",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "TIME_TO_RETORT",
+    "text": "(Retort) Isn't it time YOU took a long walk [on/off] a short pier?\n意訳》（言い返し）そろそろ失せたらどうだ？\n最後の直訳》短い埠頭で長い散歩（offだと落ちることを仄めかし、さらにぶっきらぼう）",
+    "chain": false,
+    "rerun": true
+  },  
+  {
+    "title": "SPLITTING_IMAGE",
+    "text": "You're the splitting image of the Medicine Buddha.\n意訳》あんたって薬師如来そっくりですね。",
+    "chain": false,
+    "rerun": true
+  },  
+  {
+    "title": "HAPPENED_TO_HEAR",
+    "text": "I happened to hear that all makers of natto are raising prices next year. Better stock up!\n意訳》来年メジャーな納豆メーカーが値上げをすると耳にした。今のうちに買っておいたほうがいいよ！",
+    "chain": false,
+    "rerun": true
   }
 ]
