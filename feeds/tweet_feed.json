@@ -220,10 +220,124 @@
     "text": "I happened to hear that all makers of natto are raising prices next year. Better stock up!\n意訳》来年メジャーな納豆メーカーが値上げをすると耳にした。今のうちに買っておいたほうがいいよ！",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "BLOOMED_INTO",
+    "text": "My daughter has bloomed into a beautiful Conquerer of Worlds.\n意訳》うちの娘が美しい星の征服者になった\nメモ》娘となれば「bloom」がよく出てくるなぁ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "PLEASED_TO_HAVE_YOU",
+    "text": "We're so pleased to have you all here. Except for Dave.\n意訳》みんなにいらしていただけて嬉しい限りです。デーブを除いては。\nメモ》「pleased」じゃなくて「so」は高く言う",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FREAK_SHOW_REJECTS",
+    "text": "(Insult) Get these freak show rejects out of my office.\n直訳》こいつらの見世物小屋に拒絶された連中を俺のオフィスから追い出せ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FAILED_ANALOGY",
+    "text": "(Analogy) The train hissed like an angry train.\n直訳》機関車は怒った機関車のようにシーッと音を立てた。\nメモ》英語においては例えの練習は大事",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FIGURED_IT_OUT",
+    "text": "I figured it out! \"American Dogs\" are actually \"Funnel Cake Dogs!\".\n意訳》ついに分かったぞ！アメリカンドッグとは、ファンネルケーキドッグなんだ！\nメモ》不思議に思ってた",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "YODA_GACHA",
+    "text": "Fear leads to anger. Anger leads to hate. Hate leads to in-game transactions!\n意訳》恐れは怒りに　怒りは憎しみに　憎しみは課金へとつながっておる！",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "RENTS_ARE_REASONABLE",
+    "text": "Yes, it's over 1000 degrees down there, now. And yet... rents are reasonable!\n直訳》ええ、地上は今1000°を超えている。なのに…家賃はリーズナブルだ！\nメモ》はい、MST3Kだ",
+    "chain": false,
+    "rerun": true
   },  
   {
-    "title": "BLOOMING_INTO",
-    "text": "My daughter has bloomed into a beautiful Conquerer of Worlds.\n意訳》うちの娘が美しい星の征服者となった",
+    "title": "WIIU2U",
+    "text": "Hopefully Nintendo's next console after the switch will not be called the \"WiiU2U.\"\n意訳》任天堂のスイッチの次のゲーム機が「WiiU2U」と呼ばれないといいけど",
+    "chain": false,
+    "rerun": true
+  },  
+  {
+    "title": "HEY_BUDDY",
+    "text": "Hey buddy! Those magazines are for purchase, not your perusal!\n直訳》おい あんた！そこらの雑誌は立ち読みするためじゃなくて購入するためにあるぞ！\nメモ》順番の逆転の注意",
+    "chain": false,
+    "rerun": true
+  },  
+  {
+    "title": "TAKES_ONE_TO_KNOW",
+    "text": "(Retort) It takes one to know one.\n意訳》オマエモナー\n直訳》そうと知るには自分もそうである必要がある",
+    "chain": false,
+    "rerun": true
+  },  
+  {
+    "title": "GET_ME_WRONG",
+    "text": "Don't get me wrong, I like you, but I don't *like* you.\n意訳》勘違いしないでくれ、あんたは好きだけど、そういう好きじゃない",
+    "chain": false,
+    "rerun": true
+  },  
+  {
+    "title": "CANCEL_APPOINTMENTS",
+    "text": "Cancel all my appointments, I have a pressing nap to attend to.\n意訳》約束を全部取り消してくれ、至急やらねばならない昼寝がある",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "IF_YOU_ARE_READING",
+    "text": "If you are reading this, please, don't look behind you.\n意訳》これを読んでいるなら、後を見ないでください。",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "GASOLINE_PRICES",
+    "text": "Gas costs an arm and a leg these days, but a firstborn son is also accepted.\n直訳》この頃ガソリンは腕と足がかかるけど、長男も使えます。\nメモ》後半の言い回し、実家では健在",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "SINGULARITY",
+    "text": "I don't want to go to school today! My horoscope says the Singularity is starting!\n直訳》今日は学校に行きたくない！うちの占いが（技術的）特異点が始まるって言っている！",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "MURMURED",
+    "text": "Al held the half-eaten cream bun aloft. \"This is where it all began,\" he murmured.\n意訳》アルは食べかけのクリームパンをかざし、つぶやいた。「すべてはここから始まった」",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "BELIEVE_BUTTER",
+    "text": "I can't believe that they believe that we'll believe that \"I Can't Believe It's Not Butter\" is actually butter.\nメモ》長いので訳出は次のつぶやきだ",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "BELIEVE_BUTTER2",
+    "text": "直訳》私たちが「バターじゃないなんて信じられない」がバターだと信じると彼らが信じるなんて私は信じられない\nメモ》実在する品物におけるある兄弟の戯け口でした",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "TAKE_THE_WHEEL",
+    "text": "Take the wheel! My driver's license just expired!\n意訳》運転を頼む！こっちの運転免許がちょうど今切れたんだ！",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "JUST_GOT_UP",
+    "text": "I just got up, man?\n意訳》今起きたばっかりなんだだぜ？\nメモ》この表現のイントネーションはうるさいが、そこが受けるポイントだ",
     "chain": false,
     "rerun": true
   }
