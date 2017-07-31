@@ -235,13 +235,13 @@
   },
   {
     "title": "FREAK_SHOW_REJECTS",
-    "text": "(Insult) Get these freak show rejects out of my office.\n直訳》こいつらの見世物小屋に拒絶された連中を俺のオフィスから追い出せ",
+    "text": "(Insult) Get these freak show rejects out of my office.\n直訳》この見世物小屋に拒絶された連中を俺のオフィスから追い出せ",
     "chain": false,
     "rerun": true
   },
   {
     "title": "FAILED_ANALOGY",
-    "text": "(Analogy) The train hissed like an angry train.\n直訳》機関車は怒った機関車のようにシーッと音を立てた。\nメモ》英語においては例えの練習は大事",
+    "text": "(Analogy) The train hissed like an angry train.\n直訳》機関車は怒った機関車のようにシーッと音を立てた。\nメモ》英語は例えの練習が大事",
     "chain": false,
     "rerun": true
   },
@@ -338,6 +338,18 @@
   {
     "title": "JUST_GOT_UP",
     "text": "I just got up, man?\n意訳》今起きたばっかりなんだだぜ？\nメモ》この表現のイントネーションはうるさいが、そこが受けるポイントだ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "HOW_RUDE",
+    "text": "How rude!\n意訳》失礼な！メモ》最初は「馬鹿とは失礼な」を英語に訳そうとしたけど、当てはまる言い回しがないなぁ",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "HOW_RUDE2",
+    "text": "「馬鹿とは失礼な」に似た英語を考える\nWho are you calling an idiot?（誰を馬鹿と呼んでいる）\nWho's an idiot!（誰が馬鹿だ）\nThat's rude!（それは失礼だろう）",
     "chain": false,
     "rerun": true
   }
