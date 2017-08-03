@@ -258,12 +258,6 @@
     "rerun": true
   },
   {
-    "title": "IF_ONLY",
-    "text": "RT: If only Obi-Wan had finished levelling up his speech skill.\n意訳》オビワンが自分のスピーチスキルのレベルアップを終えていればよかったのに。",
-    "chain": false,
-    "rerun": false
-  },
-  {
     "title": "RENTS_ARE_REASONABLE",
     "text": "Yes, it's over 1000 degrees down there, now. And yet... rents are reasonable!\n直訳》ええ、下（地上）では今1000°を超えている。なのに…家賃はリーズナブルだ！\nメモ》はい、MST3Kだ",
     "chain": false,
