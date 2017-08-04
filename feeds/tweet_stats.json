@@ -1,5 +1,5 @@
 {
-    "feed_index": 28,
+    "feed_index": 44,
     "rerunning": false,
     "id_to_title": {
         "885392286036537346": "START",
@@ -29,7 +29,23 @@
         "889442422815571968": "NOTE_ON_FOUND2",
         "889442466159394817": "NOTE_ON_FOUND3",
         "889623618120024064": "ATTACK_ON_TITAN",
-        "889623661677772800": "RUNNING_OUT_OF"
+        "889623661677772800": "RUNNING_OUT_OF",
+        "889804813218611200": "BIRDS_OF_A_FEATHER",
+        "889986008615239680": "FAKE_KOTOWAZA",
+        "889986052047257601": "FAKE_KOTOWAZA2",
+        "890167204007657472": "HEARTFUL",
+        "890348399345647616": "EXPECT_LITTLE",
+        "890529594658373632": "TIME_TO_REPLACE",
+        "890710790122094592": "TIME_TO_RETORT",
+        "890891985434759168": "SPLITTING_IMAGE",
+        "891073180768419840": "HAPPENED_TO_HEAR",
+        "891254376177647617": "BLOOMED_INTO",
+        "891435571549151232": "PLEASED_TO_HAVE_YOU",
+        "891616767008571392": "FREAK_SHOW_REJECTS",
+        "891797962371641345": "FAILED_ANALOGY",
+        "891979157764059137": "FIGURED_IT_OUT",
+        "892160353156583424": "YODA_GACHA",
+        "892341548649562113": "RENTS_ARE_REASONABLE"
     },
     "tweets": {
         "START": {
@@ -187,7 +203,7 @@
             "rt_comments": []
         },
         "FIND_CABBAGES": {
-            "favorites": 1,
+            "favorites": 3,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -216,12 +232,124 @@
         },
         "ATTACK_ON_TITAN": {
             "favorites": 0,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 1,
             "rt_comments": []
         },
         "RUNNING_OUT_OF": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BIRDS_OF_A_FEATHER": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FAKE_KOTOWAZA": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FAKE_KOTOWAZA2": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "HEARTFUL": {
+            "favorites": 2,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "EXPECT_LITTLE": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "TIME_TO_REPLACE": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "TIME_TO_RETORT": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "SPLITTING_IMAGE": {
+            "favorites": 1,
+            "retweets": 2,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "HAPPENED_TO_HEAR": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BLOOMED_INTO": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "PLEASED_TO_HAVE_YOU": {
+            "favorites": 1,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FREAK_SHOW_REJECTS": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 1,
+            "rt_comments": []
+        },
+        "FAILED_ANALOGY": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FIGURED_IT_OUT": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "YODA_GACHA": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "RENTS_ARE_REASONABLE": {
             "favorites": 0,
             "retweets": 0,
             "requotes": 0,
