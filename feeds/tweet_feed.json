@@ -277,7 +277,7 @@
   },  
   {
     "title": "HEY_BUDDY",
-    "text": "Hey buddy! Those magazines are for purchase, not your perusal!\n直訳》おい あんた！そこらの雑誌は立ち読みするためじゃなくて購入するためにあるぞ！\nメモ》順番の逆転の注意",
+    "text": "Hey buddy! Those magazines are for purchase, not your perusal!\n意訳》おい あんた！そこらの雑誌は立ち読みするためじゃなくて購入するためにあるぞ！\nメモ》順番の逆転の注意",
     "chain": false,
     "rerun": true
   },  
@@ -373,7 +373,19 @@
   },
   {
     "title": "ROLL_FOR_PERCEPTION",
-    "text": "\"I roll for perception... one.\" \"Your eyes spontaneously burst from their sockets.\"\n直訳》「感知を振る…１」「あなたの目は突然自ら眼窩から飛び出る」",
+    "text": "\"I roll for perception... one.\" \"Your eyes spontaneously burst from their sockets.\"\n直訳》「感知を振る…１」「あなたの目は突然眼窩から飛び出る」",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FACE_THE_MUSIC",
+    "text": "Time for you to face the music.\n意訳》当然の報いを受け入れる時が来たぞ\nメモ》語源は不明だけど、（嫌なことに）音楽に直面すると言えば色々思い浮かびますね",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "BELIEVE_IT",
+    "text": "Believe it or not, but cats are afraid of cucumbers because they attract kappas.\n意訳》信じないかもしれないが、猫はキュウリが怖いのはかっぱを引き寄せるからです",
     "chain": false,
     "rerun": true
   }
