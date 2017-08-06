@@ -382,5 +382,17 @@
     "text": "Believe it or not, but cats are afraid of cucumbers because they attract kappas.\n意訳》信じないかもしれないが、猫はキュウリが怖いのはかっぱを引き寄せるからです",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "WHOLESOME",
+    "text": "ネットスラングシリーズ\nWholesome\n普通なら自然に栄養豊富で健康にいいという意味だが、たまには食べ物以外のものを描いて無邪気で健全という意味になる。最近ネット上では後者がよく使われている",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "UNYIELDING_SPIRIT",
+    "text": "英訳の閃きシリーズ\nan unyielding spirit\n意訳》諦めない心\nメモ》yield can mean 'give up,' 'give in,' 'surrender'",
+    "chain": false,
+    "rerun": true
   }
 ]
