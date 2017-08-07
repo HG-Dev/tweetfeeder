@@ -394,5 +394,41 @@
     "text": "英訳の閃きシリーズ\nan unyielding spirit\n意訳》諦めない心\nメモ》yield can mean 'give up,' 'give in,' 'surrender'",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "YAPPA_BEER_DAYONA",
+    "text": "英訳の閃きシリーズ\nGotta love ice cream (on a hot summer day).\n意訳》やっぱ（暑い夏の日は）アイスだよな\nメモ》「やっぱり〇だよな」は英語では通じないが、「〇は愛さざるを得ない got to love 〇」の使い方は似ている",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "YAPPARI",
+    "text": "前回「やっぱり〇だ」に触れたが、実は「やっぱり」そのものがいい英訳と悪い英訳の境界線になったりする。素人なら「As expected／期待した通り」という翻訳を悪用する。（つづく）",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "YAPPARI2",
+    "text": "「やっぱり」の英訳\n「ああ、やっぱり？」という一言の裏の意味を考えよう。「まあ当然か」とも言えるかと思われる。ならば悲しそうに「Of course...」と言うのが自然な英訳だろう",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "YAPPARI3",
+    "text": "「やっぱり」は使用率が高いゆえに英訳することが多い。ただし、このアカウントで分け合おうとしている英語という「考え方」もあるし、直訳できる場合が少ない。今後も文書に練り込み、英語でどう化けるのか考えたいと思います。",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "FRIGID_TOILET",
+    "text": "Americans have developed thickened posteriors to weather their frigid toilet seats.\n意訳》冷たい便座と耐えるために、アメリカ人の尻は肥厚してきました",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "FRIGID_TOILET2",
+    "text": "今回の面白い単語\nposterior: a politer way of saying 'butt'\nweather: to withstand\nメモ》develop は時間をかけて「なる」という意味で医学などで使われる",
+    "chain": false,
+    "rerun": true
   }
 ]
