@@ -337,7 +337,7 @@
   },
   {
     "title": "JUST_GOT_UP",
-    "text": "I just got up, man?\n意訳》今起きたばっかりなんだだぜ？\nメモ》この表現のイントネーションはうるさいが、そこが受けるポイントだ",
+    "text": "I just got up, man?\n意訳》今起きたばっかりなんだぜ？\nメモ》この表現のイントネーションはうるさいが、そこが受けるポイントだ",
     "chain": false,
     "rerun": true
   },
@@ -428,6 +428,48 @@
   {
     "title": "FRIGID_TOILET2",
     "text": "今回の面白い単語\nposterior: a politer way of saying 'butt'\nweather: to withstand\nメモ》develop は時間をかけて「なる」という意味で医学などで使われる",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "IDIOCY_HIGHEST_DEGREE",
+    "text": "This is idiocy in the highest degree!\n直訳》これは最上級のばからしさ！\nメモ》in the highest degree はなんだかんだ笑っちゃう",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "ERA_END",
+    "text": "end of an era\n直訳》時代の終わり",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "THOUGHT_SO",
+    "text": "I thought so. / I thought as much.\n意訳》やっぱりな\n直訳》そう思った",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "LOOSE_GROOVE",
+    "text": "I'm losing my groove.\n意訳》腕が鈍ってる／調子が狂ってる\nメモ》アメリカの現地語「in the groove」（いい調子）、そして「groovy」は古くなってきたけど、未だに人気がある",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "SOMA_MAIN",
+    "text": "Take it from Simon: copying minds is a nasty business.\n意訳》サイモンなら知っている。心を複製するのは厄介なことだ\nメモ》次回は「take it from」と「nasty business」を分析する",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "TAKE_IT_FROM",
+    "text": "Take it from {名前}...\n直訳すれば命令形の「誰かからもらえ」と意味をする。「この人は経験している・詳しいから話を信じてほしい」として使います。「Take it from me」も可能、「You don't have to take it from me」も",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NASTY_BUSINESS",
+    "text": "Nasty business\n文字通り「嫌な会社」は一つの使い方だが、「嫌な仕事」ともっと一般的な「嫌なできごと」を描くに使います。反対の形（pleasant business?）は聞きませんが。",
     "chain": false,
     "rerun": true
   }
