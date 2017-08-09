@@ -116,7 +116,7 @@ class Stats:
         t_stats = self.get_tweet_stats(title_or_id)
         if t_stats:
             if isinstance(t_stats[stat_name], list):
-                t_stats.append(value)
+                t_stats[stat_name].append(value)
             else:
                 t_stats[stat_name] += value
             self._write_stats_file()
