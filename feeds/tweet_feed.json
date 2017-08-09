@@ -472,5 +472,11 @@
     "text": "Nasty business\n文字通り「嫌な会社」は一つの使い方だが、「嫌な仕事」ともっと一般的な「嫌なできごと」を描くに使います。反対の形（pleasant business?）は聞きませんが。",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "COUNT_ON_HANDS",
+    "text": "I have more problems with this than I can count on my fingers.\n意訳》これには十指に余る数の問題がある。\nメモ》根本「have/has a problem with 〇」\n十指に余るって覚えたかったが",
+    "chain": false,
+    "rerun": true
   }
 ]
