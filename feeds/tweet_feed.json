@@ -490,5 +490,17 @@
     "text": "Seasoned with buckshot, Babe Rude is now Worm Food.\n散弾で調理されたベーブ・ルードはもはやワームフード（ミミズの食べ物）\nメモ》ハグ城より。「ワームフード」のダジャレが通じなかったようで",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "RIMWORLD_ALPACA",
+    "text": "We had a year's worth of emergency rations until the alpaca ate them all in secret.\n直訳》私たちは一年分の非常食を持っていた、あのアルパカがこっそりと全部食べたまでは",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "UNACCEPTABLE_FAILURE",
+    "text": "Failure is unacceptable!\n意訳》失敗など許さんぞ！\n直訳》失敗は許容されない！\nメモ》日本語の「許す」って、「forgive」にはあまりならない気がする",
+    "chain": false,
+    "rerun": true
   }
 ]
