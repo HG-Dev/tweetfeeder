@@ -502,5 +502,23 @@
     "text": "Failure is unacceptable!\n意訳》失敗など許さんぞ！\n直訳》失敗は許容されない！\nメモ》日本語の「許す」って、「forgive」にはあまりならない気がする",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "KNEW_IT",
+    "text": "I knew it was you!\n意訳》やっぱりお前だったのか！\n直訳》お前だったと知っていた！",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "EAT_OUR_FILL",
+    "text": "Let us take what is ours, chew and eat our fill!\n意訳》自分のものを手に取り、かじり、腹いっぱい食べようではないか！\nメモ》はい、SMACです",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "PAIN_TRAIN",
+    "text": "(挑発) You're about to take a ride on the pain train.\n直訳》お前はこれから痛みの列車で旅をする\nメモ》韻を踏んでいて面白いから「pain train」をたまに見かける",
+    "chain": false,
+    "rerun": true
   }
 ]
