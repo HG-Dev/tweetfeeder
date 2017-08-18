@@ -520,5 +520,35 @@
     "text": "(挑発) You're about to take a ride on the pain train.\n直訳》お前はこれから痛みの列車で旅をする\nメモ》韻を踏んでいて面白いから「pain train」はたまに見かける",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "KAISETSU_INVITE",
+    "text": "Do you have an English expression you'd like analyzed? Send me a reply!",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "WONT_BE_LONG",
+    "text": "It won't be long before you're crawling back to me, begging for a Black Mont Blanc bar.\n意訳》まもなくお前は俺のほうにひざまずて戻るだろう、ブラックモンブランバーを請ってな",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "SLATHER_ON",
+    "text": "Slather on that sunscreen! NASA reports an X-class solar flare will hit us this afternoon.\n意訳》日焼き止めをたくさんつけよう！NASAはＸ級太陽フレアが昼に直撃してくると報告しています",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "SLATHER_ON_ANALYSIS",
+    "text": "前回の面白い単語の分析\nslather on - to spread on a liberal amount of something ('slather jam on toast')\n〇〇 reports - 〇〇 has reported that...",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "DUE_FOR_A",
+    "text": "We're due for a Second Impact any day now.\n意訳》もうセコンド・インパクトはいつ起こっても可笑しくない",
+    "chain": false,
+    "rerun": true
   }
 ]
