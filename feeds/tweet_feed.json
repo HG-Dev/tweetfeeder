@@ -550,5 +550,41 @@
     "text": "We're due for a Second Impact any day now.\n意訳》もうセコンド・インパクトはいつ起こっても可笑しくない",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "BELAY_THAT",
+    "text": "Belay that!\n意訳》今の命令は無視しろ！（海事だけどかっこいい）",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "AS_OF_TODAY",
+    "text": "As of today, you are... Shuzo!\n意訳》（必要はない）",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "BORN_IN_BARN",
+    "text": "Were you born in a barn?!\n直訳》あんたって納屋でも生まれたのか！？\nメモ》マナーが悪いと訴える表現",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "STRIKING_RESEMBLANCE",
+    "text": "She bears a striking resemblance to a freshly unearthed potato.\n直訳》彼女は驚くほど掘りたてのジャガイモに似ている\nメモ》striking resemblance = 印象的な酷似",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "BEARS",
+    "text": "前回の bears 。クマのことじゃないぞ！動詞の場合は「背負う」という意味でよく使われる。「resemblance」はいい場合も悪い場合も「bear」を使います",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "CLOSER_TO_SOLUTION",
+    "text": "We are no closer to a solution today than we were in the Stone Age.\n意訳》石器時代と比較してなお解決には程遠い状態だ",
+    "chain": false,
+    "rerun": true
   }
 ]
