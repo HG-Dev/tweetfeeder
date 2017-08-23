@@ -1,5 +1,5 @@
 {
-    "feed_index": 57,
+    "feed_index": 89,
     "rerunning": false,
     "id_to_title": {
         "885392286036537346": "START",
@@ -58,7 +58,39 @@
         "894697088549765120": "BELIEVE_BUTTER",
         "894697132065570817": "BELIEVE_BUTTER2",
         "894878284042784768": "TAKE_THE_WHEEL",
-        "895059479485534209": "JUST_GOT_UP"
+        "895059479485534209": "JUST_GOT_UP",
+        "895240675037388801": "HOW_RUDE",
+        "895240718456766464": "HOW_RUDE2",
+        "895421870115139584": "COME_ON",
+        "895603065734053890": "BE_THE_JUDGE",
+        "895784261088825345": "ROLL_FOR_PERCEPTION",
+        "895965456133013504": "FACE_THE_MUSIC",
+        "896146651609354240": "BELIEVE_IT",
+        "896327847005913088": "WHOLESOME",
+        "896509042461253632": "UNYIELDING_SPIRIT",
+        "896690237883023360": "YAPPA_BEER_DAYONA",
+        "896871433237811201": "YAPPARI",
+        "896871476669829120": "YAPPARI2",
+        "896871520038932480": "YAPPARI3",
+        "897052628655394816": "FRIGID_TOILET",
+        "897052672301252608": "FRIGID_TOILET2",
+        "897233824043548672": "IDIOCY_HIGHEST_DEGREE",
+        "897415019561758720": "ERA_END",
+        "897596214832529408": "THOUGHT_SO",
+        "897777410577387521": "LOOSE_GROOVE",
+        "897958605579632640": "SOMA_MAIN",
+        "898139801206923264": "TAKE_IT_FROM",
+        "898320996360269825": "NASTY_BUSINESS",
+        "898502192176312320": "COUNT_ON_HANDS",
+        "898683387203932160": "GET_AWAY",
+        "898864582562725888": "WORM_FOOD",
+        "899045777984462848": "RIMWORLD_ALPACA",
+        "899226973431504896": "UNACCEPTABLE_FAILURE",
+        "899408168760909824": "KNEW_IT",
+        "899589364551827456": "EAT_OUR_FILL",
+        "899770559671656448": "PAIN_TRAIN",
+        "899951754921390080": "KAISETSU_INVITE",
+        "900132950297018368": "WONT_BE_LONG"
     },
     "tweets": {
         "START": {
@@ -181,7 +213,7 @@
             "rt_comments": []
         },
         "KGOTY": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -454,6 +486,230 @@
             "rt_comments": []
         },
         "JUST_GOT_UP": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "HOW_RUDE": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "HOW_RUDE2": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "COME_ON": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BE_THE_JUDGE": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "ROLL_FOR_PERCEPTION": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FACE_THE_MUSIC": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BELIEVE_IT": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "WHOLESOME": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "UNYIELDING_SPIRIT": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "YAPPA_BEER_DAYONA": {
+            "favorites": 2,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "YAPPARI": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "YAPPARI2": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "YAPPARI3": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FRIGID_TOILET": {
+            "favorites": 1,
+            "retweets": 2,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "FRIGID_TOILET2": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 1,
+            "rt_comments": []
+        },
+        "IDIOCY_HIGHEST_DEGREE": {
+            "favorites": 2,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "ERA_END": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "THOUGHT_SO": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "LOOSE_GROOVE": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "SOMA_MAIN": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "TAKE_IT_FROM": {
+            "favorites": 1,
+            "retweets": 2,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "NASTY_BUSINESS": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "COUNT_ON_HANDS": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "GET_AWAY": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "WORM_FOOD": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "RIMWORLD_ALPACA": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "UNACCEPTABLE_FAILURE": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "KNEW_IT": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "EAT_OUR_FILL": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "PAIN_TRAIN": {
+            "favorites": 2,
+            "retweets": 2,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "KAISETSU_INVITE": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "WONT_BE_LONG": {
             "favorites": 0,
             "retweets": 1,
             "requotes": 0,

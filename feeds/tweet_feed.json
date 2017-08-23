@@ -523,7 +523,7 @@
   },
   {
     "title": "KAISETSU_INVITE",
-    "text": "Do you have an English expression you'd like analyzed? Send me a reply!",
+    "text": "Do you have an English expression you'd like analyzed? Send a reply!",
     "chain": false,
     "rerun": false
   },
@@ -543,7 +543,7 @@
     "title": "SLATHER_ON_ANALYSIS",
     "text": "前回の面白い単語の分析\nslather on - to spread on a liberal amount of something ('slather jam on toast')\n〇〇 reports - 〇〇 has reported that...",
     "chain": false,
-    "rerun": false
+    "rerun": true
   },
   {
     "title": "DUE_FOR_A",
