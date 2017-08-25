@@ -28,6 +28,7 @@ class TweetLoop():
         self._current_started = datetime.now()
         self.lock: Event = Event()
         self.timers: deque = deque()
+        self.looping = False
         if config.functionality.Tweet:
             self.start()
 
@@ -82,15 +83,35 @@ class TweetLoop():
         if not self.timers:
             # Current_timer was successfully set, but we're out of future timers
             Log.debug("TWT.next", "Creating next timers")
+
+            # Check to see that the current_index hasn't reached the end of the feed
+            if self.current_index >= self.feed.total_tweets:
+                if self.stats.times_rerun < self.config.looping_max_times:
+                    # If looping's enabled, loop the index around
+                    Log.info("TWT.next", "Looping back to start of feed.")
+                    self.current_index = 0
+                else:
+                    # Terminate loop
+                    Log.info("TWT.next", "Reached end of feed, but not allowed to loop.")
+                    self.stop()
+                    return False
+
+            # make_tweet_timers will start searching from current_index,
+            # but will continue iterating down the feed until it finds timers
+            # it can actually use (this is important in rerun mode)
+            index_inc = 0
             for timer in self._make_tweet_timers(self.current_index):
-               self.timers.append(timer)
-               Log.debug("TWT.next", "Timer: " + str(timer))
+                index_inc += 1
+                if timer:
+                    self.timers.append(timer)
+                    Log.debug("TWT.next", "Timer: " + str(timer))
             if self.timers:
                 self.timers[0].interval = (
                     (self.get_next_tweet_datetime() - datetime.now()).total_seconds()
                 )
-                self.current_index += len(self.timers)
-    
+            # Update current index with the feed entries both used and skipped
+            self.current_index += index_inc
+
         if self.current_timer and not self.lock.is_set():
             # Current timer exists, but hasn't tweeted yet; fast forward
             self.current_timer.cancel()
@@ -104,9 +125,11 @@ class TweetLoop():
             self.current_timer.start()
             self._current_started = datetime.now()
             Log.debug("TWT.next", "Starting new timer with interval {}".format(self.current_timer.interval))
+        return True
 
     def stop(self):
         ''' Cancels the current timer, which prevents futher timers from starting. '''
+        Log.info("TWT.stop", "Stopping current timer and clearing timer list.")
         if self.current_timer:
             self.current_timer.cancel()
             self.timers.clear()
@@ -118,7 +141,7 @@ class TweetLoop():
         try:
             next_tweets = self.feed.get_tweets(from_index)
         except LoadFeedError:
-            return []
+            return [None] #Returning one None will increase the current index, at least
         timers = []
         for idx, t_data in enumerate(next_tweets):
             timers.append(

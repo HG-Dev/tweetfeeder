@@ -12,6 +12,8 @@ class Config:
     def __init__(self, functionality, on_change: classmethod, filepath: str = None):
         self.tweet_time_strings = [] # Temp data holder
         self.keys = {} # Temp data holder
+        self.looping_min_score = 0 # Score necessary to rerun a tweet
+        self.looping_max_times = 0 # Number of times the feed can be looped over (disabled by default)
         self.filepaths = {'feed': None, 'stats': None, 'log': None, 'auth': None}
         self.on_change = on_change or Config.on_change_dummy
         self._functionality = functionality

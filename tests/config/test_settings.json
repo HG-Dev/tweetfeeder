@@ -1,6 +1,8 @@
 {
     "tweet_time_strings" : ["11:59", "12:00", "12:01"],
     "min_tweet_delay" : 4,
+    "looping_min_score": 2,
+    "looping_max_times": 1,
     "filepaths" : {
         "feed" : "tests/config/test_feed_multiple.json",
         "stats" : "tests/__temp_output__/tweet_stats.json",

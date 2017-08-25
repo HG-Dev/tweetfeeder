@@ -77,7 +77,7 @@ class Stats:
             except (FileNotFoundError, TypeError):
                 # Create default stats dictionary
                 Log.debug("IO.stats", "Couldn't find stats file")
-                self._stats_dict = {'feed_index': 0, 'id_to_title': {}, 'tweets': {}}
+                self._stats_dict = {'feed_index': 0, 'times_rerun': 0, 'id_to_title': {}, 'tweets': {}}
                 assert self.last_feed_index == 0
 
         return self._stats_dict
@@ -94,6 +94,11 @@ class Stats:
             raise IndexError
         self.data['feed_index'] = value
         self._write_stats_file()
+
+    @property
+    def times_rerun(self) -> int:
+        ''' The number of times the feed has been looped through. '''
+        return self.data['times_rerun']
 
     def find_title_from_id(self, twid: str):
         ''' Converts a Tweet ID, given by Twitter, into a hash title. '''

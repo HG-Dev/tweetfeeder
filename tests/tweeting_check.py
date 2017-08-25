@@ -92,6 +92,7 @@ class TFTweetingTests(unittest.TestCase):
             self.log_buffer.has_text_nonce('Loop is already running'),
             "Failed to prevent a TweetLoop double-start."
         )
+        loop.stop()
 
     def test_one_tweet(self):
         ''' Can the TweetLoop class tweet one timed event? '''
@@ -163,11 +164,45 @@ class TFTweetingTests(unittest.TestCase):
         Log.info("check_no_bools", "Est. runtime: 8 seconds")
         timer.wait_for_tweet(8)
         timer.wait_for_tweet(8)
+        timer.stop()
         self.assertTrue(
             self.log_buffer.has_text('BOOL_ABSENSE_2'),
             "An error likely occurred. Check the log."
         )
-    
+
+    def test_feed_loop(self):
+        ''' Does the tweeting loop continue to loop when the end of the feed is reached? '''
+        Log.info("check_no_bools", "Est. runtime: 8 seconds")
+        feed = Feed("tests/config/test_feed_singular.json")
+        timer = TweetLoop(self.botless_config, feed)
+        timer.wait_for_tweet(8)
+        timer.wait_for_tweet(8)
+        timer.stop()
+        self.assertTrue(
+            self.log_buffer.has_text('TEST_ONE_TWEET'),
+            "Did not tweet... at all"
+        )
+        self.assertFalse(
+            self.log_buffer.has_text_nonce('TEST_ONE_TWEET'),
+            "Did not tweet more than once: " + str(self.log_buffer.buffer)
+        )
+
+    def test_feed_loop_filter(self):
+        ''' Does the tweeting loop skip rerunning tweets that didn't reach a given score? '''
+        Log.info("check_feed_loop_filter", "Est. runtime: 12 seconds")
+        feed = Feed("tests/config/test_feed_multiple.json")
+        stats = Stats("tests/config/test_stats_with_registered_tweets.json")
+        timer = TweetLoop(self.botless_config, feed, stats)
+        timer.wait_for_tweet(8)
+        timer.wait_for_tweet(8)
+        timer.wait_for_tweet(8)
+        timer.wait_for_tweet(8)
+        timer.wait_for_tweet(8)
+        timer.wait_for_tweet(8)
+        timer.stop()
+        print(self.log_buffer.buffer)
+
+
     @unittest.skip("VCR not working very well")
     @TAPE.use_cassette("test_online_tweet.json")
     def test_online_tweet(self):

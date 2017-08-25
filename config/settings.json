@@ -1,6 +1,8 @@
 {
     "tweet_time_strings" : ["8:09", "20:09"],
     "min_tweet_delay" : 10,
+    "looping_min_score": 2,
+    "looping_max_times": 1,
     "filepaths" : {
         "feed" : "feeds/tweet_feed.json",
         "stats" : "feeds/tweet_stats.json",
