@@ -1,6 +1,7 @@
 {
     "tweet_time_strings" : [],
     "min_tweet_delay" : 1,
+    "looping_max_times": 0,
     "filepaths" : {
         "feed" : "tests/config/test_feed_singular.json",
         "stats" : "tests/__temp_output__/tweet_stats.json",

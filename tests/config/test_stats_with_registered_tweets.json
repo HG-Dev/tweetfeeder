@@ -1,0 +1,48 @@
+{
+    "feed_index": 1,
+    "rerunning": false,
+    "id_to_title": {
+        "100": "DO_NOT_TWEET",
+        "101": "CHAIN_1",
+        "102": "CHAIN_2",
+        "103": "CHAIN_3",
+        "104": "BROKEN_CHAIN"
+    },
+    "tweets": {
+        "DO_NOT_TWEET": {
+            "favorites": 1,
+            "retweets": 0,
+            "requotes": 1,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "CHAIN_1": {
+            "favorites": 1,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "CHAIN_2": {
+            "favorites": 1,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "CHAIN_3": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BROKEN_CHAIN": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        }
+    }
+}
