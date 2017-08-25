@@ -55,9 +55,9 @@ class TweetFeederBot:
 
     def toggle_userstream(self, enabled=True):
         ''' Enable stream listening '''
-        if enabled:
+        if enabled and not self.userstream.running:
             self.userstream.userstream(async=True)
-        else:
+        elif not enabled:
             self.userstream.disconnect()
 
     def alert_master(self, text):

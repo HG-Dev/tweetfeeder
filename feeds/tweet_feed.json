@@ -478,5 +478,17 @@
     "text": "I have more problems with this than I can count on my fingers.\n意訳》これには十指に余る数の問題がある。\nメモ》根本「have/has a problem with 〇」\n十指に余るって覚えたかったが",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "GET_AWAY",
+    "text": "Get away from me!\n直訳》私から離れろ！\nSOMAより",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "WORM_FOOD",
+    "text": "Seasoned with buckshot, Babe Rude is now Worm Food.\n散弾で調理されたベーブ・ルードはもはやワームフード（ミミズの食べ物）\nメモ》ハグ城より。「ワームフード」のダジャレが通じなかったようで",
+    "chain": false,
+    "rerun": true
   }
 ]

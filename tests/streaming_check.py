@@ -11,6 +11,14 @@ from tweetfeeder import TweetFeederBot
 from tweetfeeder.streaming import TweetFeederListener
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.logs import Log
+from vcr import VCR
+
+TAPE = VCR(
+    cassette_library_dir='tests/cassettes',
+    filter_headers=['Authorization'],
+    serializer='json',
+    match_on=['host']
+)
 
 # pylint: disable=W0612
 
@@ -32,7 +40,7 @@ class TFStreamTests(unittest.TestCase):
             pass
 
         cls.bot = TweetFeederBot(
-            BotFunctions.Log,
+            BotFunctions.Log | BotFunctions.Listen,
             config_file="tests/config/test_settings.json"
         )
         try:
@@ -50,10 +58,17 @@ class TFStreamTests(unittest.TestCase):
     def tearDown(self):
         ''' Cleanup after each test '''
         self.log_buffer.buffer.clear()
+        self.bot.userstream.disconnect()
+
+    @classmethod
+    def tearDownClass(cls):
+        ''' Final cleanup '''
+        cls.bot.shutdown()
 
     def test_connection_online(self):
         ''' Can NORMAL_BOT connect to Twitter's userstream? '''
         self.assertTrue(self.bot, "Shared bot isn't initialized")
+        self.assertTrue(self.bot.userstream.running, "Wasn't running from the beginning")
         self.bot.toggle_userstream(True)
         self.assertTrue(self.bot.userstream.running)
         self.bot.toggle_userstream(False)
@@ -108,6 +123,7 @@ class TFStreamTests(unittest.TestCase):
         with open('tests/cassettes/stream_retweeted.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
             self.assertTrue(self.log_buffer.has_text('retweet'), "Retweet event not recorded")
+            self.listener.cancel_checks()
         self.assertEqual(self.bot.stats.get_tweet_stats("STREAM_TEST")['retweets'], 1)
 
     def test_quote_retweeted(self):
@@ -138,3 +154,9 @@ class TFStreamTests(unittest.TestCase):
         with open('tests/cassettes/stream_get_master_dm.json', encoding='utf8') as cassette:
             self.listener.on_data(cassette.read())
             self.assertTrue(self.log_buffer.has_text("CMD.status"))
+    
+    @TAPE.use_cassette("test_rt_comment_check.json")
+    def test_rt_comment_check(self):
+        ''' Does the check_for_tweets method discover and record RT comments? '''
+        self.bot.userstream.listener.check_for_comments(100, self.bot.config.master_id)
+        self.assertTrue(self.bot.stats.get_tweet_stats(100)['rt_comments'])

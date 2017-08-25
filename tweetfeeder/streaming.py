@@ -8,7 +8,7 @@ from tweetfeeder.logs import Log
 from tweetfeeder.file_io import Config
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.file_io.utils import FileIO
-from tweetfeeder.exceptions import InvalidCommand, UnregisteredTweetError
+from tweetfeeder.exceptions import InvalidCommand, UnregisteredTweetError, ArgumentError
 
 class TweetFeederListener(StreamListener):
     """
@@ -90,7 +90,7 @@ class TweetFeederListener(StreamListener):
             actor = status.user.screen_name
             info = status.retweeted_status.id
             self._stats.update_tweet_stats_from_status(status.retweeted_status.__dict__) #Retweeted status isn't a dict
-            timer = Timer(self.check_delay, self.check_for_comments, (status.user.id, info))
+            timer = Timer(self.check_delay, self.check_for_comments, (info, status.user.id))
             timer.start()
             self.timers.append(timer)
         elif status.in_reply_to_user_id == self._config.bot_id:
@@ -133,13 +133,19 @@ class TweetFeederListener(StreamListener):
 
     def on_disconnect(self, notice):
         ''' Called, presumably, when Twitter disconnects us for an error. '''
-        self._cancel_checks()
+        self.cancel_checks()
         Log.warning("STR.on_disconnect", "Streaming: " + notice)
 
-    def check_for_comments(self, user_id, tweet_id):
-        ''' Checks for any comments a user might have had after retweeting tweet_id '''
+    def check_for_comments(self, tweet_id, user_id=None, user_timeline=None):
+        ''' Checks a list of statuses (downloads them if necessary) for any comments made after a retweet '''
         Log.debug("STR.rt_check", "Checking for comments on retweet...")
-        twenty_statuses = reversed(self.api.user_timeline(id=user_id))
+        if not user_id and not user_timeline:
+            raise ArgumentError("check_for_comments requires user_id or user_timeline")
+
+        if not user_timeline:
+            user_timeline = self.api.user_timeline(id=user_id)
+
+        twenty_statuses = reversed(user_timeline)
         pick_up_next = False
         potential_comment = None
         for status in twenty_statuses:
@@ -159,8 +165,9 @@ class TweetFeederListener(StreamListener):
 
         self._clear_finished_checks()
 
-    def _cancel_checks(self):
+    def cancel_checks(self):
         ''' Cancel all timed checks of RT comments '''
+        print("Cancelling timers: " + str(len(self.timers)))
         for timer in self.timers:
             timer.cancel()
         self.timers.clear()

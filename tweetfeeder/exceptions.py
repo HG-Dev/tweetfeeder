@@ -57,3 +57,8 @@ class InvalidCommand(TweetFeederError):
     """
     def __init__(self, msg):
         super(InvalidCommand, self).__init__(type(self).__name__, msg)
+
+class ArgumentError(TweetFeederError):
+    ''' Raised when a function was given a bad combination of parameters. '''
+    def __init__(self, msg):
+        super(ArgumentError, self).__init__(type(self).__name__, msg)
