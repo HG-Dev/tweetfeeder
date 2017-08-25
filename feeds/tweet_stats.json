@@ -1,5 +1,5 @@
 {
-    "feed_index": 89,
+    "feed_index": 93,
     "rerunning": false,
     "id_to_title": {
         "885392286036537346": "START",
@@ -90,7 +90,11 @@
         "899589364551827456": "EAT_OUR_FILL",
         "899770559671656448": "PAIN_TRAIN",
         "899951754921390080": "KAISETSU_INVITE",
-        "900132950297018368": "WONT_BE_LONG"
+        "900132950297018368": "WONT_BE_LONG",
+        "900314145899200512": "SLATHER_ON",
+        "900495341090250752": "SLATHER_ON_ANALYSIS",
+        "900676536453300225": "DUE_FOR_A",
+        "900857731917127680": "BELAY_THAT"
     },
     "tweets": {
         "START": {
@@ -710,6 +714,34 @@
             "rt_comments": []
         },
         "WONT_BE_LONG": {
+            "favorites": 0,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "SLATHER_ON": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "SLATHER_ON_ANALYSIS": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "DUE_FOR_A": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BELAY_THAT": {
             "favorites": 0,
             "retweets": 1,
             "requotes": 0,
