@@ -586,5 +586,23 @@
     "text": "We are no closer to a solution today than we were in the Stone Age.\n意訳》石器時代と比較してなお解決には程遠い状態だ",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "ENGLISH_SOMETIMES",
+    "text": "Sometimes, explanations for words or phrases will be given in simple English.\n直訳》時々、言葉や言い回しの説明は簡単な英語で提供する",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "ENGLISH_SOMETIMES2",
+    "text": "In studying language, translations are crutches that must eventually be cast aside when possible.\nCast - 投げる、捨てる\naside - 横やすこし離れた場所",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "HUNDREDTH_ENTRY",
+    "text": "フィードの第100項目までやってまいりました！これからは一回、人気が出た該当する項目をまたつぶやく「再放送モード」に入りますが、終わった時には新しい項目が待っていると期待しましょう。",
+    "chain": false,
+    "rerun": false
   }
 ]
