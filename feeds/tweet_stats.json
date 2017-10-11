@@ -1,5 +1,5 @@
 {
-    "feed_index": 93,
+    "feed_index": 95,
     "times_rerun": 0,
     "id_to_title": {
         "885392286036537346": "START",
@@ -94,7 +94,9 @@
         "900314145899200512": "SLATHER_ON",
         "900495341090250752": "SLATHER_ON_ANALYSIS",
         "900676536453300225": "DUE_FOR_A",
-        "900857731917127680": "BELAY_THAT"
+        "900857731917127680": "BELAY_THAT",
+        "917708901134381056": "AS_OF_TODAY",
+        "917890096585523200": "BORN_IN_BARN"
     },
     "tweets": {
         "START": {
@@ -744,6 +746,20 @@
         "BELAY_THAT": {
             "favorites": 0,
             "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "AS_OF_TODAY": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BORN_IN_BARN": {
+            "favorites": 1,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
