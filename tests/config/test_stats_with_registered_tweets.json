@@ -1,6 +1,6 @@
 {
     "feed_index": 1,
-    "rerunning": false,
+    "times_rerun": 0,
     "id_to_title": {
         "100": "DO_NOT_TWEET",
         "101": "CHAIN_1",
