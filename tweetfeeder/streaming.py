@@ -34,7 +34,7 @@ class TweetFeederListener(StreamListener):
     def on_data(self, raw_data):
         '''Debug wrapper for StreamListener.on_data'''
         if raw_data is None:
-            Log.error("STR.on_data", "Received empty streaming data")
+            Log.debug("STR.on_data", "Received empty streaming data")
         elif super(TweetFeederListener, self).on_data(raw_data) is False:
             Log.error("STR.on_data", "Streaming halt!")
 
