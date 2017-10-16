@@ -1,5 +1,5 @@
 {
-    "feed_index": 95,
+    "feed_index": 101,
     "times_rerun": 0,
     "id_to_title": {
         "885392286036537346": "START",
@@ -96,7 +96,13 @@
         "900676536453300225": "DUE_FOR_A",
         "900857731917127680": "BELAY_THAT",
         "917708901134381056": "AS_OF_TODAY",
-        "917890096585523200": "BORN_IN_BARN"
+        "917890096585523200": "BORN_IN_BARN",
+        "918071292250677248": "STRIKING_RESEMBLANCE",
+        "918252488028852225": "BEARS",
+        "918433684159528960": "CLOSER_TO_SOLUTION",
+        "918614879564648448": "ENGLISH_SOMETIMES",
+        "918796074478837760": "ENGLISH_SOMETIMES2",
+        "918977270336839680": "HUNDREDTH_ENTRY"
     },
     "tweets": {
         "START": {
@@ -751,8 +757,8 @@
             "rt_comments": []
         },
         "AS_OF_TODAY": {
-            "favorites": 0,
-            "retweets": 0,
+            "favorites": 1,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -760,6 +766,48 @@
         "BORN_IN_BARN": {
             "favorites": 1,
             "retweets": 2,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "STRIKING_RESEMBLANCE": {
+            "favorites": 1,
+            "retweets": 1,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "BEARS": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "CLOSER_TO_SOLUTION": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "ENGLISH_SOMETIMES": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "ENGLISH_SOMETIMES2": {
+            "favorites": 0,
+            "retweets": 0,
+            "requotes": 0,
+            "replies": 0,
+            "rt_comments": []
+        },
+        "HUNDREDTH_ENTRY": {
+            "favorites": 1,
+            "retweets": 0,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
