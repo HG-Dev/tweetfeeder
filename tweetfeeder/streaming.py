@@ -176,7 +176,6 @@ class TweetFeederListener(StreamListener):
 
     def cancel_checks(self):
         ''' Cancel all timed checks of RT comments '''
-        print("Cancelling timers: " + str(len(self.timers)))
         for timer in self.timers:
             timer.cancel()
         self.timers.clear()

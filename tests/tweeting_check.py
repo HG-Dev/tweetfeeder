@@ -197,8 +197,6 @@ class TFTweetingTests(unittest.TestCase):
         timer.wait_for_tweet(8)
         timer.wait_for_tweet(8)
         timer.wait_for_tweet(8)
-        timer.wait_for_tweet(8)
-        timer.wait_for_tweet(8)
         timer.stop()
         print(self.log_buffer.buffer)
 
