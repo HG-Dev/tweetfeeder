@@ -28,7 +28,6 @@ class TweetLoop():
         self._current_started = datetime.now()
         self.lock: Event = Event()
         self.timers: deque = deque()
-        self.looping = False
         if config.functionality.Tweet:
             self.start()
 
@@ -89,20 +88,28 @@ class TweetLoop():
                 if self.stats.times_rerun < self.config.looping_max_times:
                     # If looping's enabled, loop the index around
                     Log.info("TWT.next", "Looping back to start of feed.")
+                    self.stats.times_rerun = self.stats.times_rerun + 1
+                    self.stats.last_rerun_index = self.current_index
                     self.current_index = 0
                 else:
                     # Terminate loop
                     Log.info("TWT.next", "Reached end of feed, but not allowed to loop.")
                     self.stop()
                     return False
+            
+            # Check to see that the current_index has not surpassed a previous rerun
+            if self.stats.last_rerun_index > 0 and self.current_index > self.stats.last_rerun_index:
+                self.stats.times_rerun = 0 # Restore normal tweeting mode
 
             # make_tweet_timers will start searching from current_index,
             # but will continue iterating down the feed until it finds timers
             # it can actually use (this is important in rerun mode)
             index_inc = 0
             for timer in self._make_tweet_timers(self.current_index):
+                #_make_tweet_timers passes back None for spots where reruns are not allowed
                 index_inc += 1
                 if timer:
+                    # Skip None, but count it as a passed index
                     self.timers.append(timer)
                     Log.debug("TWT.next", "Timer: " + str(timer))
             if self.timers:
@@ -142,11 +149,16 @@ class TweetLoop():
             next_tweets = self.feed.get_tweets(from_index)
         except LoadFeedError:
             return [None] #Returning one None will increase the current index, at least
+
         timers = []
         for idx, t_data in enumerate(next_tweets):
-            timers.append(
-                Timer(self.config.min_tweet_delay, self._tweet, (t_data, from_index+idx))
-            )
+            # If rerunning, skip tweets which don't have a True "rerun" trait
+            if self.stats.times_rerun > 0 and not t_data['rerun']:
+                timers.append(None)
+            else:
+                timers.append(
+                    Timer(self.config.min_tweet_delay, self._tweet, (t_data, from_index+idx))
+                )
         return timers
 
     def _tweet(self, data: dict, index: int):

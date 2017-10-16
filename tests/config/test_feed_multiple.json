@@ -2,12 +2,14 @@
   {
     "title": "DO_NOT_TWEET",
     "text": "You shouldn't see this!",
-    "chain": false
+    "chain": false,
+    "rerun": false
   },
   {
     "title": "CHAIN_1",
     "text": "Start of chain",
-    "chain": true
+    "chain": true,
+    "rerun": false
   },
   {
     "title": "CHAIN_2",

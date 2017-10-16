@@ -3,7 +3,7 @@ Handles the import of config data
 and automatic usage of Twitter.
 """
 import cmd
-from tweepy import Stream
+from tweepy import Stream, API
 from tweetfeeder.file_io import Config
 from tweetfeeder.logs import Log
 from tweetfeeder.flags import BotFunctions
@@ -69,9 +69,10 @@ class TweetFeederBot:
         Log.info("BOT.shutdown", "Stopping stream and loops.")
         self.toggle_userstream(False)
         self.tweet_loop.stop()
+        return True
 
     class MasterCommand(cmd.Cmd):
-        ''' Takes input to manipulate the Bot remotely. '''
+        ''' Takes input to manipulate the Bot remotely. Only onecmd is being used at present. '''
         def __init__(self, bot_self):
             ''' Establishes link to bot '''
             super(TweetFeederBot.MasterCommand, self).__init__(self)
@@ -104,6 +105,31 @@ class TweetFeederBot:
             ignoring tweet times.
             """
             self.bot.tweet_loop.force_tweet()
+
+        def do_sync_stats(self, args):
+            """Runs through the entirety of registered tweets to ensure
+            their stats are correct and up-to-date.
+
+            TODO: Make this work for requotes/replies, too
+            """
+            api = API(self.bot.config.authorization)
+            stats = self.bot.stats
+            if not (api and stats):
+                Log.error("BOT.cmd.sync_stats", "Cannot sync stats: bot lacks stats Functionality")
+                return False
+
+            processed = []
+            for twid in stats.data['id_to_title']:
+                title = stats.data['id_to_title'][twid]
+                # Get status info from Twitter
+                status = api.get_status(twid)
+                if title not in processed:
+                    # Overwrite numeric stats
+                    processed.append(title)
+                    stats.update_tweet_stats_from_status(status)
+                else:
+                    # Mod numeric stats
+                    stats.add_tweet_stats_from_status(status)
 
         def do_status(self, args):
             """Returns information on the bot's status.

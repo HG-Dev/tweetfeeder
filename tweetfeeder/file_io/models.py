@@ -28,7 +28,7 @@ class Feed:
     def get_tweets(self, from_index: int):
         """
         Loads a tweet or chain of tweets at feed_index
-        and returns them along with the total tweets available.
+        and returns them along with the total tweets skipped.
         """
         next_tweets = []
         index = from_index
@@ -54,7 +54,14 @@ class Feed:
                         break # Don't allow a final 'chain' to cause an index error
                     next_tweets.append(feed_data[index + itr])
             except KeyError: #Tweet data lacked the chain element -> defaults to False
-                pass
+                next_tweets[-1]['chain'] = False
+
+        # Iron out rerun trait (defaults to True)
+        for tweet in next_tweets:
+            try:
+                tweet['rerun'] = tweet['rerun']
+            except KeyError:
+                tweet['rerun'] = True
 
         return next_tweets
 
@@ -77,7 +84,7 @@ class Stats:
             except (FileNotFoundError, TypeError):
                 # Create default stats dictionary
                 Log.debug("IO.stats", "Couldn't find stats file")
-                self._stats_dict = {'feed_index': 0, 'times_rerun': 0, 'id_to_title': {}, 'tweets': {}}
+                self._stats_dict = {'feed_index': 0, 'times_rerun': 0, 'rerun_index': 0, 'id_to_title': {}, 'tweets': {}}
                 assert self.last_feed_index == 0
 
         return self._stats_dict
@@ -99,6 +106,34 @@ class Stats:
     def times_rerun(self) -> int:
         ''' The number of times the feed has been looped through. '''
         return self.data['times_rerun']
+
+    @times_rerun.setter
+    def times_rerun(self, value: int):
+        ''' Overwrite the number of times the feed has restarted '''
+        if value < 0:
+            raise ValueError
+        self.data['times_rerun'] = value
+        self._write_stats_file()
+
+    @property
+    def last_rerun_index(self) -> int:
+        """When the bot last started up rerun mode,
+        what was the last index it tweeted / how long was the feed?
+        If this number is passed in rerun mode, normal operation resumes,
+        resetting times_rerun to zero.
+        """
+        try:
+            return self.data['rerun_index']
+        except KeyError:
+            return 0
+
+    @last_rerun_index.setter
+    def last_rerun_index(self, value: int):
+        ''' Save the most recent rerun threshold '''
+        if value < 0:
+            raise IndexError
+        self.data['rerun_index'] = value
+        self._write_stats_file()
 
     def find_title_from_id(self, twid: str):
         ''' Converts a Tweet ID, given by Twitter, into a hash title. '''
@@ -139,16 +174,24 @@ class Stats:
             Log.warning("IO.update_stats", "No stats found for {}".format(title))
 
     def update_tweet_stats_from_status(self, tweet_object: dict):
-        ''' Runs update_tweet_stats from a Tweepy status '''
+        ''' Runs update_tweet_stats from a Tweepy status.'''
         current_stats = {
             'favorites': tweet_object['favorite_count'],
             'retweets': tweet_object['retweet_count'],
         }
         self.update_tweet_stats(tweet_object['id'], current_stats)
 
+    def add_tweet_stats_from_status(self, tweet_object: dict):
+        ''' Runs mod_tweet_stats from a Tweepy status, adding all numeric stats '''
+        self.mod_tweet_stats(tweet_object['id'], 'favorites', tweet_object['favorite_count'])
+        self.mod_tweet_stats(tweet_object['id'], 'retweets', tweet_object['retweet_count'])
+        # self.mod_tweet_stats(tweet_object['id'], 'requotes', 0)
+        # self.mod_tweet_stats(tweet_object['id'], 'replies', 0)
+
+
     def register_tweet(self, twid: int, title: str = None):
         ''' Save a newly published Tweet to the stats dictionary '''
-        Log.debug("IO.stats", "Saving tweet data...")
+        Log.debug("IO.stats", "Registering tweet...")
         if not self.get_tweet_stats(title):
             blank_perf_stats = {
                 'favorites': 0,
@@ -162,7 +205,9 @@ class Stats:
             self.data['tweets'][title] = blank_perf_stats
             self._write_stats_file()
         else:
-            raise AlreadyRegisteredTweetError(title)
+            # Stats were found, only add title to id-title dict
+            self.data['id_to_title'][str(twid)] = title
+            self._write_stats_file()
 
     def _write_stats_file(self):
         ''' Save the stats dict if it's dirty '''
