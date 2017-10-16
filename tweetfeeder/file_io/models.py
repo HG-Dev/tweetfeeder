@@ -139,16 +139,24 @@ class Stats:
             Log.warning("IO.update_stats", "No stats found for {}".format(title))
 
     def update_tweet_stats_from_status(self, tweet_object: dict):
-        ''' Runs update_tweet_stats from a Tweepy status '''
+        ''' Runs update_tweet_stats from a Tweepy status.'''
         current_stats = {
             'favorites': tweet_object['favorite_count'],
             'retweets': tweet_object['retweet_count'],
         }
         self.update_tweet_stats(tweet_object['id'], current_stats)
 
+    def add_tweet_stats_from_status(self, tweet_object: dict):
+        ''' Runs mod_tweet_stats from a Tweepy status, adding all numeric stats '''
+        self.mod_tweet_stats(tweet_object['id'], 'favorites', tweet_object['favorite_count'])
+        self.mod_tweet_stats(tweet_object['id'], 'retweets', tweet_object['retweet_count'])
+        # self.mod_tweet_stats(tweet_object['id'], 'requotes', 0)
+        # self.mod_tweet_stats(tweet_object['id'], 'replies', 0)
+
+
     def register_tweet(self, twid: int, title: str = None):
         ''' Save a newly published Tweet to the stats dictionary '''
-        Log.debug("IO.stats", "Saving tweet data...")
+        Log.debug("IO.stats", "Registering tweet...")
         if not self.get_tweet_stats(title):
             blank_perf_stats = {
                 'favorites': 0,
@@ -162,7 +170,9 @@ class Stats:
             self.data['tweets'][title] = blank_perf_stats
             self._write_stats_file()
         else:
-            raise AlreadyRegisteredTweetError(title)
+            # Stats were found, only add title to id-title dict
+            self.data['id_to_title'][str(twid)] = title
+            self._write_stats_file()
 
     def _write_stats_file(self):
         ''' Save the stats dict if it's dirty '''

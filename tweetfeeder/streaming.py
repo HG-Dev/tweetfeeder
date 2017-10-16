@@ -71,10 +71,14 @@ class TweetFeederListener(StreamListener):
         info = ""
 
         if status.event in absolute: # these have a target_object
-            self._stats.update_tweet_stats_from_status(status.target_object)
+            if status.event == 'favorite':
+                self._stats.mod_tweet_stats(status.target_object['id'], 'favorites', 1)
+            else:
+                self._stats.mod_tweet_stats(status.target_object['id'], 'favorites', -1)
             info = status.target_object['id']
         elif status.event in relative_pos:
             self._stats.mod_tweet_stats(status.target_object['id'], 'requotes', 1)
+            info = status.target_object['id']
         elif status.event in ignored:
             return True #False would stop streaming
         else:
@@ -88,27 +92,30 @@ class TweetFeederListener(StreamListener):
         actor = ""
         info = ""
         if hasattr(status, 'retweeted_status') and status.retweeted_status.user.id == self._config.bot_id:
+            # Somebody retweeted the bot's tweet
             event = "retweet"
             actor = status.user.screen_name
             info = status.retweeted_status.id
-            self._stats.update_tweet_stats_from_status(status.retweeted_status.__dict__) #Retweeted status isn't a dict
+            self._stats.mod_tweet_stats(info, 'retweets', 1)
             timer = Timer(self.check_delay, self.check_for_comments, (info, status.user.id))
             timer.start()
             self.timers.append(timer)
         elif status.in_reply_to_user_id == self._config.bot_id:
+            # Somebody replied to the bot's tweet
             event = "reply"
             actor = status.author.screen_name
             info = status.text
             tweet_id = status.in_reply_to_status_id
             self._stats.mod_tweet_stats(tweet_id, "replies", 1)
         elif status.author.id == self._config.bot_id:
+            # The bot sees its own tweet
             if not status.in_reply_to_user_id:
                 event = "tweet"
                 actor = "confirmed"
                 info = status.id
                 #Non-reply should already be registered... unless it was tweeted directly.
                 if not self._stats.find_title_from_id(info):
-                    Log.warning("STR.on_status", "Add to feed? <{}>".format(status.text))
+                    Log.debug("STR.on_status", "Add to feed? <{}>".format(status.text))
                     return True
             else:
                 return True #Ignore manual or possibly automatic interactions with users
