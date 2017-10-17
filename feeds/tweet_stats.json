@@ -1,6 +1,6 @@
 {
-    "feed_index": 101,
-    "times_rerun": 0,
+    "feed_index": 4,
+    "times_rerun": 2,
     "id_to_title": {
         "885392286036537346": "START",
         "885659775249166337": "HIT_THE_GYM",
@@ -102,7 +102,10 @@
         "918433684159528960": "CLOSER_TO_SOLUTION",
         "918614879564648448": "ENGLISH_SOMETIMES",
         "918796074478837760": "ENGLISH_SOMETIMES2",
-        "918977270336839680": "HUNDREDTH_ENTRY"
+        "918977270336839680": "HUNDREDTH_ENTRY",
+        "919895776637022209": "HIT_THE_GYM",
+        "919896075183431680": "KILLING_ME",
+        "920064445782548480": "SMOKEY_THE_BEAR"
     },
     "tweets": {
         "START": {
@@ -114,21 +117,21 @@
         },
         "HIT_THE_GYM": {
             "favorites": 1,
-            "retweets": 0,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "KILLING_ME": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 0,
             "requotes": 0,
-            "replies": 0,
+            "replies": 2,
             "rt_comments": []
         },
         "SMOKEY_THE_BEAR": {
             "favorites": 0,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -812,5 +815,6 @@
             "replies": 0,
             "rt_comments": []
         }
-    }
+    },
+    "rerun_index": 101
 }
