@@ -126,10 +126,10 @@ class TweetFeederBot:
                 if title not in processed:
                     # Overwrite numeric stats
                     processed.append(title)
-                    stats.update_tweet_stats_from_status(status)
+                    stats.update_tweet_stats_from_status(status.__dict__)
                 else:
                     # Mod numeric stats
-                    stats.add_tweet_stats_from_status(status)
+                    stats.add_tweet_stats_from_status(status.__dict__)
 
         def do_status(self, args):
             """Returns information on the bot's status.
