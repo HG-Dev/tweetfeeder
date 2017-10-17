@@ -124,7 +124,7 @@
         },
         "KILLING_ME": {
             "favorites": 2,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 2,
             "rt_comments": []
@@ -152,7 +152,7 @@
         },
         "NOW_HAVE_ATTENTION": {
             "favorites": 1,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -172,7 +172,7 @@
             "rt_comments": []
         },
         "SHATNER": {
-            "favorites": 2,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -186,7 +186,7 @@
             "rt_comments": []
         },
         "NEVER_MISS_WORK": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -200,7 +200,7 @@
             "rt_comments": []
         },
         "FRIENDS_ARE_PIGS": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -228,7 +228,7 @@
             "rt_comments": []
         },
         "KGOTY": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -256,7 +256,7 @@
             "rt_comments": []
         },
         "VERY_ALLERGIC": {
-            "favorites": 1,
+            "favorites": 3,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -326,7 +326,7 @@
             "rt_comments": []
         },
         "HEARTFUL": {
-            "favorites": 2,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -354,14 +354,14 @@
             "rt_comments": []
         },
         "SPLITTING_IMAGE": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "HAPPENED_TO_HEAR": {
-            "favorites": 0,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -389,21 +389,21 @@
             "rt_comments": []
         },
         "FAILED_ANALOGY": {
-            "favorites": 0,
-            "retweets": 0,
+            "favorites": 1,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "FIGURED_IT_OUT": {
-            "favorites": 0,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "YODA_GACHA": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -411,13 +411,13 @@
         },
         "RENTS_ARE_REASONABLE": {
             "favorites": 0,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "WIIU2U": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -480,22 +480,22 @@
             "rt_comments": []
         },
         "BELIEVE_BUTTER": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "BELIEVE_BUTTER2": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "TAKE_THE_WHEEL": {
-            "favorites": 3,
-            "retweets": 1,
+            "favorites": 2,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -530,13 +530,13 @@
         },
         "BE_THE_JUDGE": {
             "favorites": 0,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "ROLL_FOR_PERCEPTION": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -551,7 +551,7 @@
         },
         "BELIEVE_IT": {
             "favorites": 1,
-            "retweets": 1,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -571,7 +571,7 @@
             "rt_comments": []
         },
         "YAPPA_BEER_DAYONA": {
-            "favorites": 2,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -613,7 +613,7 @@
             "rt_comments": []
         },
         "IDIOCY_HIGHEST_DEGREE": {
-            "favorites": 2,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -627,7 +627,7 @@
             "rt_comments": []
         },
         "THOUGHT_SO": {
-            "favorites": 1,
+            "favorites": 0,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -718,7 +718,7 @@
             "rt_comments": []
         },
         "KAISETSU_INVITE": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -732,7 +732,7 @@
             "rt_comments": []
         },
         "SLATHER_ON": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -767,7 +767,7 @@
             "rt_comments": []
         },
         "BORN_IN_BARN": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 2,
             "requotes": 0,
             "replies": 0,
@@ -788,7 +788,7 @@
             "rt_comments": []
         },
         "CLOSER_TO_SOLUTION": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -802,7 +802,7 @@
             "rt_comments": []
         },
         "ENGLISH_SOMETIMES2": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
