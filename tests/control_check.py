@@ -5,15 +5,16 @@ so that the tweetfeeder module is found.
 """
 import unittest
 import json
-from flags import Flags
 from os import mkdir, path, remove
 from datetime import datetime, timedelta
+from flags import Flags
 from tweetfeeder import TweetFeederBot
 from tweetfeeder.exceptions import TweetFeederError
 from tweetfeeder.flags import BotFunctions
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io.config import Config
 from tweetfeeder.file_io.utils import FileIO
+from tweetfeeder.file_io.models import Stats
 
 # pylint: disable=W0612
 
@@ -102,6 +103,7 @@ class TFControlTests(unittest.TestCase):
         bot.userstream.listener.on_data(json.dumps(json_dict))
         self.assertFalse(bot.tweet_loop.is_running())
 
+    @unittest.skip("CMD loop not in use at the moment")
     def test_cmd_loop(self):
         """Does a TweetFeederBot behave normally when cmdloop is active?
         """
@@ -136,3 +138,32 @@ class TFControlTests(unittest.TestCase):
         bot.master_cmd.onecmd("tweet_now")
         bot.shutdown()
         self.assertTrue(self.log_buffer.has_text('BROKEN_CHAIN'), self.log_buffer.buffer)
+
+    def test_cmd_status(self):
+        """Does the status command give info, and will it work correctly
+        after tweet_now?
+        """
+        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.json")
+        self.assertEqual(bot.feed.total_tweets, 5)
+        bot.config.tweet_times = self.fresh_tweet_times
+        bot.config.functionality = BotFunctions.Tweet
+        bot.master_cmd.onecmd("status")
+        self.assertTrue(self.log_buffer.has_text('Feed index: 1'), self.log_buffer.buffer)
+        bot.shutdown()
+
+    def test_sync_stats(self):
+        """Does the sync_stats command safely synchronize feed stats?
+        Might it need a cooldown timer so it doesn't look like it's spamming?"""
+        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.json")
+        bot.stats = Stats("tests/config/test_stats_real_excerpt.json")
+        self.assertTrue(bot.stats.get_tweet_stats("SPLITTING_IMAGE")['favorites'] == 999)
+        bot.master_cmd.onecmd("sync_stats")
+        favs = (
+            bot.stats.get_tweet_stats("SPLITTING_IMAGE")['favorites'],
+            bot.stats.get_tweet_stats("SINGULARITY")['favorites'],
+            bot.stats.get_tweet_stats("PAIN_TRAIN")['favorites']
+        )
+        self.assertFalse(favs[0] == 999)
+        Log.info("sync_stats", "result: favs {} {} {}".format(*favs))
+        bot.shutdown()
+
