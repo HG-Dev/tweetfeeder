@@ -181,7 +181,7 @@ class DripFilter(logging.Filter):
     KeyErrors are understood to be unrestricted"""
     TICK_SPEED = {
         logging.DEBUG: timedelta(days=1),
-        logging.INFO: timedelta(seconds=30),
+        logging.INFO: timedelta(seconds=1),
         logging.WARNING: timedelta(seconds=1)
     }
     LAST_SEND = {

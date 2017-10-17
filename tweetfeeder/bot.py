@@ -125,11 +125,13 @@ class TweetFeederBot:
                 status = api.get_status(twid)
                 if title not in processed:
                     # Overwrite numeric stats
+                    Log.info("BOT.cmd.sync_stats", "Overwriting stats for {}".format(title))
                     processed.append(title)
                     stats.update_tweet_stats_from_status(status.__dict__)
                 else:
                     # Mod numeric stats
                     stats.add_tweet_stats_from_status(status.__dict__)
+            Log.info("BOT.cmd.sync_stats", "Finished.")
 
         def do_status(self, args):
             """Returns information on the bot's status.
