@@ -200,6 +200,19 @@ class TFTweetingTests(unittest.TestCase):
         timer.stop()
         print(self.log_buffer.buffer)
 
+    def test_feed_loop_start_at_limit(self):
+        ''' What happens when the bot starts in rerun mode
+        at the max number of loops? '''
+        # Consider checking to see whether to start
+        # tweeting if the current times_rerun is already
+        # greater than the loop max.
+        Log.info("test_feed_loop_start_at_limit", "Est. runtime: 1 second")
+        feed = Feed("tests/config/test_feed_multiple.json")
+        stats = Stats("tests/config/test_stats_with_registered_tweets.json")
+        stats.times_rerun = 1
+        self.assertEqual(stats.times_rerun, self.botless_config.looping_max_times)
+        timer = TweetLoop(self.botless_config, feed, stats)
+        timer.wait_for_tweet(2)
 
     @unittest.skip("VCR not working very well")
     @TAPE.use_cassette("test_online_tweet.json")

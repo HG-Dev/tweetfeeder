@@ -125,7 +125,7 @@ class TweetFeederBot:
                 status = api.get_status(twid)
                 if title not in processed:
                     # Overwrite numeric stats
-                    Log.info("BOT.cmd.sync_stats", "Overwriting stats for {}".format(title))
+                    Log.debug("BOT.cmd.sync_stats", "Overwriting stats for {}".format(title))
                     processed.append(title)
                     stats.update_tweet_stats_from_status(status.__dict__)
                 else:
@@ -147,4 +147,3 @@ class TweetFeederBot:
                 "CMD.status",
                 report
             )
-

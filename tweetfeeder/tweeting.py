@@ -191,7 +191,10 @@ class TweetLoop():
 
     def time_until_tweet(self):
         ''' Returns the amount of time until the current timer finishes naturally. '''
-        return self.current_timer.interval - (datetime.now() - self._current_started).total_seconds()
+        if self.is_running():
+            return self.current_timer.interval - (datetime.now() - self._current_started).total_seconds()
+        else:
+            return -1
 
     def force_tweet(self):
         ''' Forces the oldest timer to finish immediately. '''

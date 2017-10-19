@@ -118,6 +118,7 @@ class TFControlTests(unittest.TestCase):
         bot.master_cmd.cmdloop()
         self.assertTrue(self.log_buffer.has_text("tweet"))
 
+    @unittest.skip("Too slow")
     def test_force_tweet(self):
         """Can the TweetFeederBot be forced to tweet from the tweet feed?
         """
@@ -143,14 +144,20 @@ class TFControlTests(unittest.TestCase):
         """Does the status command give info, and will it work correctly
         after tweet_now?
         """
-        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
         self.assertEqual(bot.feed.total_tweets, 5)
         bot.config.tweet_times = self.fresh_tweet_times
+        bot.master_cmd.onecmd("status")
+        # Status should show that the bot is largely inactive
+        self.assertFalse(self.log_buffer.has_text('seconds'))
         bot.config.functionality = BotFunctions.Tweet
         bot.master_cmd.onecmd("status")
-        self.assertTrue(self.log_buffer.has_text('Feed index: 1'), self.log_buffer.buffer)
+        # Status should show that the bot will tweet soon
+        self.assertTrue(self.log_buffer.has_text('seconds'), self.log_buffer.buffer)
         bot.shutdown()
 
+
+    @unittest.skip("Should be VCR'd, but passes for now")
     def test_sync_stats(self):
         """Does the sync_stats command safely synchronize feed stats?
         Might it need a cooldown timer so it doesn't look like it's spamming?"""
