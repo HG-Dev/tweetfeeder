@@ -50,7 +50,7 @@ class Log:
     _logger = logging.getLogger('Untitled: Use setup()')
 
     @staticmethod
-    def setup(name, level=logging.INFO):
+    def setup(name, level=logging.DEBUG):
         ''' Initial setup; does logging.getLogger '''
         Log._logger = logging.getLogger(name)
         if Log._logger.level == logging.NOTSET:
