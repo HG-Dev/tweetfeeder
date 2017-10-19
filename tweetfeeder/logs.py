@@ -77,7 +77,7 @@ class Log:
             file_handler.setFormatter(
                 logging.Formatter('%(asctime)s %(levelname)-7s %(message)s', '%m/%d/%y %H:%M:%S')
             )
-            file_handler.setLevel(logging.INFO)
+            file_handler.setLevel(logging.DEBUG)
             Log._enable_handler('file_output', enabled, file_handler)
         else: # Just disable it
             Log._enable_handler('file_output', enabled)
@@ -181,7 +181,7 @@ class DripFilter(logging.Filter):
     KeyErrors are understood to be unrestricted"""
     TICK_SPEED = {
         logging.DEBUG: timedelta(days=1),
-        logging.INFO: timedelta(seconds=30),
+        logging.INFO: timedelta(seconds=1),
         logging.WARNING: timedelta(seconds=1)
     }
     LAST_SEND = {
