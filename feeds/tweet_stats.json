@@ -1,5 +1,5 @@
 {
-    "feed_index": 4,
+    "feed_index": 5,
     "times_rerun": 1,
     "id_to_title": {
         "885392286036537346": "START",
@@ -105,7 +105,8 @@
         "918977270336839680": "HUNDREDTH_ENTRY",
         "919895776637022209": "HIT_THE_GYM",
         "919896075183431680": "KILLING_ME",
-        "920064445782548480": "SMOKEY_THE_BEAR"
+        "920064445782548480": "SMOKEY_THE_BEAR",
+        "920847415820746752": "SMOKEY_THE_BEAR_2"
     },
     "tweets": {
         "START": {
