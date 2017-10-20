@@ -80,7 +80,6 @@ class TweetLoop():
         ''' When only one timer is left, queue up more '''
         # Replenish timers when all queued timers have been popped off
         if not self.timers:
-            # Current_timer was successfully set, but we're out of future timers
             Log.debug("TWT.next", "Creating next timers")
 
             # Check to see that the current_index hasn't reached the end of the feed
@@ -132,6 +131,10 @@ class TweetLoop():
             self.current_timer.start()
             self._current_started = datetime.now()
             Log.debug("TWT.next", "Starting new timer with interval {}".format(self.current_timer.interval))
+        else:
+            # No timers were created at all
+            Log.debug("TWT.next", "Forced into recursion as no timers were produced")
+            return self._next()
         return True
 
     def stop(self):

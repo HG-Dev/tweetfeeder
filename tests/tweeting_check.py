@@ -198,6 +198,17 @@ class TFTweetingTests(unittest.TestCase):
         timer.wait_for_tweet(8)
         timer.wait_for_tweet(8)
         timer.stop()
+
+    def test_feed_looped_start(self):
+        ''' Does the tweeting loop skip rerunning tweets that didn't reach a given score? '''
+        Log.info("check_feed_looped_start", "Est. runtime: 12 seconds")
+        feed = Feed("tests/config/test_feed_multiple.json")
+        stats = Stats("tests/config/test_stats_with_registered_tweets.json")
+        stats.times_rerun = 1
+        stats.last_feed_index = 0
+        timer = TweetLoop(self.botless_config, feed, stats)
+        timer.wait_for_tweet(8)
+        timer.stop()
         print(self.log_buffer.buffer)
 
     def test_feed_loop_start_at_limit(self):
