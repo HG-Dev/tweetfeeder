@@ -1,5 +1,5 @@
 {
-    "feed_index": 5,
+    "feed_index": 12,
     "times_rerun": 1,
     "id_to_title": {
         "885392286036537346": "START",
@@ -106,7 +106,14 @@
         "919895776637022209": "HIT_THE_GYM",
         "919896075183431680": "KILLING_ME",
         "920064445782548480": "SMOKEY_THE_BEAR",
-        "920847415820746752": "SMOKEY_THE_BEAR_2"
+        "920847415820746752": "SMOKEY_THE_BEAR_2",
+        "921268552463552512": "KOALA_FAVORITE_FOOD",
+        "921332815379120129": "NOW_HAVE_ATTENTION",
+        "921514008544346112": "ZENZEN",
+        "921695204393938945": "THROW_ANCHOR",
+        "921876399845031936": "SHATNER",
+        "922057595438825474": "MONEY_IS_TREES",
+        "922238791070367744": "NEVER_MISS_WORK"
     },
     "tweets": {
         "START": {
@@ -167,7 +174,7 @@
         },
         "THROW_ANCHOR": {
             "favorites": 0,
-            "retweets": 0,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -187,8 +194,8 @@
             "rt_comments": []
         },
         "NEVER_MISS_WORK": {
-            "favorites": 1,
-            "retweets": 0,
+            "favorites": 2,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
