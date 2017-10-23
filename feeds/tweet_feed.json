@@ -604,5 +604,71 @@
     "text": "フィードの第100項目までやってまいりました！これからは一回、人気が出た該当する項目をまたつぶやく「再放送モード」に入りますが、終わった時には新しい項目が待っていると期待しましょう。",
     "chain": false,
     "rerun": false
+  },
+  {
+    "title": "SUSPICIOUS_FOOD",
+    "test": "Let me ask you one thing: did you taste-test this?\n直訳》ひとつ聞かせてくれ、これは試食しましたか？",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FOR_THE_HILLS",
+    "test": "Run for the hills!\n意訳》丘に逃げろ!\nメモ》Head for（向かえ）というパターンもある。\n表現としては冗談のつもりで「避難しよう」という意味で使われるケースが多い",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "UTTER_LIES",
+    "test": "Utter lies and fabrications!\n直訳》全くの嘘と作り話である！\nメモ》金持ちのおっさんがスキャンダルに陥ると大体こんな発表をする",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "AUTOTUNED",
+    "test": "He's a great artist, if you put aside the fact his voice is always autotuned to heck.\n直訳》彼は素晴らしい歌手だ、声が必ず徹底的に音程補正されていることを脇に置けばだが",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "FINE_DAY",
+    "test": "'Tis a fine day for a logging contest, eh?\n意訳》木こりコンテスト日和じゃなかろうか\n古臭いが、「it is」は「'tis」に略せる、特に最初に来る場合",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "TOUGH_LUCK",
+    "test": "Tough luck, kid. I lined up for the Szechuan sauce before you did.\n意訳》運がなかったな坊主。お前より先に四川ソースのために並んでたんだよ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "MANNER_OF_SPEAKING",
+    "test": "in a manner of speaking\n「ある意味では」「そうとも言える」\n一例》\"How's your cockroach robot coming along?\" \"It's buggy, in a manner of speaking.\"",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "MANNER_OF_SPEAKING2",
+    "test": "manner of speaking 一例の追加解説\n How is 〇 coming along?\n意訳》〇の進歩、どうっすか\n buggy: 虫っぽい、バグのある（プログラミング）",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "SWIFT_STRIKE",
+    "test": "a swift strike\n敏速な攻撃か殴打\n一例》\"A swift strike of the cat's paw\"",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "STICK_IN_MUD",
+    "test": "Don't be such a stick-in-the-mud.\nかつては stick in the mud はもっと一般的で「困った人」という意味だが、近代はすっかり「楽しくない、冒険心のない人」という意味になっています。いずれにせよまだまだよく使われる表現です",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "STICK_IN_MUD2",
+    "test": "Don't be such a stick-in-the-mud.\n意訳》堅いこと言うなよ\n直訳》そう「泥にハマった」奴になるな\nメモ》そういえば「don't be a 〇」は易々と和訳できるような言い方じゃないな。「になるな」よりも「であるな」が合っていそうだ",
+    "chain": false,
+    "rerun": true
   }
 ]
