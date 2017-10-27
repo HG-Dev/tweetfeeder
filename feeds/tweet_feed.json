@@ -670,5 +670,47 @@
     "test": "Don't be such a stick-in-the-mud.\n意訳》堅いこと言うなよ\n直訳》そう「泥にハマった」奴になるな\nメモ》そういえば「don't be a 〇」は易々と和訳できるような言い方じゃないな。「になるな」よりも「であるな」が合っていそうだ",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "INEVITABLE",
+    "test": "This only serves to delay the inevitable.\n意訳》これは必然的な結末の先延ばしにしかなっていない\nメモ》英語には「the」があれば名詞として使える形容詞がある。形容動詞だ。ここは「結末」の意味をする「end」がないほうが不思議と印象的だ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NOMINALIZED",
+    "test": "英語の形容動詞\n前回、「the」があると名詞になる inevitable を紹介したが、英語にはこういう言葉のがいっぱいある。主には人を描く「the poor」「the rich」「the brave」というカテゴリのことです",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "NOMINALIZED_FINAL",
+    "test": "違和感シリーズ： バイオハザード: ザ・ファイナル\n前回と前々回、英語の形容動詞について説明した、つまり「the」を付けると名詞になる形容詞があることについて。では、サブタイトルの「ザ・ファイナル」にどうして違和感を感じるのか（つづく）",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "NOMINALIZED_FINAL2",
+    "test": "違和感シリーズ： ザ・ファイナル\nそもそも「final」は形容動詞にはならないが、翻訳すると「the last」同様「最後の」になる。「バイオハザード： 最後の」では、やっぱり違和感がする。言うまでもないけど海外では「The Final Chapter」になった",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "LONG_WAYS",
+    "test": "We've still got a long ways to go.\n意訳》まだまだ道が長い\nメモ》英語は昔から「way(s)」を使う表現が多いです。昔はローマが作った道路の意味だったりしたと聞きます",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "PAY_THE_PRICE",
+    "test": "My shoes are too small, and my feet are paying the price.\n意訳》靴が小さすぎる。足が痛い\nメモ》pay the price（値段を払う）は主に罰のことだ",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "PAY_FOR_THIS",
+    "test": "I'll make you pay for this!\n意訳》覚えてろよ！\nメモ》make one pay はもしかすると「覚えてろ」ほど子供らしくないかもしれないけど、使い方は普通同じなんだ",
+    "chain": false,
+    "rerun": true
   }
 ]
