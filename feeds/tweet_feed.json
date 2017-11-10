@@ -712,5 +712,11 @@
     "test": "I'll make you pay for this!\n意訳》覚えてろよ！\nメモ》make one pay はもしかすると「覚えてろ」ほど子供らしくないかもしれないけど、使い方は普通同じなんだ",
     "chain": false,
     "rerun": true
+  },
+  {
+    "title": "EVERYONE_AND",
+    "test": "Everyone and their mother is walking while looking at a cell phone these days.\n直訳》みんなにみんなのお母さんも今時歩きスマホしている。\nメモ》Everyoneだけでよいものの皆のお母さんを含めると面白い大げさになります",
+    "chain": false,
+    "rerun": true
   }
 ]
