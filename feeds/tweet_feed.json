@@ -529,7 +529,7 @@
   },
   {
     "title": "WONT_BE_LONG",
-    "text": "It won't be long before you're crawling back to me, begging for a Black Mont Blanc bar.\n意訳》まもなくお前は俺のほうにひざまずて戻るだろう、ブラックモンブランバーを請ってな",
+    "text": "It won't be long before you're crawling back to me, begging for a Black Mont Blanc bar.\n意訳》まもなくお前は俺のほうにひざまずいて戻るだろう、ブラックモンブランバーを請ってな",
     "chain": false,
     "rerun": true
   },
@@ -607,115 +607,121 @@
   },
   {
     "title": "SUSPICIOUS_FOOD",
-    "test": "Let me ask you one thing: did you taste-test this?\n直訳》ひとつ聞かせてくれ、これは試食しましたか？",
+    "text": "Let me ask you one thing: did you taste-test this?\n直訳》ひとつ聞かせてくれ、これは試食しましたか？",
     "chain": false,
     "rerun": true
   },
   {
     "title": "FOR_THE_HILLS",
-    "test": "Run for the hills!\n意訳》丘に逃げろ!\nメモ》Head for（向かえ）というパターンもある。\n表現としては冗談のつもりで「避難しよう」という意味で使われるケースが多い",
+    "text": "Run for the hills!\n意訳》丘に逃げろ!\nメモ》Head for（向かえ）というパターンもある。\n表現としては冗談のつもりで「避難しよう」という意味で使われるケースが多い",
     "chain": false,
     "rerun": true
   },
   {
     "title": "UTTER_LIES",
-    "test": "Utter lies and fabrications!\n直訳》全くの嘘と作り話である！\nメモ》金持ちのおっさんがスキャンダルに陥ると大体こんな発表をする",
+    "text": "Utter lies and fabrications!\n直訳》全くの嘘と作り話である！\nメモ》金持ちのおっさんがスキャンダルに陥ると大体こんな発表をする",
     "chain": false,
     "rerun": true
   },
   {
     "title": "AUTOTUNED",
-    "test": "He's a great artist, if you put aside the fact his voice is always autotuned to heck.\n直訳》彼は素晴らしい歌手だ、声が必ず徹底的に音程補正されていることを脇に置けばだが",
+    "text": "He's a great artist, if you put aside the fact his voice is always autotuned to heck.\n直訳》彼は素晴らしい歌手だ、声が必ず徹底的に音程補正されていることを脇に置けばだが",
     "chain": false,
     "rerun": true
   },
   {
     "title": "FINE_DAY",
-    "test": "'Tis a fine day for a logging contest, eh?\n意訳》木こりコンテスト日和じゃなかろうか\n古臭いが、「it is」は「'tis」に略せる、特に最初に来る場合",
+    "text": "'Tis a fine day for a logging contest, eh?\n意訳》木こりコンテスト日和じゃなかろうか\n古臭いが、「it is」は「'tis」に略せる、特に最初に来る場合",
     "chain": false,
     "rerun": true
   },
   {
     "title": "TOUGH_LUCK",
-    "test": "Tough luck, kid. I lined up for the Szechuan sauce before you did.\n意訳》運がなかったな坊主。お前より先に四川ソースのために並んでたんだよ",
+    "text": "Tough luck, kid. I lined up for the Szechuan sauce before you did.\n意訳》運がなかったな坊主。お前より先に四川ソースのために並んでたんだよ",
     "chain": false,
     "rerun": true
   },
   {
     "title": "MANNER_OF_SPEAKING",
-    "test": "in a manner of speaking\n「ある意味では」「そうとも言える」\n一例》\"How's your cockroach robot coming along?\" \"It's buggy, in a manner of speaking.\"",
+    "text": "in a manner of speaking\n「ある意味では」「そうとも言える」\n一例》\"How's your cockroach robot coming along?\" \"It's buggy, in a manner of speaking.\"",
     "chain": true,
     "rerun": true
   },
   {
     "title": "MANNER_OF_SPEAKING2",
-    "test": "manner of speaking 一例の追加解説\n How is 〇 coming along?\n意訳》〇の進歩、どうっすか\n buggy: 虫っぽい、バグのある（プログラミング）",
+    "text": "manner of speaking 一例の追加解説\n How is 〇 coming along?\n意訳》〇の進歩、どうっすか\n buggy: 虫っぽい、バグのある（プログラミング）",
     "chain": false,
     "rerun": false
   },
   {
     "title": "SWIFT_STRIKE",
-    "test": "a swift strike\n敏速な攻撃か殴打\n一例》\"A swift strike of the cat's paw\"",
+    "text": "a swift strike\n敏速な攻撃か殴打\n一例》\"A swift strike of the cat's paw\"",
     "chain": false,
     "rerun": true
   },
   {
     "title": "STICK_IN_MUD",
-    "test": "Don't be such a stick-in-the-mud.\nかつては stick in the mud はもっと一般的で「困った人」という意味だが、近代はすっかり「楽しくない、冒険心のない人」という意味になっています。いずれにせよまだまだよく使われる表現です",
+    "text": "Don't be such a stick-in-the-mud.\nかつては stick in the mud はもっと一般的で「困った人」という意味だが、近代はすっかり「楽しくない、冒険心のない人」という意味になっています。いずれにせよまだまだよく使われる表現です",
     "chain": false,
     "rerun": true
   },
   {
     "title": "STICK_IN_MUD2",
-    "test": "Don't be such a stick-in-the-mud.\n意訳》堅いこと言うなよ\n直訳》そう「泥にハマった」奴になるな\nメモ》そういえば「don't be a 〇」は易々と和訳できるような言い方じゃないな。「になるな」よりも「であるな」が合っていそうだ",
+    "text": "Don't be such a stick-in-the-mud.\n意訳》堅いこと言うなよ\n直訳》そう「泥にハマった」奴になるな\nメモ》そういえば「don't be a 〇」は易々と和訳できるような言い方じゃないな。「になるな」よりも「であるな」が合っていそうだ",
     "chain": false,
     "rerun": true
   },
   {
     "title": "INEVITABLE",
-    "test": "This only serves to delay the inevitable.\n意訳》これは必然的な結末の先延ばしにしかなっていない\nメモ》英語には「the」があれば名詞として使える形容詞がある。形容動詞だ。ここは「結末」の意味をする「end」がないほうが不思議と印象的だ",
+    "text": "This only serves to delay the inevitable.\n意訳》これは必然的な結末の先延ばしにしかなっていない\nメモ》英語には「the」があれば名詞として使える形容詞がある。形容動詞だ。ここは「結末」の意味をする「end」がないほうが不思議と印象的だ",
     "chain": false,
     "rerun": true
   },
   {
     "title": "NOMINALIZED",
-    "test": "英語の形容動詞\n前回、「the」があると名詞になる inevitable を紹介したが、英語にはこういう言葉のがいっぱいある。主には人を描く「the poor」「the rich」「the brave」というカテゴリのことです",
+    "text": "英語の形容動詞\n前回、「the」があると名詞になる inevitable を紹介したが、英語にはこういう言葉のがいっぱいある。主には人を描く「the poor」「the rich」「the brave」というカテゴリのことです",
     "chain": false,
     "rerun": true
   },
   {
     "title": "NOMINALIZED_FINAL",
-    "test": "違和感シリーズ： バイオハザード: ザ・ファイナル\n前回と前々回、英語の形容動詞について説明した、つまり「the」を付けると名詞になる形容詞があることについて。では、サブタイトルの「ザ・ファイナル」にどうして違和感を感じるのか（つづく）",
+    "text": "違和感シリーズ： バイオハザード: ザ・ファイナル\n前回と前々回、英語の形容動詞について説明した、つまり「the」を付けると名詞になる形容詞があることについて。では、サブタイトルの「ザ・ファイナル」にどうして違和感を感じるのか（つづく）",
     "chain": true,
     "rerun": true
   },
   {
     "title": "NOMINALIZED_FINAL2",
-    "test": "違和感シリーズ： ザ・ファイナル\nそもそも「final」は形容動詞にはならないが、翻訳すると「the last」同様「最後の」になる。「バイオハザード： 最後の」では、やっぱり違和感がする。言うまでもないけど海外では「The Final Chapter」になった",
+    "text": "違和感シリーズ： ザ・ファイナル\nそもそも「final」は形容動詞にはならないが、翻訳すると「the last」同様「最後の」になる。「バイオハザード： 最後の」では、やっぱり違和感がする。言うまでもないけど海外では「The Final Chapter」になった",
     "chain": false,
     "rerun": true
   },
   {
     "title": "LONG_WAYS",
-    "test": "We've still got a long ways to go.\n意訳》まだまだ道が長い\nメモ》英語は昔から「way(s)」を使う表現が多いです。昔はローマが作った道路の意味だったりしたと聞きます",
+    "text": "We've still got a long ways to go.\n意訳》まだまだ道が長い\nメモ》英語は昔から「way(s)」を使う表現が多いです。昔はローマが作った道路の意味だったりしたと聞きます",
     "chain": false,
     "rerun": true
   },
   {
     "title": "PAY_THE_PRICE",
-    "test": "My shoes are too small, and my feet are paying the price.\n意訳》靴が小さすぎる。足が痛い\nメモ》pay the price（値段を払う）は主に罰のことだ",
+    "text": "My shoes are too small, and my feet are paying the price.\n意訳》靴が小さすぎる。足が痛い\nメモ》pay the price（値段を払う）は主に罰のことだ",
     "chain": false,
     "rerun": true
   },
   {
     "title": "PAY_FOR_THIS",
-    "test": "I'll make you pay for this!\n意訳》覚えてろよ！\nメモ》make one pay はもしかすると「覚えてろ」ほど子供らしくないかもしれないけど、使い方は普通同じなんだ",
+    "text": "I'll make you pay for this!\n意訳》覚えてろよ！\nメモ》make one pay はもしかすると「覚えてろ」ほど子供らしくないかもしれないけど、使い方は普通同じなんだ",
     "chain": false,
     "rerun": true
   },
   {
     "title": "EVERYONE_AND",
-    "test": "Everyone and their mother is walking while looking at a cell phone these days.\n直訳》みんなにみんなのお母さんも今時歩きスマホしている。\nメモ》Everyoneだけでよいものの皆のお母さんを含めると面白い大げさになります",
+    "text": "Everyone and their mother looks at their cell phone while walking these days.\n直訳》みんなにみんなのお母さんも今時歩きスマホしている。\nメモ》Everyoneだけでよいものの皆のお母さんを含めると面白い大げさになります",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "WEAR_THIN",
+    "text": "My patience is wearing thin.\n意訳》堪忍袋の緒が切れそうだ\nメモ》「堪忍袋の緒が切れる」に似ている表現はいくらでもあるが、立場と状況によって変わります。とりあえず「すり減る」のwear thinを共有してかったです",
     "chain": false,
     "rerun": true
   }
