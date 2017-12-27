@@ -7,6 +7,7 @@ from queue import deque
 from time import sleep
 from tweepy import API
 from tweepy.models import Status
+from tweepy.error import TweepError
 from tweetfeeder.logs import Log
 from tweetfeeder.file_io.models import Feed, Stats
 from tweetfeeder.exceptions import TweetFeederError, LoadFeedError, NoTimerError, ExistingTimerError
@@ -168,13 +169,20 @@ class TweetLoop():
         ''' Tweet, then signal for the next to begin '''
         assert not self.lock.is_set()
         self.lock.set()
+        success = 1
         if self.config.functionality.Online:
-            status = self.api.update_status(data['text'])
-            Log.debug("TWT.tweet (id)", "{} -> {}".format(data['title'], status.id))
-            self.stats.register_tweet(status.id, data['title'])
+            Log.debug("TWT.tweet", "update_status using {}".format(data['title']))
+            try:
+                status = self.api.update_status(data['text'])
+            except TweepError as e:
+                Log.error("TWT.tweet", str(e))
+                success = 0
+            else:
+                Log.debug("TWT.tweet (id)", "Status ID: {}".format(status.id))
+                self.stats.register_tweet(status.id, data['title'])
         else:
             Log.info("TWT.tweet", data['title'])
-        self.stats.last_feed_index = index + 1
+        self.stats.last_feed_index = index + success
         self._next()
         self.lock.clear()
 
