@@ -267,7 +267,7 @@
     "title": "WIIU2U",
     "text": "Hopefully Nintendo's next console after the switch will not be called the \"WiiU2U.\"\n意訳》任天堂のスイッチの次のゲーム機が「WiiU2U」と呼ばれないといいけど",
     "chain": false,
-    "rerun": true
+    "rerun": false
   },  
   {
     "title": "HEY_BUDDY",
@@ -722,6 +722,30 @@
   {
     "title": "WEAR_THIN",
     "text": "My patience is wearing thin.\n意訳》堪忍袋の緒が切れそうだ\nメモ》「堪忍袋の緒が切れる」に似ている表現はいくらでもあるが、立場と状況によって変わります。とりあえず「すり減る」のwear thinを共有してかったです",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "YOU_GET_IT",
+    "text": "\"You get it?\" \"Yes, but it wasn't funny.\"\n意訳》「意味分かる？」「分かったが、面白くなかった」\n「Did you get it?」の略。相変わらず万能な get である。",
+    "chain": true,
+    "rerun": true
+  },
+  {
+    "title": "YOU_GET_IT2",
+    "text": "子供の時、ジョークの本にはまっていた頃がありました。ジョークよりも少年がのりのりと「Y'get it?!」と聞いて、笑いを堪えながらダジャレを解説するのが面白かったそうです。",
+    "chain": false,
+    "rerun": false
+  },
+  {
+    "title": "OUT_OF_YOUR_MIND",
+    "text": "Are you out of your mind?!\n意訳》正気かお前！\nメモ》「正気か」は必ずしも相手が狂っているかどうか聞いていないかもしれないが、そういう場合は「Are you serious?!」など使えます",
+    "chain": false,
+    "rerun": true
+  },
+  {
+    "title": "HERE_GOES_NOTHING",
+    "text": "Here goes nothing...\n意訳》やってみるぞ…\n「Here we go」とすこし似ているのは気づくだろうか。この表現をつぶやく人は大した成果を期待していないのが分かるが、映画ではその逆を見ることになるフラグだ",
     "chain": false,
     "rerun": true
   }

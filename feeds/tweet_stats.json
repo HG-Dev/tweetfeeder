@@ -1,5 +1,5 @@
 {
-    "feed_index": 9,
+    "feed_index": 77,
     "times_rerun": 1,
     "id_to_title": {
         "885392286036537346": "START",
@@ -223,7 +223,71 @@
         "945069427350839296": "KOALA_FAVORITE_FOOD",
         "945250623552753664": "NOW_HAVE_ATTENTION",
         "945431818282483712": "ZENZEN",
-        "945613014333456384": "THROW_ANCHOR"
+        "945613014333456384": "THROW_ANCHOR",
+        "945975404812054529": "SHATNER",
+        "946156608618295296": "MONEY_IS_TREES",
+        "946337795718627329": "NEVER_MISS_WORK",
+        "946518991211675648": "FRIENDS_ARE_PIGS",
+        "946700195290480646": "NOSE_CHOPSTICKS",
+        "946881382071930881": "LOVE_TO_BOOST",
+        "947062577430794241": "KGOTY",
+        "947062620837646338": "KGOTY1",
+        "947243772726804480": "ONLY_BEST",
+        "947424968005914624": "VERY_ALLERGIC",
+        "947606163075432448": "FIND_CABBAGES",
+        "947606206499000320": "NOTE_ON_FOUND",
+        "947787358312677376": "NOTE_ON_FOUND2",
+        "947787401690099713": "NOTE_ON_FOUND3",
+        "947968553491226625": "ATTACK_ON_TITAN",
+        "948149749273714688": "RUNNING_OUT_OF",
+        "948330943906906113": "BIRDS_OF_A_FEATHER",
+        "948512139286781952": "FAKE_KOTOWAZA",
+        "948512182597173248": "FAKE_KOTOWAZA2",
+        "948693334326788098": "HEARTFUL",
+        "948874529702473728": "EXPECT_LITTLE",
+        "949055724579037184": "TIME_TO_REPLACE",
+        "949236920005025797": "TIME_TO_RETORT",
+        "949418115745529856": "SPLITTING_IMAGE",
+        "949599310806528000": "HAPPENED_TO_HEAR",
+        "949780506651971584": "BLOOMED_INTO",
+        "949961701591465984": "PLEASED_TO_HAVE_YOU",
+        "950142896631513088": "FREAK_SHOW_REJECTS",
+        "950324092258861057": "FAILED_ANALOGY",
+        "950505287143718912": "FIGURED_IT_OUT",
+        "950686482401931264": "YODA_GACHA",
+        "950867677781794816": "RENTS_ARE_REASONABLE",
+        "951048873371344896": "WIIU2U",
+        "951230068818305024": "HEY_BUDDY",
+        "951411264512671744": "TAKES_ONE_TO_KNOW",
+        "951592460437749761": "GET_ME_WRONG",
+        "951773655708479488": "CANCEL_APPOINTMENTS",
+        "951954851340042240": "IF_YOU_ARE_READING",
+        "952136046388506625": "GASOLINE_PRICES",
+        "952317241634123777": "SINGULARITY",
+        "952498437135609856": "MURMURED",
+        "952679632209264641": "BELIEVE_BUTTER",
+        "952679675456757760": "BELIEVE_BUTTER2",
+        "952860827853336577": "TAKE_THE_WHEEL",
+        "953042023103184898": "JUST_GOT_UP",
+        "953223218814308353": "HOW_RUDE",
+        "953223262170841089": "HOW_RUDE2",
+        "953404414731083776": "COME_ON",
+        "953585610157010945": "BE_THE_JUDGE",
+        "953766805230665728": "ROLL_FOR_PERCEPTION",
+        "953948000765624320": "FACE_THE_MUSIC",
+        "954129196296519680": "BELIEVE_IT",
+        "954310391948955648": "WHOLESOME",
+        "954491587349831680": "UNYIELDING_SPIRIT",
+        "954672782926729224": "YAPPA_BEER_DAYONA",
+        "954853978105307136": "YAPPARI",
+        "954854021465952256": "YAPPARI2",
+        "955035173610954752": "FRIGID_TOILET",
+        "955035217311313920": "FRIGID_TOILET2",
+        "955216368877551616": "IDIOCY_HIGHEST_DEGREE",
+        "955397564366401536": "ERA_END",
+        "955578759641423872": "THOUGHT_SO",
+        "955759955142782976": "LOOSE_GROOVE",
+        "955941150648549376": "SOMA_MAIN"
     },
     "tweets": {
         "START": {
@@ -297,7 +361,7 @@
             "rt_comments": []
         },
         "MONEY_IS_TREES": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -318,7 +382,7 @@
             "rt_comments": []
         },
         "FRIENDS_ARE_PIGS": {
-            "favorites": 2,
+            "favorites": 3,
             "retweets": 0,
             "requotes": 0,
             "replies": 0,
@@ -346,7 +410,7 @@
             "rt_comments": []
         },
         "KGOTY": {
-            "favorites": 4,
+            "favorites": 5,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -381,8 +445,8 @@
             "rt_comments": []
         },
         "FIND_CABBAGES": {
-            "favorites": 3,
-            "retweets": 1,
+            "favorites": 5,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -430,7 +494,7 @@
             "rt_comments": []
         },
         "FAKE_KOTOWAZA": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -472,7 +536,7 @@
             "rt_comments": []
         },
         "SPLITTING_IMAGE": {
-            "favorites": 2,
+            "favorites": 3,
             "retweets": 2,
             "requotes": 0,
             "replies": 0,
@@ -507,7 +571,7 @@
             "rt_comments": []
         },
         "FAILED_ANALOGY": {
-            "favorites": 1,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -522,7 +586,7 @@
         },
         "YODA_GACHA": {
             "favorites": 2,
-            "retweets": 2,
+            "retweets": 3,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -536,13 +600,13 @@
         },
         "WIIU2U": {
             "favorites": 1,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
-            "replies": 0,
+            "replies": 1,
             "rt_comments": []
         },
         "HEY_BUDDY": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -550,7 +614,7 @@
         },
         "TAKES_ONE_TO_KNOW": {
             "favorites": 0,
-            "retweets": 2,
+            "retweets": 4,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -612,14 +676,14 @@
             "rt_comments": []
         },
         "TAKE_THE_WHEEL": {
-            "favorites": 3,
+            "favorites": 5,
             "retweets": 3,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
         },
         "JUST_GOT_UP": {
-            "favorites": 0,
+            "favorites": 2,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
@@ -676,7 +740,7 @@
         },
         "WHOLESOME": {
             "favorites": 0,
-            "retweets": 1,
+            "retweets": 2,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
@@ -753,7 +817,7 @@
         },
         "LOOSE_GROOVE": {
             "favorites": 0,
-            "retweets": 0,
+            "retweets": 1,
             "requotes": 0,
             "replies": 0,
             "rt_comments": []
