@@ -21,7 +21,7 @@ class TweetLoop():
         Automatically starts if config.functionality.Tweet
         """
         self.config = config
-        self.api = API(self.config.authorization)
+        self.api = API(self.config.authorization, retry_count=1, retry_delay=10, wait_on_rate_limit=True)
         self.feed: Feed = feed
         self.stats: Stats = stats or Stats()
         self.current_index: int = 0 #Set in start
@@ -174,7 +174,7 @@ class TweetLoop():
             Log.debug("TWT.tweet", "update_status using {}".format(data['title']))
             try:
                 status = self.api.update_status(data['text'])
-            except TweepError as e:
+            except TweepError as e: #TODO: Switch over to Tweepy's retry system, configurable when creating API
                 Log.error("TWT.tweet", str(e))
                 success = 0
             else:
