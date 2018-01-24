@@ -5,6 +5,7 @@ from threading import Timer, Event
 from datetime import datetime, timedelta
 from queue import deque
 from time import sleep
+from random import uniform
 from tweepy import API
 from tweepy.models import Status
 from tweepy.error import TweepError
@@ -55,6 +56,10 @@ class TweetLoop():
             Log.debug("TWT.datetime", "Compare now {} to next {}".format(now_t, next_t))
             if now_t > next_t: #The final time lies before the current
                 next_t = next_t + timedelta(days=1)
+
+            if self.config.rand_deviation: #Add random deviation in minutes
+                next_t = next_t + timedelta(minutes=(self.config.rand_deviation * uniform(-1, 1)))    
+                Log.debug("TWT.datatime", "Added random deviation to next {}".format(next_t))
 
             for time in self.config.tweet_times:
                 next_t = next_t.replace(hour=time.hour, minute=time.minute)
@@ -112,7 +117,7 @@ class TweetLoop():
                     # Skip None, but count it as a passed index
                     self.timers.append(timer)
                     Log.debug("TWT.next", "Timer: " + str(timer))
-            if self.timers:
+            if self.timers: # Set first timer to wait until next tweet time
                 self.timers[0].interval = (
                     (self.get_next_tweet_datetime() - datetime.now()).total_seconds()
                 )
@@ -163,6 +168,13 @@ class TweetLoop():
                 timers.append(
                     Timer(self.config.min_tweet_delay, self._tweet, (t_data, from_index+idx))
                 )
+
+        # If a rest_period is required, add it as a final Timer
+        # This can be used to alternate between tweet times on different days
+        if self.config.rest_period:
+            timers.append(
+                Timer(abs(self.config.rest_period), lambda:None)
+            )
         return timers
 
     def _tweet(self, data: dict, index: int):

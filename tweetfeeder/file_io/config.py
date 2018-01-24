@@ -41,7 +41,7 @@ class Config:
             "Tweet Settings" : {
                 'tweet_times_list'  : "XX:XX, XX:XX",
                 'rand_deviation'    : "0 minutes",
-                'rest_period'       : "0 minutes"
+                'rest_period'       : "0 seconds",
                 'min_tweet_delay'   : "4 seconds",
                 'looping_min_score' : "0 points",
                 'looping_max_times' : "0 times"
@@ -53,6 +53,7 @@ class Config:
         self.tweet_times = []
         # These four values will be updated in internal dictionary loop
         self.rand_deviation = 0
+        self.rest_period = 0
         self.min_tweet_delay = 4
         self.looping_min_score = 0 # Score necessary to rerun a tweet
         self.looping_max_times = 0 # Number of times the feed can be looped over (disabled by default)
