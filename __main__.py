@@ -7,7 +7,7 @@ def main():
     """ Main body for starting up and terminating Tweetfeeder bot """
     # pylint: disable=no-member
     try:
-        bot = TweetFeederBot(BotFunctions.All, "config/settings.json")
+        bot = TweetFeederBot(BotFunctions.All, "config/settings.ini")
         #bot.master_cmd.cmdloop()
     except KeyboardInterrupt:
         bot.shutdown()
