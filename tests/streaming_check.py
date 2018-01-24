@@ -41,7 +41,7 @@ class TFStreamTests(unittest.TestCase):
 
         cls.bot = TweetFeederBot(
             BotFunctions.Log | BotFunctions.Listen,
-            config_file="tests/config/test_settings.json"
+            config_file="tests/config/test_settings.ini"
         )
         try:
             remove(cls.bot.config.stats_filepath)

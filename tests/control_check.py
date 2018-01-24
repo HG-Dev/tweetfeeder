@@ -82,7 +82,7 @@ class TFControlTests(unittest.TestCase):
         Does using the MasterCommand class to add or remove a function
         result in verifiable change within a running Bot?
         """
-        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.ini")
         bot.config.tweet_times = []
         try:
             remove(bot.config.stats_filepath)
@@ -107,7 +107,7 @@ class TFControlTests(unittest.TestCase):
     def test_cmd_loop(self):
         """Does a TweetFeederBot behave normally when cmdloop is active?
         """
-        bot = TweetFeederBot(BotFunctions.Tweet, "tests/config/test_auto_onetweet_settings.json")
+        bot = TweetFeederBot(BotFunctions.Tweet, "tests/config/test_auto_onetweet_settings.ini")
         bot.tweet_loop.wait_for_tweet(10)
         bot.shutdown()
         self.assertTrue(self.log_buffer.has_text("tweet"), self.log_buffer.buffer)
@@ -122,7 +122,7 @@ class TFControlTests(unittest.TestCase):
     def test_force_tweet(self):
         """Can the TweetFeederBot be forced to tweet from the tweet feed?
         """
-        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.ini")
         self.assertEqual(bot.feed.total_tweets, 5)
         bot.config.tweet_times = self.fresh_tweet_times
         bot.config.functionality = BotFunctions.Tweet
@@ -144,7 +144,7 @@ class TFControlTests(unittest.TestCase):
         """Does the status command give info, and will it work correctly
         after tweet_now?
         """
-        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.ini")
         self.assertEqual(bot.feed.total_tweets, 5)
         bot.config.tweet_times = self.fresh_tweet_times
         bot.master_cmd.onecmd("status")
@@ -161,7 +161,7 @@ class TFControlTests(unittest.TestCase):
     def test_sync_stats(self):
         """Does the sync_stats command safely synchronize feed stats?
         Might it need a cooldown timer so it doesn't look like it's spamming?"""
-        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions(), "tests/config/test_settings.ini")
         bot.stats = Stats("tests/config/test_stats_real_excerpt.json")
         self.assertTrue(bot.stats.get_tweet_stats("SPLITTING_IMAGE")['favorites'] == 999)
         bot.master_cmd.onecmd("sync_stats")

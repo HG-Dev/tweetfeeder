@@ -15,7 +15,7 @@ from tweetfeeder.logs import Log
 class TFInitTests(unittest.TestCase):
     """
     Test the initialization of TweetFeederBot
-    and the serialization of json files.
+    and the serialization of config+json files.
     """
 
     @classmethod
@@ -40,34 +40,34 @@ class TFInitTests(unittest.TestCase):
     def test_no_settings_init(self):
         ''' Attempt to initialize a bot without settings. '''
         with self.assertRaises(LoadConfigError): #Stage one failure
-            broken_bot = TweetFeederBot(config_file="Nonexistant JSON file")
+            broken_bot = TweetFeederBot(config_file="Nonexistant ini file")
 
     @unittest.skip("json.decoder.JSONDecodeError not catching")
     def test_bad_json_init(self):
-        ''' Attempt to initialize a bot with bad JSON '''
+        ''' Attempt to initialize a bot with bad config file '''
         with self.assertRaises(LoadConfigError): #Stage one failure
-            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_bad.json")
+            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_bad.ini")
 
     def test_wrong_file_init(self):
-        ''' Attempt to initialize a bot with readable, but wrong JSON '''
+        ''' Attempt to initialize a bot with non-ini file '''
         with self.assertRaises(LoadConfigError): #Stage one failure
             broken_bot = TweetFeederBot(config_file="config/credentials.json")
 
     def test_bad_settings_init(self):
         ''' Attempt to initialize a bot with no auth filepath '''
         with self.assertRaises(LoadConfigError): #Stage two failure
-            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_nocreds.json")
+            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_nocreds.ini")
 
     def test_log_writing(self):
         ''' Does the bot write to a log when initializing? '''
-        bot = TweetFeederBot(config_file="tests/config/test_settings.json")
+        bot = TweetFeederBot(config_file="tests/config/test_settings.ini")
         with open(bot.config.log_filepath, encoding='utf8') as logfile:
             self.assertIn("init", logfile.read())
 
     def test_all_log_levels(self):
         ''' Do all the logging levels work? '''
         # Sets up logger just in case
-        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.ini")
         Log.info("init_check", "INFO TEST")
         Log.warning("init_check", "WARNING TEST")
         Log.error("init_check", "ERROR TEST")
@@ -79,7 +79,7 @@ class TFInitTests(unittest.TestCase):
 
     def test_combined_logging(self):
         ''' Does setting BotFunctions to 3 really give us all logs? '''
-        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.json")
+        bot = TweetFeederBot(BotFunctions.Log, "tests/config/test_settings.ini")
         Log.info("init_check", "BotFunctions.Log check")
         with open(bot.config.log_filepath, encoding='utf8') as logfile:
             self.assertIn("BotFunctions.Log check", logfile.read())
@@ -87,14 +87,14 @@ class TFInitTests(unittest.TestCase):
     def test_bad_tweet_times(self):
         ''' Are datetime breaking tweet times caught? '''
         with self.assertRaises(LoadConfigError):
-            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_badtimes.json")
+            broken_bot = TweetFeederBot(config_file="tests/config/test_settings_badtimes.ini")
 
     def test_shutdown(self):
         ''' Can the bot use the shutdown method to stop the program? '''
         Log.info("init_check", "Bot shutdown test")
         bot = TweetFeederBot(
             BotFunctions.Log,
-            "tests/config/test_settings.json"
+            "tests/config/test_settings.ini"
         )
         bot.config.tweet_times = []
         log_buffer = Log.DebugStream()
