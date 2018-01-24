@@ -49,7 +49,7 @@ class TFTweetingTests(unittest.TestCase):
         cls.botless_config = Config(
             BotFunctions.Log | BotFunctions.Tweet,
             None,
-            "tests/config/test_settings.json"
+            "tests/config/test_settings.ini"
         )
         cls.botless_config.min_tweet_delay = 1
 
