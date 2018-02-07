@@ -1,5 +1,5 @@
 {
-    "feed_index": 77,
+    "feed_index": 80,
     "times_rerun": 1,
     "id_to_title": {
         "885392286036537346": "START",
@@ -287,7 +287,10 @@
         "955397564366401536": "ERA_END",
         "955578759641423872": "THOUGHT_SO",
         "955759955142782976": "LOOSE_GROOVE",
-        "955941150648549376": "SOMA_MAIN"
+        "955941150648549376": "SOMA_MAIN",
+        "956122349836775424": "TAKE_IT_FROM",
+        "960471039913291777": "NASTY_BUSINESS",
+        "961014626187030529": "COUNT_ON_HANDS"
     },
     "tweets": {
         "START": {
@@ -844,7 +847,7 @@
             "rt_comments": []
         },
         "COUNT_ON_HANDS": {
-            "favorites": 0,
+            "favorites": 1,
             "retweets": 1,
             "requotes": 0,
             "replies": 0,
