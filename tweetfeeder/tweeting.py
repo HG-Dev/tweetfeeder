@@ -173,7 +173,7 @@ class TweetLoop():
         # This can be used to alternate between tweet times on different days
         if self.config.rest_period:
             timers.append(
-                Timer(abs(self.config.rest_period), lambda:None)
+                Timer(abs(self.config.rest_period), self._next)
             )
         return timers
 
