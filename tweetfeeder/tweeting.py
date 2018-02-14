@@ -121,14 +121,21 @@ class TweetLoop():
                 self.timers[0].interval = (
                     (self.get_next_tweet_datetime() - datetime.now()).total_seconds()
                 )
+                # If a rest_period is required, add it as a final Timer
+                # This can be used to alternate between tweet times on different days
+                # This does not affect index_inc
+                if self.config.rest_period:
+                    self.timers.append(
+                        Timer(abs(self.config.rest_period), self._next)
+                    )
             # Update current index with the feed entries both used and skipped
             self.current_index += index_inc
 
         if self.current_timer and not self.lock.is_set():
             # Current timer exists, but hasn't tweeted yet; fast forward
             self.current_timer.cancel()
-            self._tweet(*self.current_timer.args)
             Log.debug("TWT.next", "Fast forward")
+            self._tweet(*self.current_timer.args)
             # Update queued timer intervals
         elif self.timers:
             # current_timer is finishing up tweeting or doesn't exist;
@@ -142,6 +149,9 @@ class TweetLoop():
             Log.debug("TWT.next", "Forced into recursion as no timers were produced")
             return self._next()
         return True
+
+    #def _end_rest(self):
+    #    ''' Exits rest period, reducing the index by one to counteract 
 
     def stop(self):
         ''' Cancels the current timer, which prevents futher timers from starting. '''
@@ -168,13 +178,6 @@ class TweetLoop():
                 timers.append(
                     Timer(self.config.min_tweet_delay, self._tweet, (t_data, from_index+idx))
                 )
-
-        # If a rest_period is required, add it as a final Timer
-        # This can be used to alternate between tweet times on different days
-        if self.config.rest_period:
-            timers.append(
-                Timer(abs(self.config.rest_period), self._next)
-            )
         return timers
 
     def _tweet(self, data: dict, index: int):
