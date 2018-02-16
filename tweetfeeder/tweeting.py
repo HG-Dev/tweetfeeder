@@ -131,7 +131,7 @@ class TweetLoop():
             # Update current index with the feed entries both used and skipped
             self.current_index += index_inc
 
-        if self.current_timer and not self.lock.is_set():
+        if self.current_timer and not self.lock.is_set() and self.current_timer.args:
             # Current timer exists, but hasn't tweeted yet; fast forward
             self.current_timer.cancel()
             Log.debug("TWT.next", "Fast forward")
@@ -145,13 +145,10 @@ class TweetLoop():
             self._current_started = datetime.now()
             Log.debug("TWT.next", "Starting new timer with interval {}".format(self.current_timer.interval))
         else:
-            # No timers were created at all
+            # No timers were created or the last timer was just a delay
             Log.debug("TWT.next", "Forced into recursion as no timers were produced")
             return self._next()
         return True
-
-    #def _end_rest(self):
-    #    ''' Exits rest period, reducing the index by one to counteract 
 
     def stop(self):
         ''' Cancels the current timer, which prevents futher timers from starting. '''
